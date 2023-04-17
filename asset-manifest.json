@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Master-Visual-Algorithm/static/css/main.4bd496eb.css",
+    "main.js": "/Master-Visual-Algorithm/static/js/main.1189c22d.js",
+    "static/js/787.fbc45163.chunk.js": "/Master-Visual-Algorithm/static/js/787.fbc45163.chunk.js",
+    "index.html": "/Master-Visual-Algorithm/index.html",
+    "main.4bd496eb.css.map": "/Master-Visual-Algorithm/static/css/main.4bd496eb.css.map",
+    "main.1189c22d.js.map": "/Master-Visual-Algorithm/static/js/main.1189c22d.js.map",
+    "787.fbc45163.chunk.js.map": "/Master-Visual-Algorithm/static/js/787.fbc45163.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4bd496eb.css",
+    "static/js/main.1189c22d.js"
+  ]
+}
