@@ -9,6 +9,8 @@ function NodeSum({ nodeSubArray }) {
       y={value.y}
       passed={value.passed}
       marked={value.marked}
+      head_tail={value.head_tail}
+      pre_aft_newNode_temp={value.pre_aft_newNode_temp}
     ></Node>
   ));
 }

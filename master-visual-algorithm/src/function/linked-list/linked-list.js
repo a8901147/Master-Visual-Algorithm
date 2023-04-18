@@ -196,7 +196,7 @@ export const remove = (obj, removeIndex) => {
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
   // loop through
-  for (let index = 0; index <= removeIndex + 1; index++) {
+  for (let index = 0; index <= nodeArray.length; index++) {
     if (index) {
       singleArray[index - 1].passed = true;
       records.push(JSON.parse(JSON.stringify(sortobj)));
@@ -204,6 +204,10 @@ export const remove = (obj, removeIndex) => {
 
     nodeArray[index].passed = true;
     records.push(JSON.parse(JSON.stringify(sortobj)));
+
+    if (index == removeIndex) {
+      break;
+    }
   }
 
   if (removeIndex < nodeArray.length) {

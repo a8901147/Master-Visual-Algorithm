@@ -1,8 +1,19 @@
 import React from "react";
 
-function Node({ value, x, y, passed, marked }) {
+function Node({
+  value,
+  x,
+  y,
+  passed,
+  marked,
+  head_tail,
+  pre_aft_newNode_temp,
+}) {
   const radius = "20";
-
+  const state =
+    head_tail && pre_aft_newNode_temp
+      ? head_tail + "/" + pre_aft_newNode_temp
+      : head_tail + pre_aft_newNode_temp;
   return (
     <React.Fragment>
       <circle
@@ -15,6 +26,9 @@ function Node({ value, x, y, passed, marked }) {
       />
       <text x={x} y={y} textAnchor="middle" alignmentBaseline="central">
         {value}
+      </text>
+      <text x={x} y={y + 30} textAnchor="middle" alignmentBaseline="central">
+        {state}
       </text>
     </React.Fragment>
   );

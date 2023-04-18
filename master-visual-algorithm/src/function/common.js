@@ -21,6 +21,18 @@ export const ActiveMode = {
   QUICK_SORT: "QUICK_SORT",
 };
 
+export const STATE_PREFIX = {
+  HEAD: "head",
+  TAIL: "tail",
+};
+
+export const STATE_POSTFIX = {
+  PRE: "pre",
+  AFT: "aft",
+  NEWNODE: "newNode",
+  TEMP: "temp",
+};
+
 export const getNodeRandomInt = (max, firstX, firstY) => {
   return Array.from({ length: max }, (x, index) => ({
     value: Math.floor(Math.random() * 100),
