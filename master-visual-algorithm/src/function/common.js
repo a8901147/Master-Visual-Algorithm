@@ -61,9 +61,9 @@ export const getSingleArrow = (max, firstX, firstY) => {
   }));
 };
 
-export const FIRST_NODE_X = 50;
+export const FIRST_NODE_X = 100;
 export const NODE_UPPER_Y = 50;
 export const NODE_LOWER_Y = 150;
 
-export const FIRST_ARROW_X = 70;
+export const FIRST_ARROW_X = FIRST_NODE_X + 20;
 export const ARROW_LENGTH = 50;

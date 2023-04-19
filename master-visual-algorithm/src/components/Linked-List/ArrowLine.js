@@ -31,6 +31,7 @@ const ArrowLine = ({ x1, y1, x2, y2, passed, showed }) => {
       .attr("x2", x2)
       .attr("y2", y2)
       .attr("stroke", passed ? "#ff8a27" : "black")
+
       .attr("marker-end", "url(#arrowhead)");
 
     return () => {

@@ -1,3 +1,4 @@
+import { STATE_PREFIX } from "../common";
 import {
   ARROW_LENGTH,
   FIRST_ARROW_X,
@@ -27,6 +28,7 @@ export const search = (obj, searchValue) => {
 
     const value = nodeArray[index].value;
     if (value == searchValue) {
+      records.push(JSON.parse(JSON.stringify(sortobj)));
       break;
     }
 
@@ -37,7 +39,6 @@ export const search = (obj, searchValue) => {
     }
   }
 
-  records.push(JSON.parse(JSON.stringify(sortobj)));
   return records;
 };
 
@@ -73,80 +74,116 @@ export const insert = (obj, insertValue, insertPosition) => {
 
     //renew node position
     renewNodes(nodeArray, insertPosition);
-
     //renew arrow target
     renewArrows(singleArray);
+    //newNode become Head
+
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+    return records;
+  }
+
+  if (insertPosition > nodeArray.length - 1) {
+    console.log("insert tail");
+    //insert tail
+
+    // insert new node
+    const newNode = createNode(
+      nodeArray[nodeArray.length - 1].x,
+      150,
+      insertValue
+    );
+    newNode.passed = true;
+    nodeArray.push(newNode);
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+
+    // mark tail and point to newNode
+    nodeArray[nodeArray.length - 2].passed = true;
+    nodeArray[nodeArray.length - 2].marked = true;
+    //insert new arrow (newnode -> back node)
+    const newArrow = createArrow(
+      nodeArray[nodeArray.length - 1].x,
+      70,
+      nodeArray[nodeArray.length - 1].x,
+      120
+    );
+    newArrow.passed = true;
+    singleArray.splice(insertPosition, 0, newArrow);
+
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+
+    //renew node position
+    renewNodes(nodeArray, insertPosition);
+    //renew arrow target
+    renewArrows(singleArray);
+    //newNode become Head
 
     records.push(JSON.parse(JSON.stringify(sortobj)));
     return records;
   }
 
   // loop through
+  console.log("insert middle");
   for (let index = 0; index < nodeArray.length; index++) {
     if (index) {
       singleArray[index - 1].passed = true;
       records.push(JSON.parse(JSON.stringify(sortobj)));
     }
 
-    nodeArray[index].passed = true;
-    markedTempIndex(nodeArray, index);
-    records.push(JSON.parse(JSON.stringify(sortobj)));
-
     if (index == insertPosition) {
+      nodeArray[index].passed = true;
+      nodeArray[index].marked = true;
+      nodeArray[index].pre_aft_newNode_temp = STATE_POSTFIX.AFT;
+
+      records.push(JSON.parse(JSON.stringify(sortobj)));
       break;
+    } else {
+      nodeArray[index].passed = true;
+      nodeArray[index].pre_aft_newNode_temp = STATE_POSTFIX.PRE;
+      if (index) {
+        nodeArray[index - 1].pre_aft_newNode_temp = "";
+      }
+
+      records.push(JSON.parse(JSON.stringify(sortobj)));
     }
   }
-
+  /*
   if (insertPosition < nodeArray.length) {
-    console.log("insert middle");
-    // insert middle
+    */
 
-    // insert new node
-    const newNode = createNode(nodeArray[insertPosition].x, 150, insertValue);
-    newNode.passed = true;
-    nodeArray.splice(insertPosition, 0, newNode);
-    records.push(JSON.parse(JSON.stringify(sortobj)));
+  // insert middle
 
-    //insert new arrow (newnode -> back node)
-    const newArrow = createArrow(
-      nodeArray[insertPosition].x,
-      130,
-      nodeArray[insertPosition].x,
-      80
-    );
-    newArrow.passed = true;
-    singleArray.splice(insertPosition, 0, newArrow);
-    records.push(JSON.parse(JSON.stringify(sortobj)));
+  // insert new node
+  const newNode = createNode(nodeArray[insertPosition].x, 150, insertValue);
+  newNode.passed = true;
+  nodeArray.splice(insertPosition, 0, newNode);
+  records.push(JSON.parse(JSON.stringify(sortobj)));
 
-    //edit arrow (front node -> newnode)
-    singleArray[insertPosition - 1].x1 = nodeArray[insertPosition - 1].x + 10;
-    singleArray[insertPosition - 1].y1 = 60;
-    singleArray[insertPosition - 1].x2 = nodeArray[insertPosition].x - 20;
-    singleArray[insertPosition - 1].y2 = 130;
-    records.push(JSON.parse(JSON.stringify(sortobj)));
+  //insert new arrow (newnode -> back node)
+  const newArrow = createArrow(
+    nodeArray[insertPosition].x,
+    130,
+    nodeArray[insertPosition].x,
+    80
+  );
+  newArrow.passed = true;
+  singleArray.splice(insertPosition, 0, newArrow);
+  records.push(JSON.parse(JSON.stringify(sortobj)));
 
-    //renew node position
-    renewNodes(nodeArray, insertPosition);
-    // for (let index = 0; index < nodeArray.length; index++) {
-    //   nodeArray[index].x = FIRST_NODE_X + 100 * index;
-    //   nodeArray[index].y = NODE_UPPER_Y;
-    //   if (index == insertPosition) {
-    //     nodeArray[index].passed = true;
-    //   } else {
-    //     nodeArray[index].passed = false;
-    //   }
-    // }
-    //renew arrow target
-    renewArrows(singleArray);
+  //edit arrow (front node -> newnode)
+  singleArray[insertPosition - 1].x1 = nodeArray[insertPosition - 1].x + 10;
+  singleArray[insertPosition - 1].y1 = 60;
+  singleArray[insertPosition - 1].x2 = nodeArray[insertPosition].x - 20;
+  singleArray[insertPosition - 1].y2 = 130;
+  records.push(JSON.parse(JSON.stringify(sortobj)));
 
-    // for (let index = insertPosition - 1; index < singleArray.length; index++) {
-    //   singleArray[index].x1 = singleArray[index - 1].x1 + 100;
-    //   singleArray[index].y1 = NODE_UPPER_Y;
-    //   singleArray[index].x2 = singleArray[index - 1].x2 + 100;
-    //   singleArray[index].y2 = NODE_UPPER_Y;
-    //   singleArray[index].passed = false;
-    // }
-    records.push(JSON.parse(JSON.stringify(sortobj)));
+  //renew node position
+  renewNodes(nodeArray, insertPosition);
+
+  //renew arrow target
+  renewArrows(singleArray);
+
+  records.push(JSON.parse(JSON.stringify(sortobj)));
+  /*
   } else {
     console.log("insert tail");
     // insert tail
@@ -176,6 +213,7 @@ export const insert = (obj, insertValue, insertPosition) => {
 
     console.log(records);
   }
+  */
   return records;
 };
 
@@ -243,6 +281,8 @@ const createNode = (x, y, value) => {
     y: y,
     passed: false,
     marked: false,
+    head_tail: "",
+    pre_aft_newNode_temp: STATE_POSTFIX.NEWNODE,
   };
 };
 
@@ -261,11 +301,19 @@ const renewNodes = (nodeArray, insertPosition) => {
   for (let index = 0; index < nodeArray.length; index++) {
     nodeArray[index].x = FIRST_NODE_X + 100 * index;
     nodeArray[index].y = NODE_UPPER_Y;
-    if (index == insertPosition) {
-      nodeArray[index].passed = true;
-    } else {
-      nodeArray[index].passed = false;
+    nodeArray[index].head_tail = "";
+    if (!index) {
+      nodeArray[index].head_tail = STATE_PREFIX.HEAD;
     }
+
+    if (index == nodeArray.length - 1) {
+      nodeArray[index].head_tail = STATE_PREFIX.TAIL;
+    }
+    // if (index == insertPosition) {
+    //   nodeArray[index].passed = true;
+    // } else {
+    //   nodeArray[index].passed = false;
+    // }
   }
 };
 
@@ -275,26 +323,26 @@ const renewArrows = (singleArray) => {
     singleArray[index].y1 = NODE_UPPER_Y;
     singleArray[index].x2 = FIRST_ARROW_X + ARROW_LENGTH + 100 * index;
     singleArray[index].y2 = NODE_UPPER_Y;
-    singleArray[index].passed = false;
+    // singleArray[index].passed = false;
   }
 };
+
+// const markedPreAftIndex = (nodeArray, index, insertPosition) => {
+//   let counter = 0;
+//   while (counter < nodeArray.length) {
+//     if (counter == index) {
+//       nodeArray[counter].marked = true;
+//       nodeArray[counter].pre_aft_newNode_temp = STATE_POSTFIX.AFT;
+//       nodeArray[counter - 1].pre_aft_newNode_temp = STATE_POSTFIX.PRE;
+//     } else {
+//       nodeArray[counter].pre_aft_newNode_temp = "";
+//       nodeArray[counter].marked = false;
+//     }
+//     counter++;
+//   }
+// };
 
 const markedTempIndex = (nodeArray, index) => {
-  let counter = 0;
-  while (counter < nodeArray.length) {
-    if (counter == index) {
-      nodeArray[counter].marked = true;
-      nodeArray[counter].pre_aft_newNode_temp = STATE_POSTFIX.AFT;
-      nodeArray[counter - 1].pre_aft_newNode_temp = STATE_POSTFIX.PRE;
-    } else {
-      nodeArray[counter].pre_aft_newNode_temp = "";
-      nodeArray[counter].marked = false;
-    }
-    counter++;
-  }
-};
-
-const markedPreAftIndex = (nodeArray, index) => {
   let counter = 0;
   while (counter < nodeArray.length) {
     if (counter == index) {
