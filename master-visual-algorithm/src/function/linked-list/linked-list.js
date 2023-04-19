@@ -4,6 +4,7 @@ import {
   FIRST_NODE_X,
   NODE_LOWER_Y,
   NODE_UPPER_Y,
+  STATE_POSTFIX,
 } from "../common";
 
 export const search = (obj, searchValue) => {
@@ -21,14 +22,20 @@ export const search = (obj, searchValue) => {
     }
 
     nodeArray[index].passed = true;
+    markedIndex(nodeArray, index);
     records.push(JSON.parse(JSON.stringify(sortobj)));
 
     const value = nodeArray[index].value;
     if (value == searchValue) {
       break;
     }
+
+    if (value != searchValue && index == nodeArray.length - 1) {
+      nodeArray[index].marked = false;
+      records.push(JSON.parse(JSON.stringify(sortobj)));
+    }
   }
-  nodeArray[index].marked = true;
+
   records.push(JSON.parse(JSON.stringify(sortobj)));
   return records;
 };
@@ -284,5 +291,19 @@ const renewArrows = (singleArray) => {
     singleArray[index].x2 = FIRST_ARROW_X + ARROW_LENGTH + 100 * index;
     singleArray[index].y2 = NODE_UPPER_Y;
     singleArray[index].passed = false;
+  }
+};
+
+const markedIndex = (nodeArray, index) => {
+  let counter = 0;
+  while (counter < nodeArray.length) {
+    if (counter == index) {
+      nodeArray[counter].marked = true;
+      nodeArray[counter].pre_aft_newNode_temp = STATE_POSTFIX.TEMP;
+    } else {
+      nodeArray[counter].pre_aft_newNode_temp = "";
+      nodeArray[counter].marked = false;
+    }
+    counter++;
   }
 };

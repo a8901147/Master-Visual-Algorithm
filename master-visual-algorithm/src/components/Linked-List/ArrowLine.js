@@ -10,7 +10,7 @@ const ArrowLine = ({ x1, y1, x2, y2, passed, showed }) => {
   ];
   useEffect(() => {
     const svg = d3.select(svgRef.current);
-    console.log(x1);
+
     svg
       .append("defs")
       .append("marker")

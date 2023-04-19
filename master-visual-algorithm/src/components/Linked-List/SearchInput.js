@@ -2,7 +2,6 @@ import React from "react";
 import { ActiveMode } from "../../function/common";
 
 function InputBox({ activeMode }) {
-  console.log(activeMode);
   if (activeMode == ActiveMode.SEARCH) {
     return (
       <input

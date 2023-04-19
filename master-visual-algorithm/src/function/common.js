@@ -39,6 +39,14 @@ export const getNodeRandomInt = (max, firstX, firstY) => {
     x: firstX + index * 100,
     y: firstY,
     passed: false,
+    marked: false,
+    head_tail:
+      index == 0
+        ? STATE_PREFIX.HEAD
+        : index == max - 1
+        ? STATE_PREFIX.TAIL
+        : "",
+    pre_aft_newNode_temp: "",
   }));
 };
 
