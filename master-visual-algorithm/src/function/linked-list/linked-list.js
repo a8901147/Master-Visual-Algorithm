@@ -22,7 +22,7 @@ export const search = (obj, searchValue) => {
     }
 
     nodeArray[index].passed = true;
-    markedIndex(nodeArray, index);
+    markedTempIndex(nodeArray, index);
     records.push(JSON.parse(JSON.stringify(sortobj)));
 
     const value = nodeArray[index].value;
@@ -32,6 +32,7 @@ export const search = (obj, searchValue) => {
 
     if (value != searchValue && index == nodeArray.length - 1) {
       nodeArray[index].marked = false;
+      nodeArray[index].pre_aft_newNode_temp = "";
       records.push(JSON.parse(JSON.stringify(sortobj)));
     }
   }
@@ -72,25 +73,10 @@ export const insert = (obj, insertValue, insertPosition) => {
 
     //renew node position
     renewNodes(nodeArray, insertPosition);
-    // for (let index = 0; index < nodeArray.length; index++) {
-    //   nodeArray[index].x = FIRST_NODE_X + 100 * index;
-    //   nodeArray[index].y = NODE_UPPER_Y;
-    //   if (index == insertPosition) {
-    //     nodeArray[index].passed = true;
-    //   } else {
-    //     nodeArray[index].passed = false;
-    //   }
-    // }
 
     //renew arrow target
     renewArrows(singleArray);
-    // for (let index = 0; index < singleArray.length; index++) {
-    //   singleArray[index].x1 = FIRST_ARROW_X + 100 * index;
-    //   singleArray[index].y1 = NODE_UPPER_Y;
-    //   singleArray[index].x2 = FIRST_ARROW_X + ARROW_LENGTH + 100 * index;
-    //   singleArray[index].y2 = NODE_UPPER_Y;
-    //   singleArray[index].passed = false;
-    // }
+
     records.push(JSON.parse(JSON.stringify(sortobj)));
     return records;
   }
@@ -98,13 +84,12 @@ export const insert = (obj, insertValue, insertPosition) => {
   // loop through
   for (let index = 0; index < nodeArray.length; index++) {
     if (index) {
-      console.log(insertPosition);
-      console.log(index);
       singleArray[index - 1].passed = true;
       records.push(JSON.parse(JSON.stringify(sortobj)));
     }
 
     nodeArray[index].passed = true;
+    markedTempIndex(nodeArray, index);
     records.push(JSON.parse(JSON.stringify(sortobj)));
 
     if (index == insertPosition) {
@@ -294,7 +279,22 @@ const renewArrows = (singleArray) => {
   }
 };
 
-const markedIndex = (nodeArray, index) => {
+const markedTempIndex = (nodeArray, index) => {
+  let counter = 0;
+  while (counter < nodeArray.length) {
+    if (counter == index) {
+      nodeArray[counter].marked = true;
+      nodeArray[counter].pre_aft_newNode_temp = STATE_POSTFIX.AFT;
+      nodeArray[counter - 1].pre_aft_newNode_temp = STATE_POSTFIX.PRE;
+    } else {
+      nodeArray[counter].pre_aft_newNode_temp = "";
+      nodeArray[counter].marked = false;
+    }
+    counter++;
+  }
+};
+
+const markedPreAftIndex = (nodeArray, index) => {
   let counter = 0;
   while (counter < nodeArray.length) {
     if (counter == index) {
