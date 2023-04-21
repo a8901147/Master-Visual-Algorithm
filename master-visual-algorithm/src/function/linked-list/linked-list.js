@@ -121,6 +121,7 @@ export const insert = (obj, insertValue, insertPosition) => {
     return records;
   }
 
+  // insert middle
   // loop through
   console.log("insert middle");
   for (let index = 0; index < nodeArray.length; index++) {
@@ -146,11 +147,6 @@ export const insert = (obj, insertValue, insertPosition) => {
       records.push(JSON.parse(JSON.stringify(sortobj)));
     }
   }
-  /*
-  if (insertPosition < nodeArray.length) {
-    */
-
-  // insert middle
 
   // insert new node
   const newNode = createNode(nodeArray[insertPosition].x, 150, insertValue);
@@ -183,37 +179,7 @@ export const insert = (obj, insertValue, insertPosition) => {
   renewArrows(singleArray);
 
   records.push(JSON.parse(JSON.stringify(sortobj)));
-  /*
-  } else {
-    console.log("insert tail");
-    // insert tail
-    const newNode = createNode(
-      nodeArray[nodeArray.length - 1].x + 100,
-      50,
-      insertValue
-    );
-    nodeArray.push(newNode);
-    records.push(JSON.parse(JSON.stringify(sortobj)));
 
-    //insert new arrow
-    const newArrow = createArrow(
-      singleArray[singleArray.length - 1].x1 + 100,
-      50,
-      singleArray[singleArray.length - 1].x2 + 100,
-      50
-    );
-    singleArray.push(newArrow);
-    records.push(JSON.parse(JSON.stringify(sortobj)));
-
-    singleArray[singleArray.length - 1].passed = true;
-    records.push(JSON.parse(JSON.stringify(sortobj)));
-
-    nodeArray[nodeArray.length - 1].passed = true;
-    records.push(JSON.parse(JSON.stringify(sortobj)));
-
-    console.log(records);
-  }
-  */
   return records;
 };
 
@@ -225,51 +191,140 @@ export const remove = (obj, removeIndex) => {
 
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
+  if (!removeIndex) {
+    console.log("remove head");
+    nodeArray[0].passed = true;
+    nodeArray[0].pre_aft_newNode_temp = STATE_POSTFIX.TEMP;
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+
+    singleArray[0].passed = true;
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+
+    nodeArray[0].head_tail = "";
+    nodeArray[1].passed = true;
+    nodeArray[1].marked = true;
+    nodeArray[1].head_tail = STATE_PREFIX.HEAD;
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+
+    nodeArray.shift();
+    singleArray.shift();
+
+    //renew node position
+    renewNodes(nodeArray, 0);
+    //renew arrow target
+    renewArrows(singleArray);
+    //newNode become Head
+
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+
+    return records;
+  }
+
+  if (removeIndex > nodeArray.length - 1) {
+    console.log("remove tail");
+
+    for (let index = 0; index < nodeArray.length - 1; index++) {
+      if (!index) {
+        nodeArray[0].passed = true;
+        nodeArray[0].pre_aft_newNode_temp = STATE_POSTFIX.PRE;
+        records.push(JSON.parse(JSON.stringify(sortobj)));
+
+        singleArray[0].passed = true;
+        records.push(JSON.parse(JSON.stringify(sortobj)));
+
+        nodeArray[1].passed = true;
+        nodeArray[1].marked = true;
+        nodeArray[1].pre_aft_newNode_temp = STATE_POSTFIX.TEMP;
+        records.push(JSON.parse(JSON.stringify(sortobj)));
+      }
+      if (index) {
+        nodeArray[index - 1].pre_aft_newNode_temp = "";
+        nodeArray[index].marked = false;
+      }
+
+      nodeArray[index].passed = true;
+      nodeArray[index].pre_aft_newNode_temp = STATE_POSTFIX.PRE;
+
+      singleArray[index].passed = true;
+
+      nodeArray[index + 1].passed = true;
+      nodeArray[index + 1].marked = true;
+      nodeArray[index + 1].pre_aft_newNode_temp = STATE_POSTFIX.TEMP;
+      records.push(JSON.parse(JSON.stringify(sortobj)));
+    }
+
+    nodeArray.pop();
+    singleArray.pop();
+
+    //renew node position
+    renewNodes(nodeArray, 0);
+    //renew arrow target
+    renewArrows(singleArray);
+    //newNode become Head
+
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+    return records;
+  }
+
+  // remove middle
   // loop through
-  for (let index = 0; index <= nodeArray.length; index++) {
+  console.log("remove middle");
+  for (let index = 0; index < nodeArray.length; index++) {
     if (index) {
       singleArray[index - 1].passed = true;
       records.push(JSON.parse(JSON.stringify(sortobj)));
     }
 
-    nodeArray[index].passed = true;
-    records.push(JSON.parse(JSON.stringify(sortobj)));
-
     if (index == removeIndex) {
+      nodeArray[index].passed = true;
+      nodeArray[index].marked = true;
+      nodeArray[index].pre_aft_newNode_temp = STATE_POSTFIX.TEMP;
+      records.push(JSON.parse(JSON.stringify(sortobj)));
+
+      singleArray[index].passed = true;
+      records.push(JSON.parse(JSON.stringify(sortobj)));
+
+      nodeArray[index + 1].passed = true;
+      nodeArray[index + 1].pre_aft_newNode_temp = STATE_POSTFIX.AFT;
+      records.push(JSON.parse(JSON.stringify(sortobj)));
       break;
+    } else {
+      nodeArray[index].passed = true;
+      nodeArray[index].pre_aft_newNode_temp = STATE_POSTFIX.PRE;
+      if (index) {
+        nodeArray[index - 1].pre_aft_newNode_temp = "";
+      }
+
+      records.push(JSON.parse(JSON.stringify(sortobj)));
     }
   }
 
-  if (removeIndex < nodeArray.length) {
-    // remove middle
+  // remove middle
 
-    // node lower to lower level
-    nodeArray[removeIndex].y = NODE_LOWER_Y;
+  // node lower to lower level
+  nodeArray[removeIndex].y = NODE_LOWER_Y;
 
-    //extend arrow and change arrow direction
-    singleArray[removeIndex - 1].x2 = singleArray[removeIndex].x2;
-    singleArray[removeIndex].x1 = singleArray[removeIndex].x1 - 10;
-    singleArray[removeIndex].y1 = NODE_LOWER_Y - 10;
-    singleArray[removeIndex].x2 = singleArray[removeIndex].x2 + 10;
-    singleArray[removeIndex].y2 = NODE_UPPER_Y + 20;
-    records.push(JSON.parse(JSON.stringify(sortobj)));
+  //extend arrow and change arrow direction
+  singleArray[removeIndex - 1].x2 = singleArray[removeIndex].x2;
+  singleArray[removeIndex].x1 = singleArray[removeIndex].x1 - 10;
+  singleArray[removeIndex].y1 = NODE_LOWER_Y - 10;
+  singleArray[removeIndex].x2 = singleArray[removeIndex].x2 + 10;
+  singleArray[removeIndex].y2 = NODE_UPPER_Y + 20;
+  records.push(JSON.parse(JSON.stringify(sortobj)));
 
-    //remove node and arrow
-    nodeArray.splice(removeIndex, 1);
-    singleArray.splice(removeIndex, 1);
-    records.push(JSON.parse(JSON.stringify(sortobj)));
+  //remove node and arrow
+  nodeArray.splice(removeIndex, 1);
+  singleArray.splice(removeIndex, 1);
+  records.push(JSON.parse(JSON.stringify(sortobj)));
 
-    //renew node position
-    renewNodes(nodeArray, removeIndex);
-    nodeArray[removeIndex - 1].passed = true;
+  //renew node position
+  renewNodes(nodeArray, removeIndex);
+  nodeArray[removeIndex - 1].passed = true;
 
-    //renew arrow target
-    renewArrows(singleArray);
+  //renew arrow target
+  renewArrows(singleArray);
 
-    records.push(JSON.parse(JSON.stringify(sortobj)));
-  } else {
-    // remove tail
-  }
+  records.push(JSON.parse(JSON.stringify(sortobj)));
 
   return records;
 };
