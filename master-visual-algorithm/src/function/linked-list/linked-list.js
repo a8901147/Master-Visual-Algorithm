@@ -1,12 +1,11 @@
-import { STATE_PREFIX } from "../common";
+import { STATE_PREFIX, STATE_POSTFIX } from "../common";
 import {
   ARROW_LENGTH,
   FIRST_ARROW_X,
   FIRST_NODE_X,
   NODE_LOWER_Y,
   NODE_UPPER_Y,
-  STATE_POSTFIX,
-} from "../common";
+} from "../linked-list/Linked-List-constant";
 
 export const search = (obj, searchValue) => {
   const sortobj = JSON.parse(JSON.stringify(obj));

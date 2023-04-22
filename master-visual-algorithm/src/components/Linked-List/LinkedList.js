@@ -6,7 +6,7 @@ function LinkedList({ currentSubArray }) {
     const nodeSubArray = currentSubArray.nodeArray;
     const singleSubArray = currentSubArray.singleArray;
     return (
-      <svg width="100%" height="500">
+      <svg width="100%" height="200">
         <g>
           <NodeSum nodeSubArray={nodeSubArray}></NodeSum>
         </g>

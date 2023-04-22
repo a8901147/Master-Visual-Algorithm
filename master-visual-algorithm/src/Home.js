@@ -6,6 +6,7 @@ function Home() {
     <React.Fragment>
       <Link to="LinkedListMain">Link to LinkedListMain</Link>
       <Link to="SortMain">Link to SortMain</Link>
+      <Link to="StackMain">Link to StackMain</Link>
       <h1>This is Home page</h1>
     </React.Fragment>
   );

@@ -3,11 +3,7 @@ import * as d3 from "d3";
 
 const ArrowLine = ({ x1, y1, x2, y2, passed, showed }) => {
   const svgRef = useRef(null);
-  const arrowPoints = [
-    [0, 0],
-    [0, 20],
-    [20, 10],
-  ];
+
   useEffect(() => {
     const svg = d3.select(svgRef.current);
 

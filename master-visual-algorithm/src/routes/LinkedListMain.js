@@ -1,26 +1,33 @@
 import React, { useEffect, useState } from "react";
-import NavBar from "../NavBar";
-import Visualization from "../Visualization";
-import { MODE, getSortRandomInt } from "../../function/common";
+import NavBar from "../components/NavBar";
+import Visualization from "../components/Visualization";
+import { MODE } from "../function/common";
+import {
+  getHorizonNodeRandomInt,
+  getHorizonSingleArrow,
+  FIRST_NODE_X,
+  NODE_UPPER_Y,
+  FIRST_ARROW_X,
+} from "../function/linked-list/Linked-List-constant";
 
-function SortMain() {
+function LinkedListMain() {
   const [obj, setObj] = useState({
-    arr: getSortRandomInt(9),
-    sortingIndex: [],
-    pivotIndex: [],
+    nodeArray: getHorizonNodeRandomInt(6, FIRST_NODE_X, NODE_UPPER_Y),
+    singleArray: getHorizonSingleArrow(6, FIRST_ARROW_X, NODE_UPPER_Y),
   });
   const [recordsArray, setRecordsArray] = useState([]);
 
   useEffect(() => {
     setRecordsArray([obj]);
   }, [obj]);
+
   const onActionClickHandler = (records) => {
     setRecordsArray(records);
   };
   return (
     <React.Fragment>
       <NavBar
-        mode={MODE.SORT}
+        mode={MODE.LINKED_LIST}
         // onActionTypeClick={onClickHandler}
         onActionClick={onActionClickHandler}
         obj={obj}
@@ -29,10 +36,10 @@ function SortMain() {
       <Visualization
         arr={recordsArray}
         delay={1000}
-        mode={MODE.SORT}
+        mode={MODE.LINKED_LIST}
       ></Visualization>
     </React.Fragment>
   );
 }
 
-export default SortMain;
+export default LinkedListMain;
