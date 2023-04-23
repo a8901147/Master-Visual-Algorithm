@@ -2,18 +2,25 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Visualization from "../components/Visualization";
 import { MODE } from "../function/common";
+
 import {
-  getHorizonNodeRandomInt,
-  getHorizonSingleArrow,
-  FIRST_NODE_X,
-  NODE_UPPER_Y,
-  FIRST_ARROW_X,
-} from "../function/linked-list/Linked-List-constant";
+  getVerticalNodeRandomInt,
+  getVerticalSingleArrow,
+  STACK_CONSTANT,
+} from "../function/stack/constant";
 
 function StackMain() {
   const [obj, setObj] = useState({
-    nodeArray: getHorizonNodeRandomInt(6, FIRST_NODE_X, NODE_UPPER_Y),
-    singleArray: getHorizonSingleArrow(6, FIRST_ARROW_X, NODE_UPPER_Y),
+    nodeArray: getVerticalNodeRandomInt(
+      6,
+      STACK_CONSTANT.NODE_RIGHT_X,
+      STACK_CONSTANT.FIRST_NODE_Y
+    ),
+    singleArray: getVerticalSingleArrow(
+      6,
+      STACK_CONSTANT.NODE_RIGHT_X,
+      STACK_CONSTANT.FIRST_ARROW_Y
+    ),
   });
   const [recordsArray, setRecordsArray] = useState([]);
 
@@ -24,10 +31,11 @@ function StackMain() {
   const onActionClickHandler = (records) => {
     setRecordsArray(records);
   };
+  console.log(recordsArray);
   return (
     <React.Fragment>
       <NavBar
-        mode={MODE.LINKED_LIST}
+        mode={MODE.STACK}
         onActionClick={onActionClickHandler}
         obj={obj}
       ></NavBar>
@@ -35,7 +43,7 @@ function StackMain() {
       <Visualization
         arr={recordsArray}
         delay={1000}
-        mode={MODE.LINKED_LIST}
+        mode={MODE.STACK}
       ></Visualization>
     </React.Fragment>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import { CIRCLE_RADIUS } from "../../function/common";
 
 function Node({
   value,
@@ -9,7 +10,6 @@ function Node({
   head_tail,
   pre_aft_newNode_temp,
 }) {
-  const radius = "20";
   const state =
     head_tail && pre_aft_newNode_temp
       ? head_tail + "/" + pre_aft_newNode_temp
@@ -19,7 +19,7 @@ function Node({
       <circle
         cx={x}
         cy={y}
-        r={radius}
+        r={CIRCLE_RADIUS}
         fill={marked ? "rgb(82, 188, 105)" : passed ? "#ff8a27" : "white"}
         stroke="black"
         strokeWidth="2"

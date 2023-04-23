@@ -1,11 +1,12 @@
-import { STATE_PREFIX, STATE_POSTFIX } from "../common";
+import { STATE_PREFIX, STATE_POSTFIX, CIRCLE_RADIUS } from "../common";
 import {
   ARROW_LENGTH,
+  degree45_xy,
   FIRST_ARROW_X,
   FIRST_NODE_X,
   NODE_LOWER_Y,
   NODE_UPPER_Y,
-} from "../linked-list/Linked-List-constant";
+} from "./constant";
 
 export const search = (obj, searchValue) => {
   const sortobj = JSON.parse(JSON.stringify(obj));
@@ -156,9 +157,10 @@ export const insert = (obj, insertValue, insertPosition) => {
   //insert new arrow (newnode -> back node)
   const newArrow = createArrow(
     nodeArray[insertPosition].x,
-    130,
+    NODE_LOWER_Y + CIRCLE_RADIUS,
+
     nodeArray[insertPosition].x,
-    80
+    NODE_UPPER_Y + CIRCLE_RADIUS
   );
   newArrow.passed = true;
   singleArray.splice(insertPosition, 0, newArrow);
@@ -302,13 +304,19 @@ export const remove = (obj, removeIndex) => {
 
   // node lower to lower level
   nodeArray[removeIndex].y = NODE_LOWER_Y;
-
+  console.log(degree45_xy);
+  console.log(singleArray[removeIndex]);
   //extend arrow and change arrow direction
   singleArray[removeIndex - 1].x2 = singleArray[removeIndex].x2;
-  singleArray[removeIndex].x1 = singleArray[removeIndex].x1 - 10;
-  singleArray[removeIndex].y1 = NODE_LOWER_Y - 10;
-  singleArray[removeIndex].x2 = singleArray[removeIndex].x2 + 10;
-  singleArray[removeIndex].y2 = NODE_UPPER_Y + 20;
+  singleArray[removeIndex].x1 = nodeArray[removeIndex].x + degree45_xy;
+  singleArray[removeIndex].y1 = NODE_LOWER_Y - degree45_xy;
+  singleArray[removeIndex].x2 = nodeArray[removeIndex + 1].x - degree45_xy;
+  singleArray[removeIndex].y2 = NODE_UPPER_Y + degree45_xy;
+
+  // singleArray[removeIndex].x1 = singleArray[removeIndex].x1 - 10;
+  // singleArray[removeIndex].y1 = NODE_LOWER_Y - 10;
+  // singleArray[removeIndex].x2 = singleArray[removeIndex].x2 + 10;
+  // singleArray[removeIndex].y2 = NODE_UPPER_Y + 20;
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
   //remove node and arrow

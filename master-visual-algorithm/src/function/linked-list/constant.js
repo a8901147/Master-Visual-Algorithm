@@ -1,4 +1,4 @@
-import { STATE_PREFIX } from "../common";
+import { CIRCLE_RADIUS, STATE_PREFIX } from "../common";
 
 export const getHorizonNodeRandomInt = (max, firstX, firstY) => {
   return Array.from({ length: max }, (x, index) => ({
@@ -34,4 +34,5 @@ export const NODE_UPPER_Y = 50;
 export const NODE_LOWER_Y = 150;
 
 export const FIRST_ARROW_X = FIRST_NODE_X + 20;
-export const ARROW_LENGTH = 50;
+export const ARROW_LENGTH = DISTANCE - 2 * CIRCLE_RADIUS;
+export const degree45_xy = CIRCLE_RADIUS / Math.SQRT2;

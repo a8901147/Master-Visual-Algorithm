@@ -13,7 +13,7 @@ const ArrowLine = ({ x1, y1, x2, y2, passed, showed }) => {
       .attr("id", "arrowhead")
       .attr("markerWidth", "10")
       .attr("markerHeight", "7")
-      .attr("refX", "0")
+      .attr("refX", "10")
       .attr("refY", "3.5")
       .attr("orient", "auto")
       .attr("fill", passed ? "#ff8a27" : "black")
@@ -38,23 +38,7 @@ const ArrowLine = ({ x1, y1, x2, y2, passed, showed }) => {
     };
   }, [x1, y1, x2, y2, passed]);
   if (showed) {
-    return (
-      <svg ref={svgRef}>
-        {/* <defs>
-          <marker
-            id="arrowhead"
-            markerWidth="10"
-            markerHeight="7"
-            refX="0"
-            refY="3.5"
-            orient="auto"
-            fill={passed ? "#ff8a27" : "black"}
-          >
-            <polygon points="0 0, 10 3.5, 0 7" />
-          </marker>
-        </defs> */}
-      </svg>
-    );
+    return <svg ref={svgRef}></svg>;
   }
 };
 

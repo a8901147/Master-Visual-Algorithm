@@ -12,9 +12,15 @@ export const MODE = {
 };
 
 export const ActiveMode = {
+  // linked-list
   SEARCH: "SEARCH",
   INSERT: "INSERT",
   REMOVE: "REMOVE",
+
+  // stack
+  POP: "POP",
+
+  // sort
   BUBBLE_SORT: "BUBBLE_SORT",
   SELECTION_SORT: "SELECTION_SORT",
   INSERTION_SORT: "INSERTION_SORT",
@@ -33,3 +39,5 @@ export const STATE_POSTFIX = {
   NEWNODE: "newNode",
   TEMP: "temp",
 };
+
+export const CIRCLE_RADIUS = 20;

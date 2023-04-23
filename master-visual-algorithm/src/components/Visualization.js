@@ -55,6 +55,18 @@ function Visualization({ arr, delay, mode }) {
         ></ProgressBar>
       </div>
     );
+  } else if (mode === MODE.STACK) {
+    return (
+      <div style={{ margin: "5%" }}>
+        <LinkedList currentSubArray={currentSubArray}></LinkedList>
+
+        <ProgressBar
+          value={currentSubArrayIndex}
+          maxValue={arr.length}
+          onSetCurrentSubArrayIndex={onChangeHandler}
+        ></ProgressBar>
+      </div>
+    );
   } else if (mode === MODE.SORT) {
     return (
       <div style={{ margin: "5%" }}>

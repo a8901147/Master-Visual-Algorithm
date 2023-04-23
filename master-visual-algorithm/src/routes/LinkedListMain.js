@@ -8,7 +8,7 @@ import {
   FIRST_NODE_X,
   NODE_UPPER_Y,
   FIRST_ARROW_X,
-} from "../function/linked-list/Linked-List-constant";
+} from "../function/linked-list/constant";
 
 function LinkedListMain() {
   const [obj, setObj] = useState({

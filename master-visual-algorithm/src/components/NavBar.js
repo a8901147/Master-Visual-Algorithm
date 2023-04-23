@@ -10,6 +10,7 @@ import { MODE, ActiveMode } from "../function/common";
 
 import { insert, remove, search } from "../function/linked-list/linked-list";
 import InputBox from "./Linked-List/SearchInput";
+import { pop } from "../function/stack/constant";
 
 // import Slider from "../Slider/Slider";
 // import NavNumber from "../NavNumber/NavNumber";
@@ -19,6 +20,8 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
   const [actionTypeFunc, setActionTypeFunc] = useState({
     actionTypeFunc: search,
   });
+
+  // add there should be a default for each when change sort/linkedlist/stack
 
   const onClickBubbleSortHandler = () => {
     setActiveMode(ActiveMode.BUBBLE_SORT);
@@ -66,6 +69,11 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
     setActiveMode(ActiveMode.REMOVE);
     // onActionTypeClick();
     setActionTypeFunc({ actionTypeFunc: remove });
+  };
+  const onClickStackPopHandler = () => {
+    setActiveMode(ActiveMode.POP);
+    // onActionTypeClick();
+    setActionTypeFunc({ actionTypeFunc: pop });
   };
 
   const onStartClickHandler = () => {
@@ -126,6 +134,30 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
             >
               REMOVE
             </NavButton>
+            <NavButton onClick={onStartClickHandler}>START!</NavButton>
+          </ul>
+          <InputBox activeMode={activeMode}></InputBox>
+        </React.Fragment>
+      );
+    case MODE.STACK:
+      return (
+        <React.Fragment>
+          <ul className={classes.navBar}>
+            <NavButton activeMode={activeMode} onClick={onClickStackPopHandler}>
+              POP
+            </NavButton>
+            {/* <NavButton
+              activeMode={activeMode}
+              onClick={onClickLinkedListInsertHandler}
+            >
+              INSERT
+            </NavButton>
+            <NavButton
+              activeMode={activeMode}
+              onClick={onClickLinkedListRemoveHandler}
+            >
+              REMOVE
+            </NavButton> */}
             <NavButton onClick={onStartClickHandler}>START!</NavButton>
           </ul>
           <InputBox activeMode={activeMode}></InputBox>
