@@ -313,10 +313,6 @@ export const remove = (obj, removeIndex) => {
   singleArray[removeIndex].x2 = nodeArray[removeIndex + 1].x - degree45_xy;
   singleArray[removeIndex].y2 = NODE_UPPER_Y + degree45_xy;
 
-  // singleArray[removeIndex].x1 = singleArray[removeIndex].x1 - 10;
-  // singleArray[removeIndex].y1 = NODE_LOWER_Y - 10;
-  // singleArray[removeIndex].x2 = singleArray[removeIndex].x2 + 10;
-  // singleArray[removeIndex].y2 = NODE_UPPER_Y + 20;
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
   //remove node and arrow
@@ -371,11 +367,6 @@ const renewNodes = (nodeArray, insertPosition) => {
     if (index == nodeArray.length - 1) {
       nodeArray[index].head_tail = STATE_PREFIX.TAIL;
     }
-    // if (index == insertPosition) {
-    //   nodeArray[index].passed = true;
-    // } else {
-    //   nodeArray[index].passed = false;
-    // }
   }
 };
 
@@ -388,21 +379,6 @@ const renewArrows = (singleArray) => {
     // singleArray[index].passed = false;
   }
 };
-
-// const markedPreAftIndex = (nodeArray, index, insertPosition) => {
-//   let counter = 0;
-//   while (counter < nodeArray.length) {
-//     if (counter == index) {
-//       nodeArray[counter].marked = true;
-//       nodeArray[counter].pre_aft_newNode_temp = STATE_POSTFIX.AFT;
-//       nodeArray[counter - 1].pre_aft_newNode_temp = STATE_POSTFIX.PRE;
-//     } else {
-//       nodeArray[counter].pre_aft_newNode_temp = "";
-//       nodeArray[counter].marked = false;
-//     }
-//     counter++;
-//   }
-// };
 
 const markedTempIndex = (nodeArray, index) => {
   let counter = 0;

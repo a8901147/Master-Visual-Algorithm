@@ -6,6 +6,7 @@ import LinkedListMain from "./routes/LinkedListMain";
 import Home from "./Home";
 import SortMain from "./routes/SortMain";
 import StackMain from "./routes/StackMain";
+import BinarySearchTreeMain from "./routes/BinarySearchTreeMain";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="LinkedListMain" element={<LinkedListMain />} />
         <Route path="SortMain" element={<SortMain />} />
         <Route path="StackMain" element={<StackMain />} />
+        <Route path="BinarySearchTreeMain" element={<BinarySearchTreeMain />} />
       </Routes>
     </div>
   );

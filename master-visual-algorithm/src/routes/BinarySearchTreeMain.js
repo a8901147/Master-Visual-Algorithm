@@ -3,40 +3,24 @@ import NavBar from "../components/NavBar";
 import Visualization from "../components/Visualization";
 import { MODE } from "../function/common";
 
-import {
-  getVerticalNodeRandomInt,
-  getVerticalSingleArrow,
-  STACK_CONSTANT,
-} from "../function/stack/constant";
-
-function StackMain() {
-  const NODE_NUMBER = 4;
+function BinarySearchTreeMain() {
   const [obj, setObj] = useState({
-    nodeArray: getVerticalNodeRandomInt(
-      NODE_NUMBER,
-      STACK_CONSTANT.NODE_RIGHT_X,
-      STACK_CONSTANT.FIRST_NODE_Y
-    ),
-    singleArray: getVerticalSingleArrow(
-      NODE_NUMBER,
-      STACK_CONSTANT.NODE_RIGHT_X,
-      STACK_CONSTANT.FIRST_ARROW_Y
-    ),
+    // arr: getSortRandomInt(9),
+    // sortingIndex: [],
+    // pivotIndex: [],
   });
   const [recordsArray, setRecordsArray] = useState([]);
 
   useEffect(() => {
     setRecordsArray([obj]);
   }, [obj]);
-
   const onActionClickHandler = (records) => {
     setRecordsArray(records);
   };
-
   return (
     <React.Fragment>
       <NavBar
-        mode={MODE.STACK}
+        mode={MODE.BINARYSEARCHTREE}
         onActionClick={onActionClickHandler}
         obj={obj}
       ></NavBar>
@@ -44,10 +28,10 @@ function StackMain() {
       <Visualization
         arr={recordsArray}
         delay={1000}
-        mode={MODE.STACK}
+        mode={MODE.BINARYSEARCHTREE}
       ></Visualization>
     </React.Fragment>
   );
 }
 
-export default StackMain;
+export default BinarySearchTreeMain;

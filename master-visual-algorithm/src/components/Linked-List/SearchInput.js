@@ -29,6 +29,8 @@ function InputBox({ activeMode }) {
         placeholder="linkedList_removeIndex"
       ></input>
     );
+  } else if (activeMode == ActiveMode.PUSH) {
+    return <input id="stack_pushValue" placeholder="stack_pushValue"></input>;
   }
 }
 

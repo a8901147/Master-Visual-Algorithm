@@ -27,9 +27,9 @@ export const pop = (obj) => {
   singleArray.shift();
 
   //renew node position
-  renewNodes(nodeArray, 0);
+  renewVerticalNodes(nodeArray);
   //renew arrow target
-  renewArrows(singleArray);
+  renewVerticalArrows(singleArray);
   //newNode become Head
 
   records.push(JSON.parse(JSON.stringify(sortobj)));
@@ -37,7 +37,55 @@ export const pop = (obj) => {
   return records;
 };
 
-const renewNodes = (nodeArray, insertPosition) => {
+export const push = (obj, insertValue) => {
+  const sortobj = JSON.parse(JSON.stringify(obj));
+  const records = [];
+  const nodeArray = sortobj.nodeArray;
+  const singleArray = sortobj.singleArray;
+  // insertPosition = parseInt(insertPosition);
+
+  records.push(JSON.parse(JSON.stringify(sortobj)));
+
+  console.log("insert tail");
+  //insert tail
+
+  // insert new node
+  const newNode = createNode(
+    STACK_CONSTANT.NODE_RIGHT_X,
+    nodeArray[nodeArray.length - 1].y + STACK_CONSTANT.DISTANCE,
+    insertValue
+  );
+  newNode.passed = true;
+  nodeArray.push(newNode);
+  records.push(JSON.parse(JSON.stringify(sortobj)));
+
+  // mark tail and point to newNode
+  nodeArray[nodeArray.length - 2].passed = true;
+  nodeArray[nodeArray.length - 2].marked = true;
+  //insert new arrow (newnode -> back node)
+  const newArrow = createArrow(
+    STACK_CONSTANT.NODE_RIGHT_X,
+    nodeArray[nodeArray.length - 1].y1 + STACK_CONSTANT.DISTANCE,
+    STACK_CONSTANT.NODE_RIGHT_X,
+    nodeArray[nodeArray.length - 1].y2 + STACK_CONSTANT.DISTANCE
+  );
+  newArrow.passed = true;
+  singleArray.push(newArrow);
+
+  records.push(JSON.parse(JSON.stringify(sortobj)));
+
+  //renew node position
+  renewVerticalNodes(nodeArray);
+  //renew arrow target
+  renewVerticalArrows(singleArray);
+  //newNode become Head
+
+  records.push(JSON.parse(JSON.stringify(sortobj)));
+
+  return records;
+};
+
+const renewVerticalNodes = (nodeArray) => {
   for (let index = 0; index < nodeArray.length; index++) {
     nodeArray[index].x = STACK_CONSTANT.NODE_RIGHT_X;
     nodeArray[index].y =
@@ -58,7 +106,7 @@ const renewNodes = (nodeArray, insertPosition) => {
   }
 };
 
-const renewArrows = (singleArray) => {
+const renewVerticalArrows = (singleArray) => {
   for (let index = 0; index < singleArray.length; index++) {
     singleArray[index].x1 = STACK_CONSTANT.NODE_RIGHT_X;
     singleArray[index].y1 =
@@ -71,4 +119,27 @@ const renewArrows = (singleArray) => {
 
     // singleArray[index].passed = false;
   }
+};
+
+const createNode = (x, y, value) => {
+  return {
+    value: value,
+    x: x,
+    y: y,
+    passed: false,
+    marked: false,
+    head_tail: "",
+    pre_aft_newNode_temp: STATE_POSTFIX.NEWNODE,
+  };
+};
+
+const createArrow = (x1, y1, x2, y2) => {
+  return {
+    x1: x1,
+    y1: y1,
+    x2: x2,
+    y2: y2,
+    passed: false,
+    showed: true,
+  };
 };

@@ -9,6 +9,7 @@ export const MODE = {
   LINKED_LIST: "LINKED_LIST",
   SORT: "SORT",
   STACK: "STACK",
+  BINARYSEARCHTREE: "BINARYSEARCHTREE",
 };
 
 export const ActiveMode = {
@@ -19,6 +20,10 @@ export const ActiveMode = {
 
   // stack
   POP: "POP",
+  PUSH: "PUSH",
+
+  //tree
+  BALANCED_TREE: "BALANCED_TREE",
 
   // sort
   BUBBLE_SORT: "BUBBLE_SORT",

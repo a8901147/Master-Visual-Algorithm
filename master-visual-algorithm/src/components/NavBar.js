@@ -10,7 +10,7 @@ import { MODE, ActiveMode } from "../function/common";
 
 import { insert, remove, search } from "../function/linked-list/linked-list";
 import InputBox from "./Linked-List/SearchInput";
-import { pop } from "../function/stack/stack";
+import { pop, push } from "../function/stack/stack";
 
 // import Slider from "../Slider/Slider";
 // import NavNumber from "../NavNumber/NavNumber";
@@ -76,6 +76,18 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
     setActionTypeFunc({ actionTypeFunc: pop });
   };
 
+  const onClickStackPushHandler = () => {
+    setActiveMode(ActiveMode.PUSH);
+    // onActionTypeClick();
+    setActionTypeFunc({ actionTypeFunc: push });
+  };
+
+  const onClickBalancedTreeHandler = () => {
+    setActiveMode(ActiveMode.PUSH);
+    // onActionTypeClick();
+    setActionTypeFunc({ actionTypeFunc: push });
+  };
+
   const onStartClickHandler = () => {
     let records = [];
     if (activeMode == ActiveMode.SEARCH) {
@@ -106,6 +118,10 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
       records = actionTypeFunc.actionTypeFunc(obj);
     } else if (activeMode == ActiveMode.POP) {
       records = actionTypeFunc.actionTypeFunc(obj);
+    } else if (activeMode == ActiveMode.PUSH) {
+      const stack_pushValue = document.getElementById("stack_pushValue").value;
+      const pushValue = parseInt(stack_pushValue);
+      records = actionTypeFunc.actionTypeFunc(obj, pushValue);
     }
 
     onActionClick(records);
@@ -148,18 +164,29 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
             <NavButton activeMode={activeMode} onClick={onClickStackPopHandler}>
               POP
             </NavButton>
-            {/* <NavButton
-              activeMode={activeMode}
-              onClick={onClickLinkedListInsertHandler}
-            >
-              INSERT
-            </NavButton>
             <NavButton
               activeMode={activeMode}
-              onClick={onClickLinkedListRemoveHandler}
+              onClick={onClickStackPushHandler}
             >
-              REMOVE
-            </NavButton> */}
+              PUSH
+            </NavButton>
+
+            <NavButton onClick={onStartClickHandler}>START!</NavButton>
+          </ul>
+          <InputBox activeMode={activeMode}></InputBox>
+        </React.Fragment>
+      );
+    case MODE.BINARYSEARCHTREE:
+      return (
+        <React.Fragment>
+          <ul className={classes.navBar}>
+            <NavButton
+              activeMode={activeMode}
+              onClick={onClickBalancedTreeHandler}
+            >
+              BALANCED TREE
+            </NavButton>
+
             <NavButton onClick={onStartClickHandler}>START!</NavButton>
           </ul>
           <InputBox activeMode={activeMode}></InputBox>
