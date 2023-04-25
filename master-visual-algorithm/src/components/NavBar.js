@@ -10,7 +10,7 @@ import { MODE, ActiveMode } from "../function/common";
 
 import { insert, remove, search } from "../function/linked-list/linked-list";
 import InputBox from "./Linked-List/SearchInput";
-import { pop } from "../function/stack/constant";
+import { pop } from "../function/stack/stack";
 
 // import Slider from "../Slider/Slider";
 // import NavNumber from "../NavNumber/NavNumber";
@@ -103,6 +103,8 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
       const removeIndex = parseInt(linkedList_removeIndex);
       records = actionTypeFunc.actionTypeFunc(obj, removeIndex);
     } else if (activeMode == ActiveMode.BUBBLE_SORT) {
+      records = actionTypeFunc.actionTypeFunc(obj);
+    } else if (activeMode == ActiveMode.POP) {
       records = actionTypeFunc.actionTypeFunc(obj);
     }
 

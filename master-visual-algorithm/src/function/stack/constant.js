@@ -1,8 +1,4 @@
-import { STATE_PREFIX } from "../common";
-
-export const pop = () => {
-  console.log("pop");
-};
+import { CIRCLE_RADIUS, STATE_PREFIX } from "../common";
 
 export const getVerticalNodeRandomInt = (max, firstX, firstY) => {
   return Array.from({ length: max }, (x, index) => ({
@@ -32,13 +28,14 @@ export const getVerticalSingleArrow = (max, firstX, firstY) => {
   }));
 };
 
-const FIRST_NODE_Y = 20;
+const FIRST_NODE_Y = 30;
+const DISTANCE = 80;
 
 export const STACK_CONSTANT = {
   FIRST_NODE_Y: FIRST_NODE_Y,
-  DISTANCE: 80,
+  DISTANCE: DISTANCE,
   NODE_LEFT_X: 150,
   NODE_RIGHT_X: 250,
-  FIRST_ARROW_Y: FIRST_NODE_Y + 20,
-  ARROW_LENGTH: 40,
+  FIRST_ARROW_Y: FIRST_NODE_Y + CIRCLE_RADIUS,
+  ARROW_LENGTH: DISTANCE - 2 * CIRCLE_RADIUS,
 };
