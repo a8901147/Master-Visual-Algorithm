@@ -1,0 +1,4 @@
+1:05:33 
+how block chain work
+miner
+SHA256 need 4 zeros at the fronts
