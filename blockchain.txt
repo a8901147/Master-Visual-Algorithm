@@ -31,3 +31,24 @@ only know to the key holder, it's used to "sign" transactions
 
 #public key
 Is derived from your private key. Anyone can "see" it, and us it to verify that a transaction came from you.
+
+#signing a transaction
+A "one way" process. someone with a private key signs a transactionbt their private key
+being hashed with their transaction data.
+
+Anyone can then verify this new transaction hash with your public key
+
+#private key > public key > address
+
+1:43:55
+#consensus is the mechanism used to agree on the state of a blockchain
+
+#sybil resistance mechanism
+1. proof od work -> mining 
+    each blockchain decide its own algorithm, the block time could be long or short 
+    depend on how hard the riddle is. For example: 0000 at the front
+
+    proof of work is a piece of the overall consensus protocol, which in BItocin and Aetherium.
+    one current case is Nakamoto consensus which is combination of proof of work, and the longest chain rule
+
+2. proof od stake
