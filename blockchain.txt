@@ -27,4 +27,7 @@ It's also used to define the transaction number for an account/address.
 #Private key
 only know to the key holder, it's used to "sign" transactions
 
-#Private key -> Elliptic curve digital signature algorithm generate -> public key
+#Private key -> Elliptic curve digital signature algorithm generate (hash) -> public key
+
+#public key
+Is derived from your private key. Anyone can "see" it, and us it to verify that a transaction came from you.
