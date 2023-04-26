@@ -2,3 +2,29 @@
 how block chain work
 miner
 SHA256 need 4 zeros at the fronts
+
+#Hash
+unique fixed length string to identify a piece of data
+
+#Hash Algorithm
+A function that computes data into a unique hash
+
+#Mining
+The process of finding the "solution" to the blockchain "problem"
+In out example, the "rpoblem: was to find a hash that starts with four zeros.
+Nodes get paid for mining blocks
+
+#Decentralized
+Having no single point of authority
+
+#Block
+A list of transactions mined together
+
+#Nouce
+A "Number used once" to find the "solution" to the blockchain problem.
+It's also used to define the transaction number for an account/address.
+
+#Private key
+only know to the key holder, it's used to "sign" transactions
+
+#Private key -> Elliptic curve digital signature algorithm generate -> public key
