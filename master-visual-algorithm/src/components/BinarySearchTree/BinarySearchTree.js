@@ -1,7 +1,6 @@
 import NodeSum from "../NodeSum";
-import ArrowLineSum from "./ArrowLineSum";
 
-function LinkedList({ currentSubArray }) {
+function BinarySearchTree({ currentSubArray }) {
   if (Object.keys(currentSubArray).length) {
     const nodeSubArray = currentSubArray.nodeArray;
     const singleSubArray = currentSubArray.singleArray;
@@ -12,11 +11,11 @@ function LinkedList({ currentSubArray }) {
           <NodeSum nodeSubArray={nodeSubArray}></NodeSum>
         </g>
         <g>
-          <ArrowLineSum singleSubArray={singleSubArray}></ArrowLineSum>
+          {/* <ArrowLineSum singleSubArray={singleSubArray}></ArrowLineSum> */}
         </g>
       </svg>
     );
   }
 }
 
-export default LinkedList;
+export default BinarySearchTree;

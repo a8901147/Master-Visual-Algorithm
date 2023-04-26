@@ -14,6 +14,9 @@ function Home() {
         <li>
           <Link to="StackMain">Link to StackMain</Link>
         </li>
+        <li>
+          <Link to="BinarySearchTree">Link to BinarySearchTree</Link>
+        </li>
       </ul>
       <h1>This is Home page</h1>
     </React.Fragment>

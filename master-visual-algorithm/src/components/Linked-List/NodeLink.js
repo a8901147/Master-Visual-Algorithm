@@ -1,6 +1,6 @@
 import React from "react";
 import ArrowLine from "./ArrowLine";
-import Node from "./Node";
+import Node from "../Node";
 
 function NodeLink(props) {
   const { index, value, x, y, checked } = props;

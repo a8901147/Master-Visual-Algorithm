@@ -3,6 +3,7 @@ import SortingBars from "./Sorting/SortingBars";
 import ProgressBar from "./Sorting/ProgressBar";
 import { MODE } from "../function/common";
 import LinkedList from "./Linked-List/LinkedList";
+import BinarySearchTree from "./BinarySearchTree/BinarySearchTree";
 
 function Visualization({ arr, delay, mode }) {
   const [currentSubArrayIndex, setCurrentSubArrayIndex] = useState(0);
@@ -45,7 +46,7 @@ function Visualization({ arr, delay, mode }) {
 
   if (mode === MODE.LINKED_LIST) {
     return (
-      <div style={{ margin: "5%" }}>
+      <div style={{ textAlign: "center" }}>
         <LinkedList currentSubArray={currentSubArray}></LinkedList>
 
         <ProgressBar
@@ -57,9 +58,8 @@ function Visualization({ arr, delay, mode }) {
     );
   } else if (mode === MODE.STACK) {
     return (
-      <div style={{ margin: "5%" }}>
+      <div style={{ textAlign: "center" }}>
         <LinkedList currentSubArray={currentSubArray}></LinkedList>
-
         <ProgressBar
           value={currentSubArrayIndex}
           maxValue={arr.length}
@@ -69,8 +69,19 @@ function Visualization({ arr, delay, mode }) {
     );
   } else if (mode === MODE.SORT) {
     return (
-      <div style={{ margin: "5%" }}>
+      <div style={{ textAlign: "center" }}>
         <SortingBars currentSubArray={currentSubArray}></SortingBars>
+        <ProgressBar
+          value={currentSubArrayIndex}
+          maxValue={arr.length}
+          onSetCurrentSubArrayIndex={onChangeHandler}
+        ></ProgressBar>
+      </div>
+    );
+  } else if (mode === MODE.BINARYSEARCHTREE) {
+    return (
+      <div style={{ textAlign: "center" }}>
+        <BinarySearchTree currentSubArray={currentSubArray}></BinarySearchTree>
         <ProgressBar
           value={currentSubArrayIndex}
           maxValue={arr.length}

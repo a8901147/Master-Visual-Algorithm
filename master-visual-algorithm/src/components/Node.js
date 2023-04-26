@@ -1,5 +1,5 @@
 import React from "react";
-import { CIRCLE_RADIUS } from "../../function/common";
+import { CIRCLE_RADIUS } from "../function/common";
 
 function Node({
   value,

@@ -12,7 +12,7 @@ function SortingBars({ currentSubArray }) {
     const graphHeight = maxVal * 5;
 
     return (
-      <svg width={graphWidth} height={graphHeight}>
+      <svg /*width={graphWidth}*/ height={graphHeight} style={{ margin: "5%" }}>
         {arr.map((value, index) => (
           <g key={index}>
             <rect

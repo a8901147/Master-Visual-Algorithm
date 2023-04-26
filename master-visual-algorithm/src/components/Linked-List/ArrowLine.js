@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 
+//line & arrowline same components
+// no d3
 const ArrowLine = ({ x1, y1, x2, y2, passed, showed }) => {
   const svgRef = useRef(null);
 
