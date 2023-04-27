@@ -1,8 +1,7 @@
 import React, { useRef, useEffect } from "react";
-import * as d3 from "d3";
+//import * as d3 from "d3";
 
-//line & arrowline same components
-// no d3
+/*
 const ArrowLine = ({ x1, y1, x2, y2, passed, showed }) => {
   const svgRef = useRef(null);
 
@@ -41,6 +40,43 @@ const ArrowLine = ({ x1, y1, x2, y2, passed, showed }) => {
   }, [x1, y1, x2, y2, passed]);
   if (showed) {
     return <svg ref={svgRef}></svg>;
+  }
+};
+
+export default ArrowLine;
+*/
+
+const ArrowLine = ({ x1, y1, x2, y2, passed, showed, withArrow }) => {
+  const color = passed ? "#ff8a27" : "black";
+  // deleted showed
+  if (withArrow) {
+    return (
+      <svg>
+        <defs>
+          <marker
+            id="arrowhead"
+            markerWidth="10"
+            markerHeight="7"
+            refX="10"
+            refY="3.5"
+            orient="auto"
+            fill={color}
+          >
+            <polygon points="0 0, 10 3.5, 0 7"></polygon>
+          </marker>
+        </defs>
+        <line
+          x1={x1}
+          x2={x2}
+          y1={y1}
+          y2={y2}
+          stroke={color}
+          marker-end="url(#arrowhead)"
+        ></line>
+      </svg>
+    );
+  } else {
+    <line x1={x1} x2={x2} y1={y1} y2={y2} stroke={color}></line>;
   }
 };
 

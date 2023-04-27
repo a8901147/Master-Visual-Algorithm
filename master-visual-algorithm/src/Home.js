@@ -15,7 +15,7 @@ function Home() {
           <Link to="StackMain">Link to StackMain</Link>
         </li>
         <li>
-          <Link to="BinarySearchTree">Link to BinarySearchTree</Link>
+          <Link to="BinarySearchTreeMain">Link to BinarySearchTreeMain</Link>
         </li>
       </ul>
       <h1>This is Home page</h1>

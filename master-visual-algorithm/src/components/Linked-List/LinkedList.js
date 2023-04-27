@@ -12,7 +12,10 @@ function LinkedList({ currentSubArray }) {
           <NodeSum nodeSubArray={nodeSubArray}></NodeSum>
         </g>
         <g>
-          <ArrowLineSum singleSubArray={singleSubArray}></ArrowLineSum>
+          <ArrowLineSum
+            singleSubArray={singleSubArray}
+            withArrow={true}
+          ></ArrowLineSum>
         </g>
       </svg>
     );

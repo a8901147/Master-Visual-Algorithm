@@ -1,6 +1,8 @@
+import ArrowLineSum from "../Linked-List/ArrowLineSum";
 import NodeSum from "../NodeSum";
 
 function BinarySearchTree({ currentSubArray }) {
+  console.log("BinarySearchTree");
   if (Object.keys(currentSubArray).length) {
     const nodeSubArray = currentSubArray.nodeArray;
     const singleSubArray = currentSubArray.singleArray;
@@ -11,7 +13,10 @@ function BinarySearchTree({ currentSubArray }) {
           <NodeSum nodeSubArray={nodeSubArray}></NodeSum>
         </g>
         <g>
-          {/* <ArrowLineSum singleSubArray={singleSubArray}></ArrowLineSum> */}
+          <ArrowLineSum
+            singleSubArray={singleSubArray}
+            withArrow={false}
+          ></ArrowLineSum>
         </g>
       </svg>
     );

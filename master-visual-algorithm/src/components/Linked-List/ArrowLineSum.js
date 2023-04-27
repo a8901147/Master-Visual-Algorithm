@@ -1,6 +1,6 @@
 import ArrowLine from "./ArrowLine";
 
-function ArrowLineSum({ singleSubArray }) {
+function ArrowLineSum({ singleSubArray, withArrow }) {
   return singleSubArray.map((value, index) => (
     <ArrowLine
       key={index}
@@ -10,6 +10,7 @@ function ArrowLineSum({ singleSubArray }) {
       x2={value.x2}
       y1={value.y1}
       y2={value.y2}
+      withArrow={withArrow}
     ></ArrowLine>
   ));
 }

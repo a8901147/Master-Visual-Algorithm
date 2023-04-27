@@ -51,4 +51,15 @@ Anyone can then verify this new transaction hash with your public key
     proof of work is a piece of the overall consensus protocol, which in BItocin and Aetherium.
     one current case is Nakamoto consensus which is combination of proof of work, and the longest chain rule
 
+    miners exhaust a lot of electricity to get the rewards-> here comes to the proof of stake
 2. proof od stake
+    instead of solving the difficult problem like proof of work, proof of stake nodes put up colloateral
+    as a sybilresisteance mechanism
+
+1:50:33
+#sybil attack
+user create whole bunch of pseudo anonymous accounts to try to influence the network
+
+#51% attack
+
+#longest chain rule
