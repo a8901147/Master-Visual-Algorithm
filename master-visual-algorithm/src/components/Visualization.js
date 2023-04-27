@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import SortingBars from "./Sorting/SortingBars";
 import ProgressBar from "./Sorting/ProgressBar";
 import { MODE } from "../function/common";
-import LinkedList from "./Linked-List/LinkedList";
-import BinarySearchTree from "./BinarySearchTree/BinarySearchTree";
+import NodeLineSum from "./NodeLineSum";
 
 function Visualization({ arr, delay, mode }) {
   const [currentSubArrayIndex, setCurrentSubArrayIndex] = useState(0);
@@ -47,7 +46,10 @@ function Visualization({ arr, delay, mode }) {
   if (mode === MODE.LINKED_LIST) {
     return (
       <div style={{ textAlign: "center" }}>
-        <LinkedList currentSubArray={currentSubArray}></LinkedList>
+        <NodeLineSum
+          currentSubArray={currentSubArray}
+          withArrow={true}
+        ></NodeLineSum>
 
         <ProgressBar
           value={currentSubArrayIndex}
@@ -59,7 +61,10 @@ function Visualization({ arr, delay, mode }) {
   } else if (mode === MODE.STACK) {
     return (
       <div style={{ textAlign: "center" }}>
-        <LinkedList currentSubArray={currentSubArray}></LinkedList>
+        <NodeLineSum
+          currentSubArray={currentSubArray}
+          withArrow={true}
+        ></NodeLineSum>
         <ProgressBar
           value={currentSubArrayIndex}
           maxValue={arr.length}
@@ -81,7 +86,10 @@ function Visualization({ arr, delay, mode }) {
   } else if (mode === MODE.BINARYSEARCHTREE) {
     return (
       <div style={{ textAlign: "center" }}>
-        <BinarySearchTree currentSubArray={currentSubArray}></BinarySearchTree>
+        <NodeLineSum
+          currentSubArray={currentSubArray}
+          withArrow={false}
+        ></NodeLineSum>
         <ProgressBar
           value={currentSubArrayIndex}
           maxValue={arr.length}

@@ -1,7 +1,10 @@
-import NodeSum from "../NodeSum";
-import ArrowLineSum from "./ArrowLineSum";
+import NodeSum from "./NodeSum";
+import ArrowLineSum from "./Linked-List/ArrowLineSum";
 
-function LinkedList({ currentSubArray }) {
+function NodeLineSum({ currentSubArray, withArrow }) {
+  console.log("NodeLineSum");
+  console.log(currentSubArray);
+  console.log(withArrow);
   if (Object.keys(currentSubArray).length) {
     const nodeSubArray = currentSubArray.nodeArray;
     const singleSubArray = currentSubArray.singleArray;
@@ -14,7 +17,7 @@ function LinkedList({ currentSubArray }) {
         <g>
           <ArrowLineSum
             singleSubArray={singleSubArray}
-            withArrow={true}
+            withArrow={withArrow}
           ></ArrowLineSum>
         </g>
       </svg>
@@ -22,4 +25,4 @@ function LinkedList({ currentSubArray }) {
   }
 }
 
-export default LinkedList;
+export default NodeLineSum;

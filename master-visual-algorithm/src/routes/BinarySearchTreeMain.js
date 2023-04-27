@@ -2,12 +2,18 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Visualization from "../components/Visualization";
 import { MODE } from "../function/common";
+import { getTreeNodeRandomInt } from "../function/BinarySearchTree/binarySearchTree";
+import {
+  FIRST_ARROW_X,
+  FIRST_NODE_X,
+  NODE_UPPER_Y,
+  getHorizonSingleArrow,
+} from "../function/linked-list/constant";
 
 function BinarySearchTreeMain() {
   const [obj, setObj] = useState({
-    // arr: getSortRandomInt(9),
-    // sortingIndex: [],
-    // pivotIndex: [],
+    nodeArray: getTreeNodeRandomInt(16, FIRST_NODE_X, NODE_UPPER_Y),
+    lineArray: getHorizonSingleArrow(16, FIRST_ARROW_X, NODE_UPPER_Y),
   });
   const [recordsArray, setRecordsArray] = useState([]);
 

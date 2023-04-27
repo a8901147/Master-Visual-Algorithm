@@ -36,6 +36,7 @@ export const ActiveMode = {
 export const STATE_PREFIX = {
   HEAD: "head",
   TAIL: "tail",
+  ROOT: "root",
 };
 
 export const STATE_POSTFIX = {
