@@ -1,7 +1,8 @@
 import ArrowLine from "./ArrowLine";
 
-function ArrowLineSum({ singleSubArray, withArrow }) {
-  return singleSubArray.map((value, index) => (
+function ArrowLineSum({ lineArray, withArrow }) {
+  console.log(lineArray);
+  return lineArray.map((value, index) => (
     <ArrowLine
       key={index}
       passed={value.passed}

@@ -4,10 +4,10 @@ import ArrowLineSum from "./Linked-List/ArrowLineSum";
 function NodeLineSum({ currentSubArray, withArrow }) {
   console.log("NodeLineSum");
   console.log(currentSubArray);
-  console.log(withArrow);
+  // console.log(withArrow);
   if (Object.keys(currentSubArray).length) {
     const nodeSubArray = currentSubArray.nodeArray;
-    const singleSubArray = currentSubArray.singleArray;
+    const lineArray = currentSubArray.lineArray;
 
     return (
       <svg width="auto" height="500">
@@ -16,7 +16,7 @@ function NodeLineSum({ currentSubArray, withArrow }) {
         </g>
         <g>
           <ArrowLineSum
-            singleSubArray={singleSubArray}
+            lineArray={lineArray}
             withArrow={withArrow}
           ></ArrowLineSum>
         </g>

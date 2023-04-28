@@ -1,8 +1,7 @@
 //balanced tree
 //The absolute difference of heights of left and right subtrees at any node is less than 1
 
-import { STATE_PREFIX } from "../common";
-import { STACK_CONSTANT } from "../stack/constant";
+import { CIRCLE_RADIUS, STATE_PREFIX } from "../common";
 
 // Binary search tree
 // Array Representation :
@@ -16,11 +15,22 @@ import { STACK_CONSTANT } from "../stack/constant";
 //So, B is stored in index 1. And, similarly, the right child of A will be stored in the 2(0)+2 index.
 //For every node, the left and right child will be stored accordingly.
 
-export const getTreeNodeRandomInt = (max, firstX, firstY) => {
+const FIRST_NODE_X = 40;
+const DISTANCE = 60;
+
+export const TREE_CONSTANT = {
+  FIRST_NODE_X: FIRST_NODE_X,
+  DISTANCE: DISTANCE,
+
+  // FIRST_ARROW_Y: FIRST_NODE_X + CIRCLE_RADIUS,
+  // ARROW_LENGTH: DISTANCE - 2 * CIRCLE_RADIUS,
+};
+
+export const getTreeNodeRandomInt = (max, firstX, firstY, distance) => {
   return Array.from({ length: max }, (x, index) => ({
     value: Math.floor(Math.random() * 100),
-    x: firstX,
-    y: firstY + index * STACK_CONSTANT.DISTANCE,
+    x: firstX + index * distance,
+    y: firstY,
     passed: false,
     marked: false,
     head_tail:
