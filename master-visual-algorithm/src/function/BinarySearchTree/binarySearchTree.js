@@ -26,6 +26,48 @@ export const TREE_CONSTANT = {
   // ARROW_LENGTH: DISTANCE - 2 * CIRCLE_RADIUS,
 };
 
+const coordinateXMap = {
+  0: 15,
+  1: 15,
+  2: 15,
+  3: 15,
+  4: 15,
+  5: 15,
+  6: 15,
+  7: 15,
+  8: 15,
+  9: 15,
+  10: 15,
+  11: 15,
+  0: 15,
+  0: 15,
+  0: 15,
+  0: 15,
+  0: 15,
+  0: 15,
+  0: 15,
+  0: 15,
+  0: 15,
+  0: 15,
+  0: 15,
+  0: 15,
+  0: 15,
+  0: 15,
+  0: 15,
+};
+const coordinateXVal = (index) => {
+  if (index >= 1 && index < 2) {
+    return 7 * DISTANCE + FIRST_NODE_X;
+  } else if (index >= 2 && index < 4) {
+    return 3 * DISTANCE + 8 * FIRST_NODE_X;
+  } else if (index >= 4 && index < 8) {
+    return;
+  } else if (index >= 8 && index < 16) {
+    return;
+  }
+  return "wrong";
+};
+
 export const getTreeNodeRandomInt = (max, firstX, firstY, distance) => {
   return Array.from({ length: max }, (x, index) => ({
     value: Math.floor(Math.random() * 100),
@@ -39,6 +81,7 @@ export const getTreeNodeRandomInt = (max, firstX, firstY, distance) => {
         : index == max - 1
         ? STATE_PREFIX.TAIL
         : "",
-    pre_aft_newNode_temp: "",
+    //pre_aft_newNode_temp: "",
+    pre_aft_newNode_temp: distance * index,
   }));
 };
