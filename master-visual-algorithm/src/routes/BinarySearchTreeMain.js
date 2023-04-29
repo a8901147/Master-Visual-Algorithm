@@ -16,11 +16,11 @@ import {
 function BinarySearchTreeMain() {
   const [obj, setObj] = useState({
     nodeArray: [
-      ...getTreeNodeRandomInt(1, 490, 50, 60),
-      ...getTreeNodeRandomInt(2, 250, 150, 480),
-      ...getTreeNodeRandomInt(4, 130, 250, 240),
-      ...getTreeNodeRandomInt(8, 70, 350, 120),
-      ...getTreeNodeRandomInt(16, 40, 450, 60),
+      ...getTreeNodeRandomInt(31, 40, 50), //450
+      // ...getTreeNodeRandomInt(2, 250, 150, 480), //210
+      // ...getTreeNodeRandomInt(4, 130, 250, 240), //90
+      // ...getTreeNodeRandomInt(8, 70, 350, 120), //30
+      // ...getTreeNodeRandomInt(16, 40, 450, 60), //0
     ],
     lineArray: getHorizonSingleArrow(16, FIRST_ARROW_X, NODE_UPPER_Y),
   });

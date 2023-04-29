@@ -16,63 +16,58 @@ import { CIRCLE_RADIUS, STATE_PREFIX } from "../common";
 //For every node, the left and right child will be stored accordingly.
 
 const FIRST_NODE_X = 40;
-const DISTANCE = 60;
+const HOR_DISTANCE_MIN = 30;
+const VER_DISTANCE_MIN = 100;
 
 export const TREE_CONSTANT = {
   FIRST_NODE_X: FIRST_NODE_X,
-  DISTANCE: DISTANCE,
+  HOR_DISTANCE_MIN: HOR_DISTANCE_MIN,
+  VER_DISTANCE_MIN: VER_DISTANCE_MIN,
 
   // FIRST_ARROW_Y: FIRST_NODE_X + CIRCLE_RADIUS,
   // ARROW_LENGTH: DISTANCE - 2 * CIRCLE_RADIUS,
 };
 
 const coordinateXMap = {
-  0: 15,
-  1: 15,
-  2: 15,
-  3: 15,
-  4: 15,
-  5: 15,
-  6: 15,
-  7: 15,
-  8: 15,
-  9: 15,
-  10: 15,
-  11: 15,
-  0: 15,
-  0: 15,
-  0: 15,
-  0: 15,
-  0: 15,
-  0: 15,
-  0: 15,
-  0: 15,
-  0: 15,
-  0: 15,
-  0: 15,
-  0: 15,
-  0: 15,
-  0: 15,
-  0: 15,
-};
-const coordinateXVal = (index) => {
-  if (index >= 1 && index < 2) {
-    return 7 * DISTANCE + FIRST_NODE_X;
-  } else if (index >= 2 && index < 4) {
-    return 3 * DISTANCE + 8 * FIRST_NODE_X;
-  } else if (index >= 4 && index < 8) {
-    return;
-  } else if (index >= 8 && index < 16) {
-    return;
-  }
-  return "wrong";
+  0: { x: 15, y: 0 },
+  1: { x: 7, y: 1 },
+  2: { x: 23, y: 1 },
+  3: { x: 3, y: 2 },
+  4: { x: 11, y: 2 },
+  5: { x: 19, y: 2 },
+  6: { x: 27, y: 2 },
+  7: { x: 1, y: 3 },
+  8: { x: 5, y: 3 },
+  9: { x: 9, y: 3 },
+  10: { x: 13, y: 3 },
+  11: { x: 17, y: 3 },
+  12: { x: 21, y: 3 },
+  13: { x: 25, y: 3 },
+  14: { x: 29, y: 3 },
+  15: { x: 0, y: 4 },
+  16: { x: 2, y: 4 },
+  17: { x: 4, y: 4 },
+  18: { x: 6, y: 4 },
+  19: { x: 8, y: 4 },
+  20: { x: 10, y: 4 },
+  21: { x: 12, y: 4 },
+  22: { x: 14, y: 4 },
+  23: { x: 16, y: 4 },
+  24: { x: 18, y: 4 },
+  25: { x: 20, y: 4 },
+  26: { x: 22, y: 4 },
+  27: { x: 24, y: 4 },
+  28: { x: 26, y: 4 },
+  29: { x: 28, y: 4 },
+  30: { x: 30, y: 4 },
 };
 
-export const getTreeNodeRandomInt = (max, firstX, firstY, distance) => {
+export const getTreeNodeRandomInt = (max, firstX, firstY) => {
   return Array.from({ length: max }, (x, index) => ({
-    value: Math.floor(Math.random() * 100),
-    x: firstX + index * distance,
-    y: firstY,
+    value: index,
+    // x: firstX + index * distance,
+    x: coordinateXMap[index].x * HOR_DISTANCE_MIN + firstX,
+    y: coordinateXMap[index].y * VER_DISTANCE_MIN + firstY,
     passed: false,
     marked: false,
     head_tail:
@@ -82,6 +77,6 @@ export const getTreeNodeRandomInt = (max, firstX, firstY, distance) => {
         ? STATE_PREFIX.TAIL
         : "",
     //pre_aft_newNode_temp: "",
-    pre_aft_newNode_temp: distance * index,
+    pre_aft_newNode_temp: coordinateXMap[index].x * HOR_DISTANCE_MIN + firstX,
   }));
 };
