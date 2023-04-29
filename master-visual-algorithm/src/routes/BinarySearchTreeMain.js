@@ -16,7 +16,7 @@ import {
 function BinarySearchTreeMain() {
   const [obj, setObj] = useState({
     nodeArray: [
-      ...getTreeNodeRandomInt(31, 40, 50), //450
+      ...getTreeNodeRandomInt(10, 40, 50), //450
       // ...getTreeNodeRandomInt(2, 250, 150, 480), //210
       // ...getTreeNodeRandomInt(4, 130, 250, 240), //90
       // ...getTreeNodeRandomInt(8, 70, 350, 120), //30

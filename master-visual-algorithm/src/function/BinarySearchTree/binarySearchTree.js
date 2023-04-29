@@ -15,9 +15,9 @@ import { CIRCLE_RADIUS, STATE_PREFIX } from "../common";
 //So, B is stored in index 1. And, similarly, the right child of A will be stored in the 2(0)+2 index.
 //For every node, the left and right child will be stored accordingly.
 
-const FIRST_NODE_X = 40;
+const FIRST_NODE_X = 60;
 const HOR_DISTANCE_MIN = 30;
-const VER_DISTANCE_MIN = 100;
+const VER_DISTANCE_MIN = 80;
 
 export const TREE_CONSTANT = {
   FIRST_NODE_X: FIRST_NODE_X,
@@ -62,20 +62,54 @@ const coordinateXMap = {
   30: { x: 30, y: 4 },
 };
 
-export const getTreeNodeRandomInt = (max, firstX, firstY) => {
-  return Array.from({ length: max }, (x, index) => ({
-    value: index,
-    // x: firstX + index * distance,
+const createBSTArray = (number) => {
+  let counter = 0;
+  const treeArray = Array.from({ length: 31 }, () => "");
+
+  while (counter < number) {
+    const insertValue = Math.floor(Math.random() * 100);
+    if (!counter) {
+      // first element
+      treeArray[0] = insertValue;
+      counter++;
+      continue;
+    }
+
+    let index = 0;
+
+    while (
+      index < 32 &&
+      insertValue != treeArray[index] &&
+      treeArray[index] != ""
+    ) {
+      if (insertValue < treeArray[index]) {
+        index = 2 * index + 1;
+      } else {
+        index = 2 * index + 2;
+      }
+    }
+
+    if (treeArray[index] == "" && index < 32) {
+      treeArray[index] = insertValue;
+      counter++;
+    }
+  }
+
+  return treeArray;
+};
+
+const findEmptyNode = () => {};
+
+export const getTreeNodeRandomInt = (size, firstX, firstY) => {
+  const treeArray = createBSTArray(size);
+  return treeArray.map((value, index) => ({
+    value: value === "" ? "" : value,
     x: coordinateXMap[index].x * HOR_DISTANCE_MIN + firstX,
     y: coordinateXMap[index].y * VER_DISTANCE_MIN + firstY,
     passed: false,
     marked: false,
-    head_tail:
-      index == 0
-        ? STATE_PREFIX.HEAD
-        : index == max - 1
-        ? STATE_PREFIX.TAIL
-        : "",
+    head_tail: "",
+
     //pre_aft_newNode_temp: "",
     pre_aft_newNode_temp: coordinateXMap[index].x * HOR_DISTANCE_MIN + firstX,
   }));
