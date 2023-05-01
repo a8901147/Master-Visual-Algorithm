@@ -23,7 +23,7 @@ export const ActiveMode = {
   PUSH: "PUSH",
 
   //tree
-  BALANCED_TREE: "BALANCED_TREE",
+  SEARCH_BST: "SEARCH_BST",
 
   // sort
   BUBBLE_SORT: "BUBBLE_SORT",
@@ -44,6 +44,7 @@ export const STATE_POSTFIX = {
   AFT: "aft",
   NEWNODE: "newNode",
   TEMP: "temp",
+  CURRENT: "^",
 };
 
 export const CIRCLE_RADIUS = 20;

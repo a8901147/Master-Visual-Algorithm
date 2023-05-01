@@ -17,7 +17,7 @@ function StackMain() {
       STACK_CONSTANT.NODE_RIGHT_X,
       STACK_CONSTANT.FIRST_NODE_Y
     ),
-    singleArray: getVerticalSingleArrow(
+    lineArray: getVerticalSingleArrow(
       NODE_NUMBER,
       STACK_CONSTANT.NODE_RIGHT_X,
       STACK_CONSTANT.FIRST_ARROW_Y

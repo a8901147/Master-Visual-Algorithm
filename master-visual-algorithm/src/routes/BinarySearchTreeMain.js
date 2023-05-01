@@ -4,25 +4,18 @@ import Visualization from "../components/Visualization";
 import { MODE } from "../function/common";
 import {
   TREE_CONSTANT,
+  getTreeLine,
   getTreeNodeRandomInt,
 } from "../function/BinarySearchTree/binarySearchTree";
-import {
-  FIRST_ARROW_X,
-  FIRST_NODE_X,
-  NODE_UPPER_Y,
-  getHorizonSingleArrow,
-} from "../function/linked-list/constant";
 
 function BinarySearchTreeMain() {
+  const [treeNodeArray, setTreeArray] = useState([
+    ...getTreeNodeRandomInt(10, 40, 50),
+  ]);
+  console.log(treeNodeArray);
   const [obj, setObj] = useState({
-    nodeArray: [
-      ...getTreeNodeRandomInt(10, 40, 50), //450
-      // ...getTreeNodeRandomInt(2, 250, 150, 480), //210
-      // ...getTreeNodeRandomInt(4, 130, 250, 240), //90
-      // ...getTreeNodeRandomInt(8, 70, 350, 120), //30
-      // ...getTreeNodeRandomInt(16, 40, 450, 60), //0
-    ],
-    lineArray: getHorizonSingleArrow(16, FIRST_ARROW_X, NODE_UPPER_Y),
+    nodeArray: treeNodeArray,
+    lineArray: getTreeLine(treeNodeArray),
   });
   const [recordsArray, setRecordsArray] = useState([]);
 

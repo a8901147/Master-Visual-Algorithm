@@ -28,8 +28,8 @@ export const getHorizonSingleArrow = (max, firstX, firstY) => {
   }));
 };
 
-export const FIRST_NODE_X = 100;
-const DISTANCE = 100;
+export const FIRST_NODE_X = 30;
+const DISTANCE = 70;
 export const NODE_UPPER_Y = 50;
 export const NODE_LOWER_Y = 150;
 

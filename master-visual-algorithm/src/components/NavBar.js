@@ -11,11 +11,13 @@ import { MODE, ActiveMode } from "../function/common";
 import { insert, remove, search } from "../function/linked-list/linked-list";
 import InputBox from "./Linked-List/SearchInput";
 import { pop, push } from "../function/stack/stack";
+import { searchBST } from "../function/BinarySearchTree/binarySearchTree";
 
 // import Slider from "../Slider/Slider";
 // import NavNumber from "../NavNumber/NavNumber";
 
 function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
+  console.log("fff");
   const [activeMode, setActiveMode] = useState("SEARCH");
   const [actionTypeFunc, setActionTypeFunc] = useState({
     actionTypeFunc: search,
@@ -31,61 +33,53 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
 
   const onClickSelectionSortHandler = () => {
     setActiveMode(ActiveMode.SELECTION_SORT);
-    // onActionTypeClick();
+
     setActionTypeFunc({ actionTypeFunc: selectionSort });
   };
 
   const onClickInsertionSortHandler = () => {
     setActiveMode(ActiveMode.INSERTION_SORT);
-    // onActionTypeClick();
+
     setActionTypeFunc({ actionTypeFunc: insertionSort });
   };
 
   const onClickMergeSortHandler = () => {
     setActiveMode(ActiveMode.MERGE_SORT);
-    // onActionTypeClick();
     setActionTypeFunc({ actionTypeFunc: mergeSort });
   };
 
   const onClickQuickSortHandler = () => {
     setActiveMode(ActiveMode.QUICK_SORT);
-    // onActionTypeClick();
     setActionTypeFunc({ actionTypeFunc: quickSort });
   };
 
   const onClickLinkedListSearchHandler = () => {
     setActiveMode(ActiveMode.SEARCH);
-    // onActionTypeClick();
     setActionTypeFunc({ actionTypeFunc: search });
   };
 
   const onClickLinkedListInsertHandler = () => {
     setActiveMode(ActiveMode.INSERT);
-    // onActionTypeClick();
     setActionTypeFunc({ actionTypeFunc: insert });
   };
 
   const onClickLinkedListRemoveHandler = () => {
     setActiveMode(ActiveMode.REMOVE);
-    // onActionTypeClick();
     setActionTypeFunc({ actionTypeFunc: remove });
   };
   const onClickStackPopHandler = () => {
     setActiveMode(ActiveMode.POP);
-    // onActionTypeClick();
     setActionTypeFunc({ actionTypeFunc: pop });
   };
 
   const onClickStackPushHandler = () => {
     setActiveMode(ActiveMode.PUSH);
-    // onActionTypeClick();
     setActionTypeFunc({ actionTypeFunc: push });
   };
 
-  const onClickBalancedTreeHandler = () => {
-    setActiveMode(ActiveMode.PUSH);
-    // onActionTypeClick();
-    setActionTypeFunc({ actionTypeFunc: push });
+  const onClickSearchBSTHandler = () => {
+    setActiveMode(ActiveMode.SEARCH_BST);
+    setActionTypeFunc({ actionTypeFunc: searchBST });
   };
 
   const onStartClickHandler = () => {
@@ -122,10 +116,12 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
       const stack_pushValue = document.getElementById("stack_pushValue").value;
       const pushValue = parseInt(stack_pushValue);
       records = actionTypeFunc.actionTypeFunc(obj, pushValue);
-    }
+    } else if (activeMode == ActiveMode.SEARCH_BST) {
+      const BST_searchValue = document.getElementById("BST_searchValue").value;
+      records = actionTypeFunc.actionTypeFunc(obj, BST_searchValue);
 
-    onActionClick(records);
-    // onActionClick(actionTypeFunc);
+      onActionClick(records);
+    }
   };
 
   /* eslint-disable default-case */
@@ -182,9 +178,9 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
           <ul className={classes.navBar}>
             <NavButton
               activeMode={activeMode}
-              onClick={onClickBalancedTreeHandler}
+              onClick={onClickSearchBSTHandler}
             >
-              BALANCED TREE
+              SEARCH_BST
             </NavButton>
 
             <NavButton onClick={onStartClickHandler}>START!</NavButton>
@@ -195,6 +191,7 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
     case MODE.SORT:
       return (
         <ul className={classes.navBar}>
+          <h1>2222</h1>
           <NavButton activeMode={activeMode} onClick={onClickBubbleSortHandler}>
             BUBBLE_SORT
           </NavButton>
@@ -221,5 +218,4 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
       );
   }
 }
-
 export default NavBar;

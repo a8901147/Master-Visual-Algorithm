@@ -13,7 +13,7 @@ import {
 function LinkedListMain() {
   const [obj, setObj] = useState({
     nodeArray: getHorizonNodeRandomInt(16, FIRST_NODE_X, NODE_UPPER_Y),
-    singleArray: getHorizonSingleArrow(16, FIRST_ARROW_X, NODE_UPPER_Y),
+    lineArray: getHorizonSingleArrow(16, FIRST_ARROW_X, NODE_UPPER_Y),
   });
   const [recordsArray, setRecordsArray] = useState([]);
 

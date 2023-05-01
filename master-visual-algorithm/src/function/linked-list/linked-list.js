@@ -12,13 +12,12 @@ export const search = (obj, searchValue) => {
   const sortobj = JSON.parse(JSON.stringify(obj));
   const records = [];
   const nodeArray = sortobj.nodeArray;
-  const singleArray = sortobj.singleArray;
-
+  const lineArray = sortobj.lineArray;
   records.push(JSON.parse(JSON.stringify(sortobj)));
   let index = 0;
   for (index = 0; index < nodeArray.length; index++) {
     if (index) {
-      singleArray[index - 1].passed = true;
+      lineArray[index - 1].passed = true;
       records.push(JSON.parse(JSON.stringify(sortobj)));
     }
 
@@ -46,7 +45,7 @@ export const insert = (obj, insertValue, insertPosition) => {
   const sortobj = JSON.parse(JSON.stringify(obj));
   const records = [];
   const nodeArray = sortobj.nodeArray;
-  const singleArray = sortobj.singleArray;
+  const lineArray = sortobj.lineArray;
   // insertPosition = parseInt(insertPosition);
 
   records.push(JSON.parse(JSON.stringify(sortobj)));
@@ -69,13 +68,13 @@ export const insert = (obj, insertValue, insertPosition) => {
       80
     );
     newArrow.passed = true;
-    singleArray.splice(insertPosition, 0, newArrow);
+    lineArray.splice(insertPosition, 0, newArrow);
     records.push(JSON.parse(JSON.stringify(sortobj)));
 
     //renew node position
     renewNodes(nodeArray, insertPosition);
     //renew arrow target
-    renewArrows(singleArray);
+    renewArrows(lineArray);
     //newNode become Head
 
     records.push(JSON.parse(JSON.stringify(sortobj)));
@@ -107,14 +106,14 @@ export const insert = (obj, insertValue, insertPosition) => {
       120
     );
     newArrow.passed = true;
-    singleArray.splice(insertPosition, 0, newArrow);
+    lineArray.splice(insertPosition, 0, newArrow);
 
     records.push(JSON.parse(JSON.stringify(sortobj)));
 
     //renew node position
     renewNodes(nodeArray, insertPosition);
     //renew arrow target
-    renewArrows(singleArray);
+    renewArrows(lineArray);
     //newNode become Head
 
     records.push(JSON.parse(JSON.stringify(sortobj)));
@@ -126,7 +125,7 @@ export const insert = (obj, insertValue, insertPosition) => {
   console.log("insert middle");
   for (let index = 0; index < nodeArray.length; index++) {
     if (index) {
-      singleArray[index - 1].passed = true;
+      lineArray[index - 1].passed = true;
       records.push(JSON.parse(JSON.stringify(sortobj)));
     }
 
@@ -163,21 +162,21 @@ export const insert = (obj, insertValue, insertPosition) => {
     NODE_UPPER_Y + CIRCLE_RADIUS
   );
   newArrow.passed = true;
-  singleArray.splice(insertPosition, 0, newArrow);
+  lineArray.splice(insertPosition, 0, newArrow);
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
   //edit arrow (front node -> newnode)
-  singleArray[insertPosition - 1].x1 = nodeArray[insertPosition - 1].x + 10;
-  singleArray[insertPosition - 1].y1 = 60;
-  singleArray[insertPosition - 1].x2 = nodeArray[insertPosition].x - 20;
-  singleArray[insertPosition - 1].y2 = 130;
+  lineArray[insertPosition - 1].x1 = nodeArray[insertPosition - 1].x + 10;
+  lineArray[insertPosition - 1].y1 = 60;
+  lineArray[insertPosition - 1].x2 = nodeArray[insertPosition].x - 20;
+  lineArray[insertPosition - 1].y2 = 130;
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
   //renew node position
   renewNodes(nodeArray, insertPosition);
 
   //renew arrow target
-  renewArrows(singleArray);
+  renewArrows(lineArray);
 
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
@@ -188,8 +187,7 @@ export const remove = (obj, removeIndex) => {
   const sortobj = JSON.parse(JSON.stringify(obj));
   const records = [];
   const nodeArray = sortobj.nodeArray;
-  const singleArray = sortobj.singleArray;
-
+  const lineArray = sortobj.lineArray;
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
   if (!removeIndex) {
@@ -198,7 +196,7 @@ export const remove = (obj, removeIndex) => {
     nodeArray[0].pre_aft_newNode_temp = STATE_POSTFIX.TEMP;
     records.push(JSON.parse(JSON.stringify(sortobj)));
 
-    singleArray[0].passed = true;
+    lineArray[0].passed = true;
     records.push(JSON.parse(JSON.stringify(sortobj)));
 
     nodeArray[0].head_tail = "";
@@ -208,12 +206,12 @@ export const remove = (obj, removeIndex) => {
     records.push(JSON.parse(JSON.stringify(sortobj)));
 
     nodeArray.shift();
-    singleArray.shift();
+    lineArray.shift();
 
     //renew node position
     renewNodes(nodeArray, 0);
     //renew arrow target
-    renewArrows(singleArray);
+    renewArrows(lineArray);
     //newNode become Head
 
     records.push(JSON.parse(JSON.stringify(sortobj)));
@@ -230,7 +228,7 @@ export const remove = (obj, removeIndex) => {
         nodeArray[0].pre_aft_newNode_temp = STATE_POSTFIX.PRE;
         records.push(JSON.parse(JSON.stringify(sortobj)));
 
-        singleArray[0].passed = true;
+        lineArray[0].passed = true;
         records.push(JSON.parse(JSON.stringify(sortobj)));
 
         nodeArray[1].passed = true;
@@ -246,7 +244,7 @@ export const remove = (obj, removeIndex) => {
       nodeArray[index].passed = true;
       nodeArray[index].pre_aft_newNode_temp = STATE_POSTFIX.PRE;
 
-      singleArray[index].passed = true;
+      lineArray[index].passed = true;
 
       nodeArray[index + 1].passed = true;
       nodeArray[index + 1].marked = true;
@@ -255,12 +253,12 @@ export const remove = (obj, removeIndex) => {
     }
 
     nodeArray.pop();
-    singleArray.pop();
+    lineArray.pop();
 
     //renew node position
     renewNodes(nodeArray, 0);
     //renew arrow target
-    renewArrows(singleArray);
+    renewArrows(lineArray);
     //newNode become Head
 
     records.push(JSON.parse(JSON.stringify(sortobj)));
@@ -272,7 +270,7 @@ export const remove = (obj, removeIndex) => {
   console.log("remove middle");
   for (let index = 0; index < nodeArray.length; index++) {
     if (index) {
-      singleArray[index - 1].passed = true;
+      lineArray[index - 1].passed = true;
       records.push(JSON.parse(JSON.stringify(sortobj)));
     }
 
@@ -282,7 +280,7 @@ export const remove = (obj, removeIndex) => {
       nodeArray[index].pre_aft_newNode_temp = STATE_POSTFIX.TEMP;
       records.push(JSON.parse(JSON.stringify(sortobj)));
 
-      singleArray[index].passed = true;
+      lineArray[index].passed = true;
       records.push(JSON.parse(JSON.stringify(sortobj)));
 
       nodeArray[index + 1].passed = true;
@@ -305,19 +303,19 @@ export const remove = (obj, removeIndex) => {
   // node lower to lower level
   nodeArray[removeIndex].y = NODE_LOWER_Y;
   console.log(degree45_xy);
-  console.log(singleArray[removeIndex]);
+  console.log(lineArray[removeIndex]);
   //extend arrow and change arrow direction
-  singleArray[removeIndex - 1].x2 = singleArray[removeIndex].x2;
-  singleArray[removeIndex].x1 = nodeArray[removeIndex].x + degree45_xy;
-  singleArray[removeIndex].y1 = NODE_LOWER_Y - degree45_xy;
-  singleArray[removeIndex].x2 = nodeArray[removeIndex + 1].x - degree45_xy;
-  singleArray[removeIndex].y2 = NODE_UPPER_Y + degree45_xy;
+  lineArray[removeIndex - 1].x2 = lineArray[removeIndex].x2;
+  lineArray[removeIndex].x1 = nodeArray[removeIndex].x + degree45_xy;
+  lineArray[removeIndex].y1 = NODE_LOWER_Y - degree45_xy;
+  lineArray[removeIndex].x2 = nodeArray[removeIndex + 1].x - degree45_xy;
+  lineArray[removeIndex].y2 = NODE_UPPER_Y + degree45_xy;
 
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
   //remove node and arrow
   nodeArray.splice(removeIndex, 1);
-  singleArray.splice(removeIndex, 1);
+  lineArray.splice(removeIndex, 1);
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
   //renew node position
@@ -325,7 +323,7 @@ export const remove = (obj, removeIndex) => {
   nodeArray[removeIndex - 1].passed = true;
 
   //renew arrow target
-  renewArrows(singleArray);
+  renewArrows(lineArray);
 
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
@@ -370,13 +368,14 @@ const renewNodes = (nodeArray, insertPosition) => {
   }
 };
 
-const renewArrows = (singleArray) => {
-  for (let index = 0; index < singleArray.length; index++) {
-    singleArray[index].x1 = FIRST_ARROW_X + 100 * index;
-    singleArray[index].y1 = NODE_UPPER_Y;
-    singleArray[index].x2 = FIRST_ARROW_X + ARROW_LENGTH + 100 * index;
-    singleArray[index].y2 = NODE_UPPER_Y;
-    // singleArray[index].passed = false;
+const renewArrows = (lineArray) => {
+  for (let index = 0; index < lineArray.length; index++) {
+    lineArray[index].x1 = FIRST_ARROW_X + 100 * index;
+    lineArray[index].y1 = NODE_UPPER_Y;
+    lineArray[index].x2 = FIRST_ARROW_X + ARROW_LENGTH + 100 * index;
+    lineArray[index].y2 = NODE_UPPER_Y;
+    // lineArray
+    [index].passed = false;
   }
 };
 

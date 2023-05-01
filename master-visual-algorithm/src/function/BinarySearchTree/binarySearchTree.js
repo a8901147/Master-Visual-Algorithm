@@ -2,6 +2,7 @@
 //The absolute difference of heights of left and right subtrees at any node is less than 1
 
 import { CIRCLE_RADIUS, STATE_PREFIX } from "../common";
+import { push } from "../stack/stack";
 
 // Binary search tree
 // Array Representation :
@@ -98,8 +99,6 @@ const createBSTArray = (number) => {
   return treeArray;
 };
 
-const findEmptyNode = () => {};
-
 export const getTreeNodeRandomInt = (size, firstX, firstY) => {
   const treeArray = createBSTArray(size);
   return treeArray.map((value, index) => ({
@@ -108,9 +107,87 @@ export const getTreeNodeRandomInt = (size, firstX, firstY) => {
     y: coordinateXMap[index].y * VER_DISTANCE_MIN + firstY,
     passed: false,
     marked: false,
-    head_tail: "",
-
-    //pre_aft_newNode_temp: "",
-    pre_aft_newNode_temp: coordinateXMap[index].x * HOR_DISTANCE_MIN + firstX,
+    head_tail: index ? "" : STATE_PREFIX.ROOT,
+    pre_aft_newNode_temp: "",
+    // pre_aft_newNode_temp: coordinateXMap[index].x * HOR_DISTANCE_MIN + firstX,
   }));
+};
+
+export const getTreeLine = (treeArray) => {
+  const lineArray = [];
+
+  for (let index = 0; index < treeArray.length; index++) {
+    if (2 * index + 1 < treeArray.length) {
+      const { delta_X, delta_Y } = calculate_delta(
+        treeArray[index],
+        treeArray[2 * index + 1]
+      );
+
+      const hasLeftLine =
+        treeArray[index].value != "" && treeArray[2 * index + 1].value != ""
+          ? true
+          : false;
+      lineArray.push({
+        x1: treeArray[index].x - delta_X,
+        y1: treeArray[index].y + delta_Y,
+        x2: treeArray[2 * index + 1].x + delta_X,
+        y2: treeArray[2 * index + 1].y - delta_Y,
+        passed: false,
+        showed: hasLeftLine,
+      });
+    }
+
+    if (2 * index + 2 < treeArray.length) {
+      const hasRightLine =
+        treeArray[index].value != "" && treeArray[2 * index + 2].value != ""
+          ? true
+          : false;
+
+      const { delta_X, delta_Y } = calculate_delta(
+        treeArray[index],
+        treeArray[2 * index + 2]
+      );
+      lineArray.push({
+        x1: treeArray[index].x + delta_X,
+        y1: treeArray[index].y + delta_Y,
+        x2: treeArray[2 * index + 2].x - delta_X,
+        y2: treeArray[2 * index + 2].y - delta_Y,
+        passed: false,
+        showed: hasRightLine,
+      });
+    }
+  }
+
+  return lineArray;
+};
+
+const calculate_delta = (node1, node2) => {
+  const x_diiference =
+    node1.x > node2.x ? node1.x - node2.x : node2.x - node1.x;
+  const y_diiference =
+    node1.y > node2.y ? node1.y - node2.y : node2.y - node1.y;
+  const slope = y_diiference / x_diiference;
+
+  const delta_X = Math.sqrt(
+    Math.pow(CIRCLE_RADIUS, 2) / (Math.pow(slope, 2) + 1)
+  );
+
+  const delta_Y = slope * delta_X;
+  return { delta_X, delta_Y };
+};
+
+export const searchBST = (obj, searchValue) => {
+  const sortobj = JSON.parse(JSON.stringify(obj));
+  const records = [];
+  const nodeArray = sortobj.nodeArray;
+  const lineArray = sortobj.lineArray;
+  records.push(JSON.parse(JSON.stringify(sortobj)));
+
+  let index = 0;
+  let currentNode = nodeArray[index];
+  while (currentNode.value !== "") {
+    currentNode.passed = true;
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+  }
+  return records;
 };
