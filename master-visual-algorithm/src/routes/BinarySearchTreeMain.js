@@ -6,13 +6,13 @@ import {
   TREE_CONSTANT,
   getTreeLine,
   getTreeNodeRandomInt,
-} from "../function/BinarySearchTree/binarySearchTree";
+} from "../function/binarySearchTree/binarySearchTree";
 
 function BinarySearchTreeMain() {
   const [treeNodeArray, setTreeArray] = useState([
     ...getTreeNodeRandomInt(10, 40, 50),
   ]);
-  console.log(treeNodeArray);
+
   const [obj, setObj] = useState({
     nodeArray: treeNodeArray,
     lineArray: getTreeLine(treeNodeArray),

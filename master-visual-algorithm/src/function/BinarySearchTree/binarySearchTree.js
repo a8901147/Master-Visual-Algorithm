@@ -177,6 +177,7 @@ const calculate_delta = (node1, node2) => {
 };
 
 export const searchBST = (obj, searchValue) => {
+  const targetValue = parseInt(searchValue);
   const sortobj = JSON.parse(JSON.stringify(obj));
   const records = [];
   const nodeArray = sortobj.nodeArray;
@@ -184,10 +185,51 @@ export const searchBST = (obj, searchValue) => {
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
   let index = 0;
-  let currentNode = nodeArray[index];
-  while (currentNode.value !== "") {
+
+  while (index < nodeArray.length && nodeArray[index].value != "") {
+    if (index) {
+      const currentLine = lineArray[index - 1];
+      currentLine.passed = true;
+      records.push(JSON.parse(JSON.stringify(sortobj)));
+    }
+
+    const currentNode = nodeArray[index];
     currentNode.passed = true;
     records.push(JSON.parse(JSON.stringify(sortobj)));
+
+    if (targetValue < currentNode.value) {
+      index = 2 * index + 1;
+    } else if (currentNode.value < targetValue) {
+      index = 2 * index + 2;
+    } else {
+      //equal
+      currentNode.marked = true;
+      records.push(JSON.parse(JSON.stringify(sortobj)));
+      break;
+    }
   }
   return records;
 };
+
+export const insertBST = (obj, insertValue) => {
+  const records = searchBST(obj, insertValue);
+  // insert
+  const lastRecord = records[records.length - 1];
+  const parentNodeIndex = lastRecord.nodeArray.findLastIndex(isPassedNode);
+  if (parentNodeIndex < 16) {
+    const sortobj = JSON.parse(JSON.stringify(lastRecord));
+    const nodeArray = sortobj.nodeArray;
+    const lineArray = sortobj.lineArray;
+
+    // no duplicated condition
+    if (insertValue < nodeArray[parentNodeIndex].value) {
+      // left
+    } else {
+      //right
+    }
+  }
+
+  return records;
+};
+
+const isPassedNode = (element) => element.passed === true;

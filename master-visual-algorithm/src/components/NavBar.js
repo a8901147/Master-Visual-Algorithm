@@ -11,13 +11,15 @@ import { MODE, ActiveMode } from "../function/common";
 import { insert, remove, search } from "../function/linked-list/linked-list";
 import InputBox from "./Linked-List/SearchInput";
 import { pop, push } from "../function/stack/stack";
-import { searchBST } from "../function/BinarySearchTree/binarySearchTree";
+import {
+  insertBST,
+  searchBST,
+} from "../function/binarySearchTree/binarySearchTree";
 
 // import Slider from "../Slider/Slider";
 // import NavNumber from "../NavNumber/NavNumber";
 
 function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
-  console.log("fff");
   const [activeMode, setActiveMode] = useState("SEARCH");
   const [actionTypeFunc, setActionTypeFunc] = useState({
     actionTypeFunc: search,
@@ -25,21 +27,19 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
 
   // add there should be a default for each when change sort/linkedlist/stack
 
+  // sort
   const onClickBubbleSortHandler = () => {
     setActiveMode(ActiveMode.BUBBLE_SORT);
-    // onActionTypeClick();
     setActionTypeFunc({ actionTypeFunc: bubbleSort });
   };
 
   const onClickSelectionSortHandler = () => {
     setActiveMode(ActiveMode.SELECTION_SORT);
-
     setActionTypeFunc({ actionTypeFunc: selectionSort });
   };
 
   const onClickInsertionSortHandler = () => {
     setActiveMode(ActiveMode.INSERTION_SORT);
-
     setActionTypeFunc({ actionTypeFunc: insertionSort });
   };
 
@@ -53,6 +53,7 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
     setActionTypeFunc({ actionTypeFunc: quickSort });
   };
 
+  // link list
   const onClickLinkedListSearchHandler = () => {
     setActiveMode(ActiveMode.SEARCH);
     setActionTypeFunc({ actionTypeFunc: search });
@@ -67,6 +68,8 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
     setActiveMode(ActiveMode.REMOVE);
     setActionTypeFunc({ actionTypeFunc: remove });
   };
+
+  // stack
   const onClickStackPopHandler = () => {
     setActiveMode(ActiveMode.POP);
     setActionTypeFunc({ actionTypeFunc: pop });
@@ -77,9 +80,15 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
     setActionTypeFunc({ actionTypeFunc: push });
   };
 
+  // BST
   const onClickSearchBSTHandler = () => {
     setActiveMode(ActiveMode.SEARCH_BST);
     setActionTypeFunc({ actionTypeFunc: searchBST });
+  };
+
+  const onClickInsertBSTHandler = () => {
+    setActiveMode(ActiveMode.INSERT_BST);
+    setActionTypeFunc({ actionTypeFunc: insertBST });
   };
 
   const onStartClickHandler = () => {
@@ -119,9 +128,20 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
     } else if (activeMode == ActiveMode.SEARCH_BST) {
       const BST_searchValue = document.getElementById("BST_searchValue").value;
       records = actionTypeFunc.actionTypeFunc(obj, BST_searchValue);
+    } else if (activeMode == ActiveMode.INSERT_BST) {
+      // if no duplicate
+      const BST_insertValue = document.getElementById("BST_insertValue").value;
+      const isDuplicated = obj.nodeArray.findIndex((element) => {
+        return element.value == BST_insertValue;
+      });
 
-      onActionClick(records);
+      if (isDuplicated != -1) {
+        records = [obj];
+      } else {
+        records = actionTypeFunc.actionTypeFunc(obj, BST_insertValue);
+      }
     }
+    onActionClick(records);
   };
 
   /* eslint-disable default-case */
@@ -182,7 +202,12 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
             >
               SEARCH_BST
             </NavButton>
-
+            <NavButton
+              activeMode={activeMode}
+              onClick={onClickInsertBSTHandler}
+            >
+              INSERT_BST
+            </NavButton>
             <NavButton onClick={onStartClickHandler}>START!</NavButton>
           </ul>
           <InputBox activeMode={activeMode}></InputBox>

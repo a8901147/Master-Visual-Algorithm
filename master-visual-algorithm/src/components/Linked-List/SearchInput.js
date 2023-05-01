@@ -33,6 +33,8 @@ function InputBox({ activeMode }) {
     return <input id="stack_pushValue" placeholder="stack_pushValue"></input>;
   } else if (activeMode == ActiveMode.SEARCH_BST) {
     return <input id="BST_searchValue" placeholder="BST_searchValue"></input>;
+  } else if (activeMode == ActiveMode.INSERT_BST) {
+    return <input id="BST_insertValue" placeholder="BST_insertValue"></input>;
   }
 }
 
