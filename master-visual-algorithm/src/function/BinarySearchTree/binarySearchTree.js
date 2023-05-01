@@ -213,23 +213,43 @@ export const searchBST = (obj, searchValue) => {
 
 export const insertBST = (obj, insertValue) => {
   const records = searchBST(obj, insertValue);
-  // insert
   const lastRecord = records[records.length - 1];
   const parentNodeIndex = lastRecord.nodeArray.findLastIndex(isPassedNode);
   if (parentNodeIndex < 16) {
     const sortobj = JSON.parse(JSON.stringify(lastRecord));
     const nodeArray = sortobj.nodeArray;
     const lineArray = sortobj.lineArray;
+    let newNodeindex = 0;
 
     // no duplicated condition
     if (insertValue < nodeArray[parentNodeIndex].value) {
       // left
+      newNodeindex = 2 * parentNodeIndex + 1;
     } else {
       //right
+      newNodeindex = 2 * parentNodeIndex + 2;
     }
+    nodeArray[newNodeindex].value = insertValue;
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+
+    lineArray[newNodeindex - 1].showed = true;
+    lineArray[newNodeindex - 1].passed = true;
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+
+    nodeArray[newNodeindex].passed = true;
+    nodeArray[newNodeindex].marked = true;
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+  } else {
+    return [obj];
   }
 
   return records;
+};
+
+export const removeBST = (obj, removeValue) => {
+  const records = searchBST(obj, removeValue);
+  const lastRecord = records[records.length - 1];
+  const parentNodeIndex = lastRecord.nodeArray.findLastIndex(isPassedNode);
 };
 
 const isPassedNode = (element) => element.passed === true;
