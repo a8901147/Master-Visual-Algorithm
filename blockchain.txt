@@ -63,3 +63,18 @@ user create whole bunch of pseudo anonymous accounts to try to influence the net
 #51% attack
 
 #longest chain rule
+
+
+1:57:56 
+Layer1: base layer blockchain implementation -> bitcoin/ etherem
+Layer2: Any application built on top of a layer 2
+
+1:59:12
+roll up summary
+
+2:00:00
+coding aspect
+#remix IDE
+
+2:21:46
+every smart contract have addresses just like out wallet accounts do
