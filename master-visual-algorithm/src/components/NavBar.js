@@ -13,6 +13,7 @@ import InputBox from "./Linked-List/SearchInput";
 import { pop, push } from "../function/stack/stack";
 import {
   insertBST,
+  removeBST,
   searchBST,
 } from "../function/binarySearchTree/binarySearchTree";
 
@@ -91,6 +92,11 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
     setActionTypeFunc({ actionTypeFunc: insertBST });
   };
 
+  const onClickRemoveBSTHandler = () => {
+    setActiveMode(ActiveMode.REMOVE_BST);
+    setActionTypeFunc({ actionTypeFunc: removeBST });
+  };
+
   const onStartClickHandler = () => {
     let records = [];
     if (activeMode == ActiveMode.SEARCH) {
@@ -139,6 +145,19 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
         records = [obj];
       } else {
         records = actionTypeFunc.actionTypeFunc(obj, BST_insertValue);
+      }
+    } else if (activeMode == ActiveMode.REMOVE_BST) {
+      // if no duplicate
+      const BST_removeValue = document.getElementById("BST_removeValue").value;
+      const isDuplicated = obj.nodeArray.findIndex((element) => {
+        return element.value == BST_removeValue;
+      });
+
+      if (isDuplicated == -1) {
+        console.log("cant find the remove value");
+        records = [obj];
+      } else {
+        records = actionTypeFunc.actionTypeFunc(obj, BST_removeValue);
       }
     }
     onActionClick(records);
@@ -207,6 +226,12 @@ function NavBar({ mode, onActionTypeClick, onActionClick, obj }) {
               onClick={onClickInsertBSTHandler}
             >
               INSERT_BST
+            </NavButton>
+            <NavButton
+              activeMode={activeMode}
+              onClick={onClickRemoveBSTHandler}
+            >
+              REMOVE_BST
             </NavButton>
             <NavButton onClick={onStartClickHandler}>START!</NavButton>
           </ul>

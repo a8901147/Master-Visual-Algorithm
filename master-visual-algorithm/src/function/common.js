@@ -25,6 +25,7 @@ export const ActiveMode = {
   //tree
   SEARCH_BST: "SEARCH_BST",
   INSERT_BST: "INSERT_BST",
+  REMOVE_BST: "REMOVE_BST",
 
   // sort
   BUBBLE_SORT: "BUBBLE_SORT",

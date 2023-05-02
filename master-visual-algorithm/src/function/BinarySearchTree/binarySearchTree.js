@@ -215,7 +215,7 @@ export const insertBST = (obj, insertValue) => {
   const records = searchBST(obj, insertValue);
   const lastRecord = records[records.length - 1];
   const parentNodeIndex = lastRecord.nodeArray.findLastIndex(isPassedNode);
-  if (parentNodeIndex < 16) {
+  if (parentNodeIndex < 15) {
     const sortobj = JSON.parse(JSON.stringify(lastRecord));
     const nodeArray = sortobj.nodeArray;
     const lineArray = sortobj.lineArray;
@@ -247,9 +247,74 @@ export const insertBST = (obj, insertValue) => {
 };
 
 export const removeBST = (obj, removeValue) => {
+  // already sure can find the remove value
   const records = searchBST(obj, removeValue);
   const lastRecord = records[records.length - 1];
-  const parentNodeIndex = lastRecord.nodeArray.findLastIndex(isPassedNode);
+  const removeNodeIndex = lastRecord.nodeArray.findLastIndex(isPassedNode);
+
+  const sortobj = JSON.parse(JSON.stringify(lastRecord));
+  const nodeArray = sortobj.nodeArray;
+  const lineArray = sortobj.lineArray;
+
+  //1. Node to be deleted is the leaf
+  if (removeNodeIndex > 14) {
+    nodeArray[removeNodeIndex].value = "";
+    lineArray[removeNodeIndex - 1].showed = false;
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+  } else {
+    if (
+      nodeArray[2 * removeNodeIndex + 1].value == "" &&
+      nodeArray[2 * removeNodeIndex + 2].value == ""
+    ) {
+      nodeArray[removeNodeIndex].value = "";
+      lineArray[removeNodeIndex - 1].showed = false;
+      records.push(JSON.parse(JSON.stringify(sortobj)));
+    }
+  }
+  //2. Node to be deleted has only one child
+  if (
+    (nodeArray[2 * removeNodeIndex + 1].value == "" &&
+      nodeArray[2 * removeNodeIndex + 2].value != "") ||
+    (nodeArray[2 * removeNodeIndex + 1].value != "" &&
+      nodeArray[2 * removeNodeIndex + 2].value == "")
+  ) {
+    nodeArray[removeNodeIndex].passed = false;
+    nodeArray[removeNodeIndex].marked = false;
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+
+    const childNodeIndex =
+      nodeArray[2 * removeNodeIndex + 2].value != ""
+        ? 2 * removeNodeIndex + 2
+        : 2 * removeNodeIndex + 1;
+    const removeIsLeft = Number.isInteger((removeNodeIndex - 1) / 2);
+    const parentIndex = Math.floor((removeNodeIndex - 1) / 2);
+    nodeArray[removeNodeIndex].value = "";
+    lineArray[childNodeIndex - 1].showed = false;
+
+    const { delta_X, delta_Y } = calculate_delta(
+      nodeArray[parentIndex],
+      nodeArray[childNodeIndex]
+    );
+    lineArray[removeNodeIndex - 1].x1 = removeIsLeft
+      ? nodeArray[parentIndex].x - delta_X
+      : nodeArray[parentIndex].x + delta_X;
+    lineArray[removeNodeIndex - 1].y1 = nodeArray[parentIndex].y + delta_Y;
+    lineArray[removeNodeIndex - 1].x2 = removeIsLeft
+      ? nodeArray[childNodeIndex].x + delta_X
+      : nodeArray[childNodeIndex].x - delta_X;
+    lineArray[removeNodeIndex - 1].y2 = nodeArray[childNodeIndex].y - delta_Y;
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+  }
+  //3. Node to be deleted has two children
+  if (
+    (nodeArray[2 * removeNodeIndex + 1].value != "" &&
+      nodeArray[2 * removeNodeIndex + 2].value != "") ||
+    (nodeArray[2 * removeNodeIndex + 1].value != "" &&
+      nodeArray[2 * removeNodeIndex + 2].value != "")
+  ) {
+  }
+
+  return records;
 };
 
 const isPassedNode = (element) => element.passed === true;

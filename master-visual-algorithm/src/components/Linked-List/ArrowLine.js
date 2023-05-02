@@ -47,7 +47,7 @@ export default ArrowLine;
 */
 
 const ArrowLine = ({ x1, y1, x2, y2, passed, showed, withArrow }) => {
-  console.log(withArrow);
+  //console.log(withArrow);
   const color = passed ? "#ff8a27" : "black";
   // deleted showed
   if (showed) {
