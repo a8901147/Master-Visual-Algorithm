@@ -161,6 +161,54 @@ export const getTreeLine = (treeArray) => {
   return lineArray;
 };
 
+const renewTreeLine = (obj) => {
+  const sortobj = JSON.parse(JSON.stringify(obj));
+
+  const nodeArray = sortobj.nodeArray;
+  const lineArray = sortobj.lineArray;
+
+  for (let index = 0; index < nodeArray.length; index++) {
+    if (2 * index + 1 < nodeArray.length) {
+      const { delta_X, delta_Y } = calculate_delta(
+        nodeArray[index],
+        nodeArray[2 * index + 1]
+      );
+
+      const hasLeftLine =
+        nodeArray[index].value != "" && nodeArray[2 * index + 1].value != ""
+          ? true
+          : false;
+
+      lineArray[2 * index].x1 = nodeArray[index].x - delta_X;
+      lineArray[2 * index].y1 = nodeArray[index].y + delta_Y;
+      lineArray[2 * index].x2 = nodeArray[2 * index + 1].x + delta_X;
+      lineArray[2 * index].y2 = nodeArray[2 * index + 1].y - delta_Y;
+      lineArray[2 * index].passed = false;
+      lineArray[2 * index].showed = hasLeftLine;
+    }
+
+    if (2 * index + 2 < nodeArray.length) {
+      const hasRightLine =
+        nodeArray[index].value != "" && nodeArray[2 * index + 2].value != ""
+          ? true
+          : false;
+
+      const { delta_X, delta_Y } = calculate_delta(
+        nodeArray[index],
+        nodeArray[2 * index + 2]
+      );
+      lineArray[2 * index].x1 = nodeArray[index].x + delta_X;
+      lineArray[2 * index].y1 = nodeArray[index].y + delta_Y;
+      lineArray[2 * index].x2 = nodeArray[2 * index + 1].x - delta_X;
+      lineArray[2 * index].y2 = nodeArray[2 * index + 1].y - delta_Y;
+      lineArray[2 * index].passed = false;
+      lineArray[2 * index].showed = hasRightLine;
+    }
+  }
+
+  return lineArray;
+};
+
 const calculate_delta = (node1, node2) => {
   const x_diiference =
     node1.x > node2.x ? node1.x - node2.x : node2.x - node1.x;
@@ -282,6 +330,7 @@ export const removeBST = (obj, removeValue) => {
     nodeArray[removeNodeIndex].marked = false;
     records.push(JSON.parse(JSON.stringify(sortobj)));
 
+    // remove node and change direction of line
     const childNodeIndex =
       nodeArray[2 * removeNodeIndex + 2].value != ""
         ? 2 * removeNodeIndex + 2
@@ -304,6 +353,10 @@ export const removeBST = (obj, removeValue) => {
       : nodeArray[childNodeIndex].x - delta_X;
     lineArray[removeNodeIndex - 1].y2 = nodeArray[childNodeIndex].y - delta_Y;
     records.push(JSON.parse(JSON.stringify(sortobj)));
+
+    //clear removeNode branch Node first then move it upward
+    const r = collectionRelocateTreeNodeArray(childNodeIndex, nodeArray);
+    console.log(r);
   }
   //3. Node to be deleted has two children
   if (
@@ -318,3 +371,28 @@ export const removeBST = (obj, removeValue) => {
 };
 
 const isPassedNode = (element) => element.passed === true;
+
+const collectionRelocateTreeNodeArray = (rootIndex, nodeArray) => {
+  const queue = [];
+
+  return recursive(nodeArray, rootIndex, queue);
+};
+
+const recursive = (nodeArray, index, queue) => {
+  if (index > 30) {
+    return;
+  }
+  if (nodeArray[index].value == "") {
+    return;
+  }
+
+  queue.push({
+    oldIndex: index,
+    newIndex: Math.floor((index - 1) / 2),
+    value: nodeArray[index].value,
+  });
+  recursive(nodeArray, 2 * index + 1, queue);
+  recursive(nodeArray, 2 * index + 2, queue);
+
+  return queue;
+};
