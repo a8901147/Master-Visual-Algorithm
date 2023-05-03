@@ -355,8 +355,11 @@ export const removeBST = (obj, removeValue) => {
     records.push(JSON.parse(JSON.stringify(sortobj)));
 
     //clear removeNode branch Node first then move it upward
-    const r = collectionRelocateTreeNodeArray(childNodeIndex, nodeArray);
-    console.log(r);
+    const relocateArray = collectionRelocateTreeNodeArray(
+      childNodeIndex,
+      nodeArray
+    );
+    console.log(relocateArray);
   }
   //3. Node to be deleted has two children
   if (
@@ -375,24 +378,17 @@ const isPassedNode = (element) => element.passed === true;
 const collectionRelocateTreeNodeArray = (rootIndex, nodeArray) => {
   const queue = [];
 
-  return recursive(nodeArray, rootIndex, queue);
+  return recursiveCollection(nodeArray, rootIndex, queue);
 };
 
-const recursive = (nodeArray, index, queue) => {
+const recursiveCollection = (nodeArray, index, queue) => {
   if (index > 30) {
     return;
   }
-  if (nodeArray[index].value == "") {
-    return;
-  }
 
-  queue.push({
-    oldIndex: index,
-    newIndex: Math.floor((index - 1) / 2),
-    value: nodeArray[index].value,
-  });
-  recursive(nodeArray, 2 * index + 1, queue);
-  recursive(nodeArray, 2 * index + 2, queue);
+  recursiveCollection(nodeArray, 2 * index + 1, queue);
+  queue.push(nodeArray[index].value);
+  recursiveCollection(nodeArray, 2 * index + 2, queue);
 
   return queue;
 };
