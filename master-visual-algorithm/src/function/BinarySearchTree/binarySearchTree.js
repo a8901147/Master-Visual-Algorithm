@@ -162,12 +162,11 @@ export const getTreeLine = (treeArray) => {
 };
 
 const renewTreeLine = (obj) => {
-  const sortobj = JSON.parse(JSON.stringify(obj));
-
-  const nodeArray = sortobj.nodeArray;
-  const lineArray = sortobj.lineArray;
+  const nodeArray = obj.nodeArray;
+  const lineArray = obj.lineArray;
 
   for (let index = 0; index < nodeArray.length; index++) {
+    nodeArray[index].passed = false;
     if (2 * index + 1 < nodeArray.length) {
       const { delta_X, delta_Y } = calculate_delta(
         nodeArray[index],
@@ -197,16 +196,14 @@ const renewTreeLine = (obj) => {
         nodeArray[index],
         nodeArray[2 * index + 2]
       );
-      lineArray[2 * index].x1 = nodeArray[index].x + delta_X;
-      lineArray[2 * index].y1 = nodeArray[index].y + delta_Y;
-      lineArray[2 * index].x2 = nodeArray[2 * index + 1].x - delta_X;
-      lineArray[2 * index].y2 = nodeArray[2 * index + 1].y - delta_Y;
-      lineArray[2 * index].passed = false;
-      lineArray[2 * index].showed = hasRightLine;
+      lineArray[2 * index + 1].x1 = nodeArray[index].x + delta_X;
+      lineArray[2 * index + 1].y1 = nodeArray[index].y + delta_Y;
+      lineArray[2 * index + 1].x2 = nodeArray[2 * index + 2].x - delta_X;
+      lineArray[2 * index + 1].y2 = nodeArray[2 * index + 2].y - delta_Y;
+      lineArray[2 * index + 1].passed = false;
+      lineArray[2 * index + 1].showed = hasRightLine;
     }
   }
-
-  return lineArray;
 };
 
 const calculate_delta = (node1, node2) => {
@@ -355,11 +352,20 @@ export const removeBST = (obj, removeValue) => {
     records.push(JSON.parse(JSON.stringify(sortobj)));
 
     //clear removeNode branch Node first then move it upward
-    const relocateArray = collectionRelocateTreeNodeArray(
+    const collectionRemoveNodeArray = collectionRemoveBranchTreeNodeArray(
       childNodeIndex,
       nodeArray
     );
-    console.log(relocateArray);
+    relocateArrayRecursion(
+      collectionRemoveNodeArray,
+      0,
+      collectionRemoveNodeArray.length - 1,
+      removeNodeIndex,
+      nodeArray
+    );
+    renewTreeLine(sortobj);
+
+    records.push(JSON.parse(JSON.stringify(sortobj)));
   }
   //3. Node to be deleted has two children
   if (
@@ -375,14 +381,14 @@ export const removeBST = (obj, removeValue) => {
 
 const isPassedNode = (element) => element.passed === true;
 
-const collectionRelocateTreeNodeArray = (rootIndex, nodeArray) => {
+const collectionRemoveBranchTreeNodeArray = (rootIndex, nodeArray) => {
   const queue = [];
 
   return recursiveCollection(nodeArray, rootIndex, queue);
 };
 
 const recursiveCollection = (nodeArray, index, queue) => {
-  if (index > 30) {
+  if (index > nodeArray.length - 1) {
     return;
   }
 
@@ -391,4 +397,37 @@ const recursiveCollection = (nodeArray, index, queue) => {
   recursiveCollection(nodeArray, 2 * index + 2, queue);
 
   return queue;
+};
+
+const relocateArrayRecursion = (
+  collectionRemoveNodeArray,
+  startIndex,
+  endIndex,
+  treeIndex,
+  nodeArray
+) => {
+  const midIndex = (startIndex + endIndex) / 2;
+  nodeArray[treeIndex].value = collectionRemoveNodeArray[midIndex];
+
+  if (startIndex == endIndex) {
+    //the last level need to clean the data further
+    nodeArray[2 * treeIndex + 1].value = "";
+    nodeArray[2 * treeIndex + 2].value = "";
+    return;
+  }
+
+  relocateArrayRecursion(
+    collectionRemoveNodeArray,
+    startIndex,
+    midIndex - 1,
+    2 * treeIndex + 1,
+    nodeArray
+  );
+  relocateArrayRecursion(
+    collectionRemoveNodeArray,
+    midIndex + 1,
+    endIndex,
+    2 * treeIndex + 2,
+    nodeArray
+  );
 };
