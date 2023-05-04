@@ -78,3 +78,12 @@ coding aspect
 
 2:21:46
 every smart contract have addresses just like out wallet accounts do
+
+2:32
+#view / pure functions when called alone dont spend gas
+
+#view and pure function disallow modification of state
+
+#pure function additionally disallow you to read from blockchain state
+
+#if a gas calling function calls a view or pure function - only then will it cost gas
