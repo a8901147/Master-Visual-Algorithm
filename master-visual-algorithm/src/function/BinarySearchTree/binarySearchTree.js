@@ -374,6 +374,67 @@ export const removeBST = (obj, removeValue) => {
     (nodeArray[2 * removeNodeIndex + 1].value != "" &&
       nodeArray[2 * removeNodeIndex + 2].value != "")
   ) {
+    let currentIndex = 2 * removeNodeIndex + 2;
+
+    lineArray[currentIndex - 1].passed = true;
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+
+    nodeArray[currentIndex].passed = true;
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+
+    currentIndex = 2 * removeNodeIndex + 2;
+    while (
+      currentIndex < nodeArray.length &&
+      nodeArray[currentIndex].value != ""
+    ) {
+      console.log(nodeArray[currentIndex].value);
+      lineArray[2 * currentIndex].passed = true;
+      records.push(JSON.parse(JSON.stringify(sortobj)));
+
+      nodeArray[2 * currentIndex + 1].passed = true;
+      records.push(JSON.parse(JSON.stringify(sortobj)));
+
+      currentIndex = 2 * currentIndex + 1;
+    }
+
+    nodeArray[removeNodeIndex].value = "";
+
+    const replacedIndex = (currentIndex - 1) / 2;
+    const parentIndex = Math.floor((removeNodeIndex - 1) / 2);
+    const { delta_X, delta_Y } = calculate_delta(
+      nodeArray[replacedIndex],
+      nodeArray[parentIndex]
+    );
+    const parentIsLeft =
+      nodeArray[replacedIndex].x > nodeArray[parentIndex].x ? true : false;
+    lineArray[removeNodeIndex - 1].x1 = parentIsLeft
+      ? nodeArray[parentIndex].x + delta_X
+      : nodeArray[parentIndex].x - delta_X;
+    lineArray[removeNodeIndex - 1].y1 = nodeArray[parentIndex].y + delta_Y;
+    lineArray[removeNodeIndex - 1].x2 = parentIsLeft
+      ? nodeArray[replacedIndex].x - delta_X
+      : nodeArray[replacedIndex].x + delta_X;
+    lineArray[removeNodeIndex - 1].y2 = nodeArray[replacedIndex].y - delta_Y;
+
+    const siblingIndex = 2 * removeNodeIndex + 1;
+    const { sibling_delta_X, sibling_delta_Y } = calculate_delta(
+      nodeArray[replacedIndex],
+      nodeArray[siblingIndex]
+    );
+    const siblingIsLeft =
+      nodeArray[replacedIndex].x > nodeArray[siblingIndex].x ? true : false;
+    lineArray[siblingIndex - 1].x1 = siblingIsLeft
+      ? nodeArray[siblingIndex].x + sibling_delta_X
+      : nodeArray[siblingIndex].x - sibling_delta_X;
+    lineArray[siblingIndex - 1].y1 =
+      nodeArray[siblingIndex].y + sibling_delta_Y;
+    lineArray[siblingIndex - 1].x2 = siblingIsLeft
+      ? nodeArray[replacedIndex].x - sibling_delta_X
+      : nodeArray[replacedIndex].x + sibling_delta_X;
+    lineArray[siblingIndex - 1].y2 =
+      nodeArray[replacedIndex].y - sibling_delta_Y;
+
+    records.push(JSON.parse(JSON.stringify(sortobj)));
   }
 
   return records;
