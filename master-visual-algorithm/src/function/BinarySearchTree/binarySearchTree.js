@@ -118,7 +118,7 @@ export const getTreeLine = (treeArray) => {
 
   for (let index = 0; index < treeArray.length; index++) {
     if (2 * index + 1 < treeArray.length) {
-      const { delta_X, delta_Y } = calculate_delta(
+      const [delta_X, delta_Y] = calculate_delta(
         treeArray[index],
         treeArray[2 * index + 1]
       );
@@ -143,7 +143,7 @@ export const getTreeLine = (treeArray) => {
           ? true
           : false;
 
-      const { delta_X, delta_Y } = calculate_delta(
+      const [delta_X, delta_Y] = calculate_delta(
         treeArray[index],
         treeArray[2 * index + 2]
       );
@@ -168,7 +168,7 @@ const renewTreeLine = (obj) => {
   for (let index = 0; index < nodeArray.length; index++) {
     nodeArray[index].passed = false;
     if (2 * index + 1 < nodeArray.length) {
-      const { delta_X, delta_Y } = calculate_delta(
+      const [delta_X, delta_Y] = calculate_delta(
         nodeArray[index],
         nodeArray[2 * index + 1]
       );
@@ -192,7 +192,7 @@ const renewTreeLine = (obj) => {
           ? true
           : false;
 
-      const { delta_X, delta_Y } = calculate_delta(
+      const [delta_X, delta_Y] = calculate_delta(
         nodeArray[index],
         nodeArray[2 * index + 2]
       );
@@ -218,7 +218,7 @@ const calculate_delta = (node1, node2) => {
   );
 
   const delta_Y = slope * delta_X;
-  return { delta_X, delta_Y };
+  return [delta_X, delta_Y];
 };
 
 export const searchBST = (obj, searchValue) => {
@@ -337,7 +337,7 @@ export const removeBST = (obj, removeValue) => {
     nodeArray[removeNodeIndex].value = "";
     lineArray[childNodeIndex - 1].showed = false;
 
-    const { delta_X, delta_Y } = calculate_delta(
+    const [delta_X, delta_Y] = calculate_delta(
       nodeArray[parentIndex],
       nodeArray[childNodeIndex]
     );
@@ -388,10 +388,10 @@ export const removeBST = (obj, removeValue) => {
       nodeArray[currentIndex].value != ""
     ) {
       console.log(nodeArray[currentIndex].value);
-      lineArray[2 * currentIndex].passed = true;
+      lineArray[currentIndex - 1].passed = true;
       records.push(JSON.parse(JSON.stringify(sortobj)));
 
-      nodeArray[2 * currentIndex + 1].passed = true;
+      nodeArray[currentIndex].passed = true;
       records.push(JSON.parse(JSON.stringify(sortobj)));
 
       currentIndex = 2 * currentIndex + 1;
@@ -401,26 +401,30 @@ export const removeBST = (obj, removeValue) => {
 
     const replacedIndex = (currentIndex - 1) / 2;
     const parentIndex = Math.floor((removeNodeIndex - 1) / 2);
-    const { delta_X, delta_Y } = calculate_delta(
+    const [parent_delta_X, parent_delta_Y] = calculate_delta(
       nodeArray[replacedIndex],
       nodeArray[parentIndex]
     );
     const parentIsLeft =
       nodeArray[replacedIndex].x > nodeArray[parentIndex].x ? true : false;
     lineArray[removeNodeIndex - 1].x1 = parentIsLeft
-      ? nodeArray[parentIndex].x + delta_X
-      : nodeArray[parentIndex].x - delta_X;
-    lineArray[removeNodeIndex - 1].y1 = nodeArray[parentIndex].y + delta_Y;
+      ? nodeArray[parentIndex].x + parent_delta_X
+      : nodeArray[parentIndex].x - parent_delta_X;
+    lineArray[removeNodeIndex - 1].y1 =
+      nodeArray[parentIndex].y + parent_delta_Y;
     lineArray[removeNodeIndex - 1].x2 = parentIsLeft
-      ? nodeArray[replacedIndex].x - delta_X
-      : nodeArray[replacedIndex].x + delta_X;
-    lineArray[removeNodeIndex - 1].y2 = nodeArray[replacedIndex].y - delta_Y;
+      ? nodeArray[replacedIndex].x - parent_delta_X
+      : nodeArray[replacedIndex].x + parent_delta_X;
+    lineArray[removeNodeIndex - 1].y2 =
+      nodeArray[replacedIndex].y - parent_delta_Y;
 
     const siblingIndex = 2 * removeNodeIndex + 1;
-    const { sibling_delta_X, sibling_delta_Y } = calculate_delta(
+
+    const [sibling_delta_X, sibling_delta_Y] = calculate_delta(
       nodeArray[replacedIndex],
       nodeArray[siblingIndex]
     );
+
     const siblingIsLeft =
       nodeArray[replacedIndex].x > nodeArray[siblingIndex].x ? true : false;
     lineArray[siblingIndex - 1].x1 = siblingIsLeft
@@ -434,6 +438,12 @@ export const removeBST = (obj, removeValue) => {
     lineArray[siblingIndex - 1].y2 =
       nodeArray[replacedIndex].y - sibling_delta_Y;
 
+    lineArray[2 * removeNodeIndex + 1].showed = false;
+    records.push(JSON.parse(JSON.stringify(sortobj)));
+
+    nodeArray[removeNodeIndex].value = nodeArray[replacedIndex].value;
+    nodeArray[replacedIndex].value = "";
+    renewTreeLine(sortobj);
     records.push(JSON.parse(JSON.stringify(sortobj)));
   }
 
