@@ -1,11 +1,13 @@
 // loop over the whole array, [i, i+1] the adjacent element do comparison and exchange postion
 
 export const bubbleSort = (obj) => {
+  const records = [];
   const sortobj = JSON.parse(JSON.stringify(obj));
+  records.push(JSON.parse(JSON.stringify(sortobj)));
   const arr = sortobj.arr;
 
   const length = arr.length;
-  const records = [];
+
   for (let i = 0; i < length; i++) {
     for (let j = 0; j < length - i - 1; j++) {
       sortobj.sortingIndex = [j, j + 1];

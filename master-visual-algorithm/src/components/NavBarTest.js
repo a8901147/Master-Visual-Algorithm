@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { bubbleSort } from "../function/sort/bubbleSort";
 import { selectionSort } from "../function/sort/selectionSort";
 import { insertionSort } from "../function/sort/insertionSort";
-import classes from "./NavBar.module.css";
-import NavButton from "./NavButton";
+import classes from "./NavBarTest.module.css";
+import NavButtonTest from "./NavButtonTest";
 import { mergeSort } from "../function/sort/mergeSort";
 import { quickSort } from "../function/sort/quickSort";
 import { MODE, ActiveMode } from "../function/common";
@@ -16,29 +16,12 @@ import {
   removeBST,
   searchBST,
 } from "../function/binarySearchTree/binarySearchTree";
-import { Link, useNavigate } from "react-router-dom";
 
 // import Slider from "../Slider/Slider";
 // import NavNumber from "../NavNumber/NavNumber";
 
-function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
+function NavBarTest({ mode, onActionTypeClick, onActionClick, obj }) {
   const [activeMode, setActiveMode] = useState("SEARCH");
-
-  useEffect(() => {
-    if (mode == MODE.SORT) {
-      setActiveMode(ActiveMode.BUBBLE_SORT);
-      setActionTypeFunc({ actionTypeFunc: bubbleSort });
-    } else if (mode == MODE.LINKED_LIST) {
-      setActiveMode(ActiveMode.SEARCH);
-      setActionTypeFunc({ actionTypeFunc: search });
-    } else if (mode == MODE.STACK) {
-      setActiveMode(ActiveMode.POP);
-      setActionTypeFunc({ actionTypeFunc: pop });
-    } else if (mode == MODE.BINARYSEARCHTREE) {
-      setActiveMode(ActiveMode.SEARCH_BST);
-      setActionTypeFunc({ actionTypeFunc: searchBST });
-    }
-  }, [mode]);
   const [actionTypeFunc, setActionTypeFunc] = useState({
     actionTypeFunc: search,
   });
@@ -52,7 +35,6 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
   };
 
   const onClickSelectionSortHandler = () => {
-    onSortTypeClick(ActiveMode.SELECTION_SORT);
     setActiveMode(ActiveMode.SELECTION_SORT);
     setActionTypeFunc({ actionTypeFunc: selectionSort });
   };
@@ -122,7 +104,6 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
         "linkedList_searchValue"
       ).value;
       records = actionTypeFunc.actionTypeFunc(obj, linkedList_searchValue);
-      console.log(records);
     } else if (activeMode == ActiveMode.INSERT) {
       const linkedList_insertValue = document.getElementById(
         "linkedList_insertValue"
@@ -142,13 +123,7 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
       ).value;
       const removeIndex = parseInt(linkedList_removeIndex);
       records = actionTypeFunc.actionTypeFunc(obj, removeIndex);
-    } else if (
-      activeMode == ActiveMode.BUBBLE_SORT ||
-      activeMode == ActiveMode.SELECTION_SORT ||
-      activeMode == ActiveMode.INSERTION_SORT ||
-      activeMode == ActiveMode.MERGE_SORT ||
-      activeMode == ActiveMode.QUICK_SORT
-    ) {
+    } else if (activeMode == ActiveMode.BUBBLE_SORT) {
       records = actionTypeFunc.actionTypeFunc(obj);
     } else if (activeMode == ActiveMode.POP) {
       records = actionTypeFunc.actionTypeFunc(obj);
@@ -185,14 +160,7 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
         records = actionTypeFunc.actionTypeFunc(obj, BST_removeValue);
       }
     }
-
-    console.log("start");
     onActionClick(records);
-  };
-
-  const navigate = useNavigate();
-  const goHome = () => {
-    navigate(-1);
   };
 
   /* eslint-disable default-case */
@@ -200,106 +168,116 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
     case MODE.LINKED_LIST:
       return (
         <React.Fragment>
-          <div className={classes.navBar}>
-            <NavButton
+          <ul className={classes.navBar}>
+            <NavButtonTest
               activeMode={activeMode}
               onClick={onClickLinkedListSearchHandler}
             >
               SEARCH
-            </NavButton>
-            <NavButton
+            </NavButtonTest>
+            <NavButtonTest
               activeMode={activeMode}
               onClick={onClickLinkedListInsertHandler}
             >
               INSERT
-            </NavButton>
-            <NavButton
+            </NavButtonTest>
+            <NavButtonTest
               activeMode={activeMode}
               onClick={onClickLinkedListRemoveHandler}
             >
               REMOVE
-            </NavButton>
-            <InputBox activeMode={activeMode}></InputBox>
-            <NavButton onClick={onStartClickHandler}>START!</NavButton>
-            <NavButton onClick={goHome}>Home</NavButton>
-          </div>
+            </NavButtonTest>
+            <NavButtonTest onClick={onStartClickHandler}>START!</NavButtonTest>
+          </ul>
+          <InputBox activeMode={activeMode}></InputBox>
         </React.Fragment>
       );
     case MODE.STACK:
       return (
         <React.Fragment>
-          <div className={classes.navBar}>
-            <NavButton activeMode={activeMode} onClick={onClickStackPopHandler}>
+          <ul className={classes.navBar}>
+            <NavButtonTest
+              activeMode={activeMode}
+              onClick={onClickStackPopHandler}
+            >
               POP
-            </NavButton>
-            <NavButton
+            </NavButtonTest>
+            <NavButtonTest
               activeMode={activeMode}
               onClick={onClickStackPushHandler}
             >
               PUSH
-            </NavButton>
-            <InputBox activeMode={activeMode}></InputBox>
-            <NavButton onClick={onStartClickHandler}>START!</NavButton>
-            <NavButton onClick={goHome}>Home</NavButton>
-          </div>
+            </NavButtonTest>
+
+            <NavButtonTest onClick={onStartClickHandler}>START!</NavButtonTest>
+          </ul>
+          <InputBox activeMode={activeMode}></InputBox>
         </React.Fragment>
       );
     case MODE.BINARYSEARCHTREE:
       return (
         <React.Fragment>
           <div className={classes.navBar}>
-            <NavButton
+            <NavButtonTest
               activeMode={activeMode}
               onClick={onClickSearchBSTHandler}
             >
               SEARCH_BST
-            </NavButton>
-            <NavButton
+            </NavButtonTest>
+            <NavButtonTest
               activeMode={activeMode}
               onClick={onClickInsertBSTHandler}
             >
               INSERT_BST
-            </NavButton>
-            <NavButton
+            </NavButtonTest>
+            <NavButtonTest
               activeMode={activeMode}
               onClick={onClickRemoveBSTHandler}
             >
               REMOVE_BST
-            </NavButton>
+            </NavButtonTest>
             <InputBox activeMode={activeMode}></InputBox>
-            <NavButton onClick={onStartClickHandler}>START!</NavButton>
-            <NavButton onClick={goHome}>Home</NavButton>
+            <NavButtonTest onClick={onStartClickHandler}>START!</NavButtonTest>
           </div>
         </React.Fragment>
       );
     case MODE.SORT:
       return (
-        <div className={classes.navBar}>
-          <NavButton activeMode={activeMode} onClick={onClickBubbleSortHandler}>
+        <ul className={classes.navBar}>
+          <h1>2222</h1>
+          <NavButtonTest
+            activeMode={activeMode}
+            onClick={onClickBubbleSortHandler}
+          >
             BUBBLE_SORT
-          </NavButton>
-          <NavButton
+          </NavButtonTest>
+          <NavButtonTest
             activeMode={activeMode}
             onClick={onClickSelectionSortHandler}
           >
             SELECTION_SORT
-          </NavButton>
-          <NavButton
+          </NavButtonTest>
+          <NavButtonTest
             activeMode={activeMode}
             onClick={onClickInsertionSortHandler}
           >
             INSERTION_SORT
-          </NavButton>
-          <NavButton activeMode={activeMode} onClick={onClickMergeSortHandler}>
+          </NavButtonTest>
+          <NavButtonTest
+            activeMode={activeMode}
+            onClick={onClickMergeSortHandler}
+          >
             MERGE_SORT
-          </NavButton>
-          <NavButton activeMode={activeMode} onClick={onClickQuickSortHandler}>
+          </NavButtonTest>
+          <NavButtonTest
+            activeMode={activeMode}
+            onClick={onClickQuickSortHandler}
+          >
             QUICK_SORT
-          </NavButton>
-          <NavButton onClick={onStartClickHandler}>START!</NavButton>
-          <NavButton onClick={goHome}>Home</NavButton>
-        </div>
+          </NavButtonTest>
+          <NavButtonTest onClick={onStartClickHandler}>START!</NavButtonTest>
+        </ul>
       );
   }
 }
-export default NavBar;
+export default NavBarTest;

@@ -253,10 +253,12 @@ export const searchBST = (obj, searchValue) => {
       break;
     }
   }
+
   return records;
 };
 
-export const insertBST = (obj, insertValue) => {
+export const insertBST = (obj, Value) => {
+  const insertValue = parseInt(Value);
   const records = searchBST(obj, insertValue);
   const lastRecord = records[records.length - 1];
   const parentNodeIndex = lastRecord.nodeArray.findLastIndex(isPassedNode);
@@ -301,23 +303,23 @@ export const removeBST = (obj, removeValue) => {
   const nodeArray = sortobj.nodeArray;
   const lineArray = sortobj.lineArray;
 
-  //1. Node to be deleted is the leaf
+  //1.1 Node to be deleted is the leaf
   if (removeNodeIndex > 14) {
     nodeArray[removeNodeIndex].value = "";
     lineArray[removeNodeIndex - 1].showed = false;
     records.push(JSON.parse(JSON.stringify(sortobj)));
-  } else {
-    if (
-      nodeArray[2 * removeNodeIndex + 1].value == "" &&
-      nodeArray[2 * removeNodeIndex + 2].value == ""
-    ) {
-      nodeArray[removeNodeIndex].value = "";
-      lineArray[removeNodeIndex - 1].showed = false;
-      records.push(JSON.parse(JSON.stringify(sortobj)));
-    }
+  } else if (
+    //1.2 Node to be deleted is the leaf
+    nodeArray[2 * removeNodeIndex + 1].value == "" &&
+    nodeArray[2 * removeNodeIndex + 2].value == ""
+  ) {
+    nodeArray[removeNodeIndex].value = "";
+    lineArray[removeNodeIndex - 1].showed = false;
+    records.push(JSON.parse(JSON.stringify(sortobj)));
   }
+
   //2. Node to be deleted has only one child
-  if (
+  else if (
     (nodeArray[2 * removeNodeIndex + 1].value == "" &&
       nodeArray[2 * removeNodeIndex + 2].value != "") ||
     (nodeArray[2 * removeNodeIndex + 1].value != "" &&
@@ -363,12 +365,9 @@ export const removeBST = (obj, removeValue) => {
       removeNodeIndex,
       nodeArray
     );
-    renewTreeLine(sortobj);
-
-    records.push(JSON.parse(JSON.stringify(sortobj)));
   }
   //3. Node to be deleted has two children
-  if (
+  else if (
     (nodeArray[2 * removeNodeIndex + 1].value != "" &&
       nodeArray[2 * removeNodeIndex + 2].value != "") ||
     (nodeArray[2 * removeNodeIndex + 1].value != "" &&
@@ -382,7 +381,7 @@ export const removeBST = (obj, removeValue) => {
     nodeArray[currentIndex].passed = true;
     records.push(JSON.parse(JSON.stringify(sortobj)));
 
-    currentIndex = 2 * removeNodeIndex + 2;
+    currentIndex = 2 * currentIndex + 1;
     while (
       currentIndex < nodeArray.length &&
       nodeArray[currentIndex].value != ""
@@ -400,53 +399,54 @@ export const removeBST = (obj, removeValue) => {
     nodeArray[removeNodeIndex].value = "";
 
     const replacedIndex = (currentIndex - 1) / 2;
-    const parentIndex = Math.floor((removeNodeIndex - 1) / 2);
-    const [parent_delta_X, parent_delta_Y] = calculate_delta(
-      nodeArray[replacedIndex],
-      nodeArray[parentIndex]
-    );
-    const parentIsLeft =
-      nodeArray[replacedIndex].x > nodeArray[parentIndex].x ? true : false;
-    lineArray[removeNodeIndex - 1].x1 = parentIsLeft
-      ? nodeArray[parentIndex].x + parent_delta_X
-      : nodeArray[parentIndex].x - parent_delta_X;
-    lineArray[removeNodeIndex - 1].y1 =
-      nodeArray[parentIndex].y + parent_delta_Y;
-    lineArray[removeNodeIndex - 1].x2 = parentIsLeft
-      ? nodeArray[replacedIndex].x - parent_delta_X
-      : nodeArray[replacedIndex].x + parent_delta_X;
-    lineArray[removeNodeIndex - 1].y2 =
-      nodeArray[replacedIndex].y - parent_delta_Y;
+    if (removeNodeIndex) {
+      const parentIndex = Math.floor((removeNodeIndex - 1) / 2);
+      const [parent_delta_X, parent_delta_Y] = calculate_delta(
+        nodeArray[replacedIndex],
+        nodeArray[parentIndex]
+      );
+      const parentIsLeft =
+        nodeArray[replacedIndex].x > nodeArray[parentIndex].x ? true : false;
+      lineArray[removeNodeIndex - 1].x1 = parentIsLeft
+        ? nodeArray[parentIndex].x + parent_delta_X
+        : nodeArray[parentIndex].x - parent_delta_X;
+      lineArray[removeNodeIndex - 1].y1 =
+        nodeArray[parentIndex].y + parent_delta_Y;
+      lineArray[removeNodeIndex - 1].x2 = parentIsLeft
+        ? nodeArray[replacedIndex].x - parent_delta_X
+        : nodeArray[replacedIndex].x + parent_delta_X;
+      lineArray[removeNodeIndex - 1].y2 =
+        nodeArray[replacedIndex].y - parent_delta_Y;
 
-    const siblingIndex = 2 * removeNodeIndex + 1;
+      const siblingIndex = 2 * removeNodeIndex + 1;
 
-    const [sibling_delta_X, sibling_delta_Y] = calculate_delta(
-      nodeArray[replacedIndex],
-      nodeArray[siblingIndex]
-    );
+      const [sibling_delta_X, sibling_delta_Y] = calculate_delta(
+        nodeArray[replacedIndex],
+        nodeArray[siblingIndex]
+      );
 
-    const siblingIsLeft =
-      nodeArray[replacedIndex].x > nodeArray[siblingIndex].x ? true : false;
-    lineArray[siblingIndex - 1].x1 = siblingIsLeft
-      ? nodeArray[siblingIndex].x + sibling_delta_X
-      : nodeArray[siblingIndex].x - sibling_delta_X;
-    lineArray[siblingIndex - 1].y1 =
-      nodeArray[siblingIndex].y + sibling_delta_Y;
-    lineArray[siblingIndex - 1].x2 = siblingIsLeft
-      ? nodeArray[replacedIndex].x - sibling_delta_X
-      : nodeArray[replacedIndex].x + sibling_delta_X;
-    lineArray[siblingIndex - 1].y2 =
-      nodeArray[replacedIndex].y - sibling_delta_Y;
+      const siblingIsLeft =
+        nodeArray[replacedIndex].x > nodeArray[siblingIndex].x ? true : false;
+      lineArray[siblingIndex - 1].x1 = siblingIsLeft
+        ? nodeArray[siblingIndex].x + sibling_delta_X
+        : nodeArray[siblingIndex].x - sibling_delta_X;
+      lineArray[siblingIndex - 1].y1 =
+        nodeArray[siblingIndex].y + sibling_delta_Y;
+      lineArray[siblingIndex - 1].x2 = siblingIsLeft
+        ? nodeArray[replacedIndex].x - sibling_delta_X
+        : nodeArray[replacedIndex].x + sibling_delta_X;
+      lineArray[siblingIndex - 1].y2 =
+        nodeArray[replacedIndex].y - sibling_delta_Y;
 
-    lineArray[2 * removeNodeIndex + 1].showed = false;
-    records.push(JSON.parse(JSON.stringify(sortobj)));
+      lineArray[2 * removeNodeIndex + 1].showed = false;
+      records.push(JSON.parse(JSON.stringify(sortobj)));
+    }
 
     nodeArray[removeNodeIndex].value = nodeArray[replacedIndex].value;
     nodeArray[replacedIndex].value = "";
-    renewTreeLine(sortobj);
-    records.push(JSON.parse(JSON.stringify(sortobj)));
   }
-
+  renewTreeLine(sortobj);
+  records.push(JSON.parse(JSON.stringify(sortobj)));
   return records;
 };
 
@@ -501,4 +501,18 @@ const relocateArrayRecursion = (
     2 * treeIndex + 2,
     nodeArray
   );
+};
+
+export const initialTree = (obj) => {
+  const nodeArray = obj.nodeArray;
+  const lineArray = obj.lineArray;
+
+  for (let index = 0; index < nodeArray.length; index++) {
+    nodeArray[index].passed = false;
+    nodeArray[index].marked = false;
+  }
+
+  for (let index = 0; index < lineArray.length; index++) {
+    lineArray[index].passed = false;
+  }
 };

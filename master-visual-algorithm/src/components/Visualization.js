@@ -10,6 +10,11 @@ function Visualization({ arr, delay, mode }) {
   const [progressBarFlag, setProgressBarFlag] = useState(0);
 
   useEffect(() => {
+    setProgressBarFlag(0);
+    setCurrentSubArrayIndex(0);
+  }, [arr]);
+
+  useEffect(() => {
     if (arr.length != 1) {
       if (!progressBarFlag) {
         if (currentSubArrayIndex < arr.length) {
@@ -24,8 +29,6 @@ function Visualization({ arr, delay, mode }) {
             clearTimeout(timerId);
           };
         }
-      } else {
-        // setProgressBarFlag(0);
       }
     } else {
       setCurrentSubArray(arr[0]);

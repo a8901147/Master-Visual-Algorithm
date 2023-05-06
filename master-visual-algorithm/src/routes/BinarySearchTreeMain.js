@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
+import NavBarTest from "../components/NavBarTest";
 import Visualization from "../components/Visualization";
 import { MODE } from "../function/common";
 import {
   TREE_CONSTANT,
   getTreeLine,
   getTreeNodeRandomInt,
+  initialTree,
 } from "../function/binarySearchTree/binarySearchTree";
 
 function BinarySearchTreeMain() {
@@ -17,14 +19,15 @@ function BinarySearchTreeMain() {
     nodeArray: treeNodeArray,
     lineArray: getTreeLine(treeNodeArray),
   });
-  const [recordsArray, setRecordsArray] = useState([]);
+  const [recordsArray, setRecordsArray] = useState([obj]);
 
-  useEffect(() => {
-    setRecordsArray([obj]);
-  }, [obj]);
   const onActionClickHandler = (records) => {
     setRecordsArray(records);
+    const newobj = JSON.parse(JSON.stringify(records[records.length - 1]));
+    initialTree(newobj);
+    setObj(newobj);
   };
+
   return (
     <React.Fragment>
       <NavBar

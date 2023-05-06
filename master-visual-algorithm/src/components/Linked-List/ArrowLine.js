@@ -73,7 +73,7 @@ const ArrowLine = ({ x1, y1, x2, y2, passed, showed, withArrow }) => {
             y1={y1}
             y2={y2}
             stroke={color}
-            marker-end="url(#arrowhead)"
+            markerEnd="url(#arrowhead)"
           ></line>
         </svg>
       );

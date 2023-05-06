@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <React.Fragment>
+      <h1>This is Home page</h1>
       <ul>
         <li>
           <Link to="LinkedListMain">Link to LinkedListMain</Link>
@@ -18,7 +19,6 @@ function Home() {
           <Link to="BinarySearchTreeMain">Link to BinarySearchTreeMain</Link>
         </li>
       </ul>
-      <h1>This is Home page</h1>
     </React.Fragment>
   );
 }
