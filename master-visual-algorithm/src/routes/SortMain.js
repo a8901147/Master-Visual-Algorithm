@@ -41,7 +41,7 @@ function SortMain() {
 
       <Visualization
         arr={recordsArray}
-        delay={10}
+        delay={100}
         mode={MODE.SORT}
       ></Visualization>
     </React.Fragment>

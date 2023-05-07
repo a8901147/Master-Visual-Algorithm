@@ -5,7 +5,7 @@ export const pop = (obj) => {
   const sortobj = JSON.parse(JSON.stringify(obj));
   const records = [];
   const nodeArray = sortobj.nodeArray;
-  const singleArray = sortobj.singleArray;
+  const lineArray = sortobj.lineArray;
 
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
@@ -14,7 +14,7 @@ export const pop = (obj) => {
   nodeArray[0].pre_aft_newNode_temp = STATE_POSTFIX.TEMP;
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
-  singleArray[0].passed = true;
+  lineArray[0].passed = true;
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
   nodeArray[0].head_tail = "";
@@ -24,12 +24,12 @@ export const pop = (obj) => {
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
   nodeArray.shift();
-  singleArray.shift();
+  lineArray.shift();
 
   //renew node position
   renewVerticalNodes(nodeArray);
   //renew arrow target
-  renewVerticalArrows(singleArray);
+  renewVerticalArrows(lineArray);
   //newNode become Head
 
   records.push(JSON.parse(JSON.stringify(sortobj)));
@@ -41,7 +41,7 @@ export const push = (obj, insertValue) => {
   const sortobj = JSON.parse(JSON.stringify(obj));
   const records = [];
   const nodeArray = sortobj.nodeArray;
-  const singleArray = sortobj.singleArray;
+  const lineArray = sortobj.lineArray;
   // insertPosition = parseInt(insertPosition);
 
   records.push(JSON.parse(JSON.stringify(sortobj)));
@@ -70,14 +70,14 @@ export const push = (obj, insertValue) => {
     nodeArray[nodeArray.length - 1].y2 + STACK_CONSTANT.DISTANCE
   );
   newArrow.passed = true;
-  singleArray.push(newArrow);
+  lineArray.push(newArrow);
 
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
   //renew node position
   renewVerticalNodes(nodeArray);
   //renew arrow target
-  renewVerticalArrows(singleArray);
+  renewVerticalArrows(lineArray);
   //newNode become Head
 
   records.push(JSON.parse(JSON.stringify(sortobj)));
@@ -106,18 +106,18 @@ const renewVerticalNodes = (nodeArray) => {
   }
 };
 
-const renewVerticalArrows = (singleArray) => {
-  for (let index = 0; index < singleArray.length; index++) {
-    singleArray[index].x1 = STACK_CONSTANT.NODE_RIGHT_X;
-    singleArray[index].y1 =
+const renewVerticalArrows = (lineArray) => {
+  for (let index = 0; index < lineArray.length; index++) {
+    lineArray[index].x1 = STACK_CONSTANT.NODE_RIGHT_X;
+    lineArray[index].y1 =
       STACK_CONSTANT.FIRST_ARROW_Y + STACK_CONSTANT.DISTANCE * index;
-    singleArray[index].x2 = STACK_CONSTANT.NODE_RIGHT_X;
-    singleArray[index].y2 =
+    lineArray[index].x2 = STACK_CONSTANT.NODE_RIGHT_X;
+    lineArray[index].y2 =
       STACK_CONSTANT.FIRST_ARROW_Y +
       STACK_CONSTANT.ARROW_LENGTH +
       STACK_CONSTANT.DISTANCE * index;
 
-    // singleArray[index].passed = false;
+    // lineArray[index].passed = false;
   }
 };
 

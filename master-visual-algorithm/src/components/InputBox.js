@@ -21,6 +21,8 @@ function InputBox({ activeMode }) {
         <input
           id="linkedList_insertIndex"
           placeholder="linkedList_insertIndex"
+          className={classes.input__field}
+          style={{ marginLeft: 5 }}
         ></input>
       </React.Fragment>
     );

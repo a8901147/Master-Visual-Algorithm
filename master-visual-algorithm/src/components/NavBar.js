@@ -16,7 +16,7 @@ import {
   removeBST,
   searchBST,
 } from "../function/binarySearchTree/binarySearchTree";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // import Slider from "../Slider/Slider";
 // import NavNumber from "../NavNumber/NavNumber";
@@ -118,15 +118,14 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
   const onStartClickHandler = () => {
     let records = [];
     if (activeMode == ActiveMode.SEARCH) {
-      const linkedList_searchValue = document.getElementById(
-        "linkedList_searchValue"
-      ).value;
+      const linkedList_searchValue = parseInt(
+        document.getElementById("linkedList_searchValue").value
+      );
       records = actionTypeFunc.actionTypeFunc(obj, linkedList_searchValue);
-      console.log(records);
     } else if (activeMode == ActiveMode.INSERT) {
-      const linkedList_insertValue = document.getElementById(
-        "linkedList_insertValue"
-      ).value;
+      const linkedList_insertValue = parseInt(
+        document.getElementById("linkedList_insertValue").value
+      );
       const linkedList_insertIndex = document.getElementById(
         "linkedList_insertIndex"
       ).value;
@@ -157,11 +156,15 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
       const pushValue = parseInt(stack_pushValue);
       records = actionTypeFunc.actionTypeFunc(obj, pushValue);
     } else if (activeMode == ActiveMode.SEARCH_BST) {
-      const BST_searchValue = document.getElementById("BST_searchValue").value;
+      const BST_searchValue = parseInt(
+        document.getElementById("BST_searchValue").value
+      );
       records = actionTypeFunc.actionTypeFunc(obj, BST_searchValue);
     } else if (activeMode == ActiveMode.INSERT_BST) {
       // if no duplicate
-      const BST_insertValue = document.getElementById("BST_insertValue").value;
+      const BST_insertValue = parseInt(
+        document.getElementById("BST_insertValue").value
+      );
       const isDuplicated = obj.nodeArray.findIndex((element) => {
         return element.value == BST_insertValue;
       });
@@ -173,7 +176,9 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
       }
     } else if (activeMode == ActiveMode.REMOVE_BST) {
       // if no duplicate
-      const BST_removeValue = document.getElementById("BST_removeValue").value;
+      const BST_removeValue = parseInt(
+        document.getElementById("BST_removeValue").value
+      );
       const isDuplicated = obj.nodeArray.findIndex((element) => {
         return element.value == BST_removeValue;
       });
@@ -220,6 +225,7 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
               REMOVE
             </NavButton>
             <InputBox activeMode={activeMode}></InputBox>
+
             <NavButton onClick={onStartClickHandler}>START!</NavButton>
             <NavButton onClick={goHome}>Home</NavButton>
           </div>

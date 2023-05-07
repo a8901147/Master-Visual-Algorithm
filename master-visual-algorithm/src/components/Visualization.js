@@ -52,6 +52,7 @@ function Visualization({ arr, delay, mode }) {
         <NodeLineSum
           currentSubArray={currentSubArray}
           withArrow={true}
+          mode={mode}
         ></NodeLineSum>
 
         <ProgressBar
@@ -67,6 +68,7 @@ function Visualization({ arr, delay, mode }) {
         <NodeLineSum
           currentSubArray={currentSubArray}
           withArrow={true}
+          mode={mode}
         ></NodeLineSum>
         <ProgressBar
           value={currentSubArrayIndex}
@@ -92,6 +94,7 @@ function Visualization({ arr, delay, mode }) {
         <NodeLineSum
           currentSubArray={currentSubArray}
           withArrow={false}
+          mode={mode}
         ></NodeLineSum>
         <ProgressBar
           value={currentSubArrayIndex}

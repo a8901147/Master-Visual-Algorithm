@@ -15,7 +15,7 @@ function Node({
       ? head_tail + "/" + pre_aft_newNode_temp
       : head_tail + pre_aft_newNode_temp;
 
-  if (value != "")
+  if (value !== "")
     return (
       <React.Fragment>
         <circle

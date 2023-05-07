@@ -5,25 +5,37 @@ import { MODE } from "../function/common";
 import {
   getHorizonNodeRandomInt,
   getHorizonSingleArrow,
-  FIRST_NODE_X,
-  NODE_UPPER_Y,
-  FIRST_ARROW_X,
+  LINKEDLIST_CONSTANT,
 } from "../function/linked-list/constant";
+import { initialLinkedList } from "../function/linked-list/linked-list";
 
 function LinkedListMain() {
   const [obj, setObj] = useState({
-    nodeArray: getHorizonNodeRandomInt(16, FIRST_NODE_X, NODE_UPPER_Y),
-    lineArray: getHorizonSingleArrow(16, FIRST_ARROW_X, NODE_UPPER_Y),
+    nodeArray: getHorizonNodeRandomInt(
+      16,
+      LINKEDLIST_CONSTANT.FIRST_NODE_X,
+      LINKEDLIST_CONSTANT.NODE_UPPER_Y
+    ),
+    lineArray: getHorizonSingleArrow(
+      16,
+      LINKEDLIST_CONSTANT.FIRST_ARROW_X,
+      LINKEDLIST_CONSTANT.NODE_UPPER_Y
+    ),
   });
-  const [recordsArray, setRecordsArray] = useState([]);
-
-  useEffect(() => {
-    setRecordsArray([obj]);
-  }, [obj]);
+  const [recordsArray, setRecordsArray] = useState([obj]);
+  console.log(obj);
+  // useEffect(() => {
+  //   setRecordsArray([obj]);
+  // }, [obj]);
 
   const onActionClickHandler = (records) => {
     setRecordsArray(records);
+    const newobj = JSON.parse(JSON.stringify(records[records.length - 1]));
+
+    initialLinkedList(newobj);
+    setObj(newobj);
   };
+
   return (
     <React.Fragment>
       <NavBar

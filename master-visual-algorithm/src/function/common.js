@@ -50,3 +50,18 @@ export const STATE_POSTFIX = {
 };
 
 export const CIRCLE_RADIUS = 20;
+
+export const calculate_delta = (node1, node2) => {
+  const x_diiference =
+    node1.x > node2.x ? node1.x - node2.x : node2.x - node1.x;
+  const y_diiference =
+    node1.y > node2.y ? node1.y - node2.y : node2.y - node1.y;
+  const slope = y_diiference / x_diiference;
+
+  const delta_X = Math.sqrt(
+    Math.pow(CIRCLE_RADIUS, 2) / (Math.pow(slope, 2) + 1)
+  );
+
+  const delta_Y = slope * delta_X;
+  return [delta_X, delta_Y];
+};

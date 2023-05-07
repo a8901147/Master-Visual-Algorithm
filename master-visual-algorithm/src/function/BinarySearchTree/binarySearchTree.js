@@ -1,7 +1,7 @@
 //balanced tree
 //The absolute difference of heights of left and right subtrees at any node is less than 1
 
-import { CIRCLE_RADIUS, STATE_PREFIX } from "../common";
+import { CIRCLE_RADIUS, STATE_PREFIX, calculate_delta } from "../common";
 import { push } from "../stack/stack";
 
 // Binary search tree
@@ -124,7 +124,7 @@ export const getTreeLine = (treeArray) => {
       );
 
       const hasLeftLine =
-        treeArray[index].value != "" && treeArray[2 * index + 1].value != ""
+        treeArray[index].value !== "" && treeArray[2 * index + 1].value !== ""
           ? true
           : false;
       lineArray.push({
@@ -139,7 +139,7 @@ export const getTreeLine = (treeArray) => {
 
     if (2 * index + 2 < treeArray.length) {
       const hasRightLine =
-        treeArray[index].value != "" && treeArray[2 * index + 2].value != ""
+        treeArray[index].value !== "" && treeArray[2 * index + 2].value !== ""
           ? true
           : false;
 
@@ -174,7 +174,7 @@ const renewTreeLine = (obj) => {
       );
 
       const hasLeftLine =
-        nodeArray[index].value != "" && nodeArray[2 * index + 1].value != ""
+        nodeArray[index].value !== "" && nodeArray[2 * index + 1].value !== ""
           ? true
           : false;
 
@@ -188,7 +188,7 @@ const renewTreeLine = (obj) => {
 
     if (2 * index + 2 < nodeArray.length) {
       const hasRightLine =
-        nodeArray[index].value != "" && nodeArray[2 * index + 2].value != ""
+        nodeArray[index].value !== "" && nodeArray[2 * index + 2].value !== ""
           ? true
           : false;
 
@@ -206,20 +206,20 @@ const renewTreeLine = (obj) => {
   }
 };
 
-const calculate_delta = (node1, node2) => {
-  const x_diiference =
-    node1.x > node2.x ? node1.x - node2.x : node2.x - node1.x;
-  const y_diiference =
-    node1.y > node2.y ? node1.y - node2.y : node2.y - node1.y;
-  const slope = y_diiference / x_diiference;
+// const calculate_delta = (node1, node2) => {
+//   const x_diiference =
+//     node1.x > node2.x ? node1.x - node2.x : node2.x - node1.x;
+//   const y_diiference =
+//     node1.y > node2.y ? node1.y - node2.y : node2.y - node1.y;
+//   const slope = y_diiference / x_diiference;
 
-  const delta_X = Math.sqrt(
-    Math.pow(CIRCLE_RADIUS, 2) / (Math.pow(slope, 2) + 1)
-  );
+//   const delta_X = Math.sqrt(
+//     Math.pow(CIRCLE_RADIUS, 2) / (Math.pow(slope, 2) + 1)
+//   );
 
-  const delta_Y = slope * delta_X;
-  return [delta_X, delta_Y];
-};
+//   const delta_Y = slope * delta_X;
+//   return [delta_X, delta_Y];
+// };
 
 export const searchBST = (obj, searchValue) => {
   const targetValue = parseInt(searchValue);
@@ -304,19 +304,26 @@ export const removeBST = (obj, removeValue) => {
   const lineArray = sortobj.lineArray;
 
   //1.1 Node to be deleted is the leaf
-  if (removeNodeIndex > 14) {
-    nodeArray[removeNodeIndex].value = "";
-    lineArray[removeNodeIndex - 1].showed = false;
-    records.push(JSON.parse(JSON.stringify(sortobj)));
-  } else if (
-    //1.2 Node to be deleted is the leaf
-    nodeArray[2 * removeNodeIndex + 1].value == "" &&
-    nodeArray[2 * removeNodeIndex + 2].value == ""
+  if (
+    removeNodeIndex > 14 ||
+    (nodeArray[2 * removeNodeIndex + 1].value == "" &&
+      nodeArray[2 * removeNodeIndex + 2].value == "")
   ) {
     nodeArray[removeNodeIndex].value = "";
     lineArray[removeNodeIndex - 1].showed = false;
     records.push(JSON.parse(JSON.stringify(sortobj)));
+    return records;
   }
+  // } else if (
+  //   //1.2 Node to be deleted is the leaf
+  //   nodeArray[2 * removeNodeIndex + 1].value == "" &&
+  //   nodeArray[2 * removeNodeIndex + 2].value == ""
+  // ) {
+  //   nodeArray[removeNodeIndex].value = "";
+  //   lineArray[removeNodeIndex - 1].showed = false;
+  //   records.push(JSON.parse(JSON.stringify(sortobj)));
+  //   return records;
+  // }
 
   //2. Node to be deleted has only one child
   else if (
