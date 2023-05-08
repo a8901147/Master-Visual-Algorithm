@@ -80,8 +80,8 @@ const createBSTArray = (number) => {
 
     while (
       index < 32 &&
-      insertValue != treeArray[index] &&
-      treeArray[index] != ""
+      insertValue !== treeArray[index] &&
+      treeArray[index] !== ""
     ) {
       if (insertValue < treeArray[index]) {
         index = 2 * index + 1;
@@ -90,7 +90,7 @@ const createBSTArray = (number) => {
       }
     }
 
-    if (treeArray[index] == "" && index < 32) {
+    if (treeArray[index] === "" && index < 32) {
       treeArray[index] = insertValue;
       counter++;
     }
@@ -231,7 +231,7 @@ export const searchBST = (obj, searchValue) => {
 
   let index = 0;
 
-  while (index < nodeArray.length && nodeArray[index].value != "") {
+  while (index < nodeArray.length && nodeArray[index].value !== "") {
     if (index) {
       const currentLine = lineArray[index - 1];
       currentLine.passed = true;
@@ -287,6 +287,7 @@ export const insertBST = (obj, Value) => {
     nodeArray[newNodeindex].marked = true;
     records.push(JSON.parse(JSON.stringify(sortobj)));
   } else {
+    alert("Tree level is only allowed within 5");
     return [obj];
   }
 
@@ -306,31 +307,21 @@ export const removeBST = (obj, removeValue) => {
   //1.1 Node to be deleted is the leaf
   if (
     removeNodeIndex > 14 ||
-    (nodeArray[2 * removeNodeIndex + 1].value == "" &&
-      nodeArray[2 * removeNodeIndex + 2].value == "")
+    (nodeArray[2 * removeNodeIndex + 1].value === "" &&
+      nodeArray[2 * removeNodeIndex + 2].value === "")
   ) {
     nodeArray[removeNodeIndex].value = "";
     lineArray[removeNodeIndex - 1].showed = false;
     records.push(JSON.parse(JSON.stringify(sortobj)));
     return records;
   }
-  // } else if (
-  //   //1.2 Node to be deleted is the leaf
-  //   nodeArray[2 * removeNodeIndex + 1].value == "" &&
-  //   nodeArray[2 * removeNodeIndex + 2].value == ""
-  // ) {
-  //   nodeArray[removeNodeIndex].value = "";
-  //   lineArray[removeNodeIndex - 1].showed = false;
-  //   records.push(JSON.parse(JSON.stringify(sortobj)));
-  //   return records;
-  // }
 
   //2. Node to be deleted has only one child
   else if (
-    (nodeArray[2 * removeNodeIndex + 1].value == "" &&
-      nodeArray[2 * removeNodeIndex + 2].value != "") ||
-    (nodeArray[2 * removeNodeIndex + 1].value != "" &&
-      nodeArray[2 * removeNodeIndex + 2].value == "")
+    (nodeArray[2 * removeNodeIndex + 1].value === "" &&
+      nodeArray[2 * removeNodeIndex + 2].value !== "") ||
+    (nodeArray[2 * removeNodeIndex + 1].value !== "" &&
+      nodeArray[2 * removeNodeIndex + 2].value === "")
   ) {
     nodeArray[removeNodeIndex].passed = false;
     nodeArray[removeNodeIndex].marked = false;
@@ -338,7 +329,7 @@ export const removeBST = (obj, removeValue) => {
 
     // remove node and change direction of line
     const childNodeIndex =
-      nodeArray[2 * removeNodeIndex + 2].value != ""
+      nodeArray[2 * removeNodeIndex + 2].value !== ""
         ? 2 * removeNodeIndex + 2
         : 2 * removeNodeIndex + 1;
     const removeIsLeft = Number.isInteger((removeNodeIndex - 1) / 2);
@@ -375,10 +366,10 @@ export const removeBST = (obj, removeValue) => {
   }
   //3. Node to be deleted has two children
   else if (
-    (nodeArray[2 * removeNodeIndex + 1].value != "" &&
-      nodeArray[2 * removeNodeIndex + 2].value != "") ||
-    (nodeArray[2 * removeNodeIndex + 1].value != "" &&
-      nodeArray[2 * removeNodeIndex + 2].value != "")
+    (nodeArray[2 * removeNodeIndex + 1].value !== "" &&
+      nodeArray[2 * removeNodeIndex + 2].value !== "") ||
+    (nodeArray[2 * removeNodeIndex + 1].value !== "" &&
+      nodeArray[2 * removeNodeIndex + 2].value !== "")
   ) {
     let currentIndex = 2 * removeNodeIndex + 2;
 
@@ -391,7 +382,7 @@ export const removeBST = (obj, removeValue) => {
     currentIndex = 2 * currentIndex + 1;
     while (
       currentIndex < nodeArray.length &&
-      nodeArray[currentIndex].value != ""
+      nodeArray[currentIndex].value !== ""
     ) {
       console.log(nodeArray[currentIndex].value);
       lineArray[currentIndex - 1].passed = true;
@@ -448,9 +439,22 @@ export const removeBST = (obj, removeValue) => {
       lineArray[2 * removeNodeIndex + 1].showed = false;
       records.push(JSON.parse(JSON.stringify(sortobj)));
     }
-
     nodeArray[removeNodeIndex].value = nodeArray[replacedIndex].value;
     nodeArray[replacedIndex].value = "";
+    if (nodeArray[2 * (2 * removeNodeIndex + 2) + 1].value === "") {
+      //clear removeNode branch Node first then move it upward
+      const collectionRemoveNodeArray = collectionRemoveBranchTreeNodeArray(
+        2 * (2 * removeNodeIndex + 2) + 2,
+        nodeArray
+      );
+      relocateArrayRecursion(
+        collectionRemoveNodeArray,
+        0,
+        collectionRemoveNodeArray.length - 1,
+        2 * removeNodeIndex + 2,
+        nodeArray
+      );
+    }
   }
   renewTreeLine(sortobj);
   records.push(JSON.parse(JSON.stringify(sortobj)));
@@ -487,7 +491,7 @@ const relocateArrayRecursion = (
   const midIndex = (startIndex + endIndex) / 2;
   nodeArray[treeIndex].value = collectionRemoveNodeArray[midIndex];
 
-  if (startIndex == endIndex) {
+  if (startIndex === endIndex) {
     //the last level need to clean the data further
     nodeArray[2 * treeIndex + 1].value = "";
     nodeArray[2 * treeIndex + 2].value = "";

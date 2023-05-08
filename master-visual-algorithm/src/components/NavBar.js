@@ -171,6 +171,7 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
 
       if (isDuplicated != -1) {
         records = [obj];
+        alert("Duplicate in Binary Search Tree are not allowed");
       } else {
         records = actionTypeFunc.actionTypeFunc(obj, BST_insertValue);
       }
@@ -184,7 +185,8 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
       });
 
       if (isDuplicated == -1) {
-        console.log("cant find the remove value");
+        alert("cant find the remove value");
+
         records = [obj];
       } else {
         records = actionTypeFunc.actionTypeFunc(obj, BST_removeValue);
