@@ -16,10 +16,12 @@
 // };
 
 export const quickSort = (obj) => {
+  const records = [];
   const sortobj = JSON.parse(JSON.stringify(obj));
+  records.push(JSON.parse(JSON.stringify(sortobj)));
   const arr = sortobj.arr;
   const length = arr.length;
-  const records = [];
+
   quickSortRecursion(sortobj, records, 0, length - 1);
   for (let i = 0; i < length; i++) {
     arr[i].sorted = true;

@@ -117,81 +117,221 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
 
   const onStartClickHandler = () => {
     let records = [];
-    if (activeMode == ActiveMode.SEARCH) {
-      const linkedList_searchValue = parseInt(
-        document.getElementById("linkedList_searchValue").value
-      );
-      records = actionTypeFunc.actionTypeFunc(obj, linkedList_searchValue);
-    } else if (activeMode == ActiveMode.INSERT) {
-      const linkedList_insertValue = parseInt(
-        document.getElementById("linkedList_insertValue").value
-      );
-      const linkedList_insertIndex = document.getElementById(
-        "linkedList_insertIndex"
-      ).value;
-      const insertIndex = parseInt(linkedList_insertIndex);
-      records = actionTypeFunc.actionTypeFunc(
-        obj,
-        linkedList_insertValue,
-        insertIndex
-      );
-    } else if (activeMode == ActiveMode.REMOVE) {
-      const linkedList_removeIndex = document.getElementById(
-        "linkedList_removeIndex"
-      ).value;
-      const removeIndex = parseInt(linkedList_removeIndex);
-      records = actionTypeFunc.actionTypeFunc(obj, removeIndex);
-    } else if (
-      activeMode == ActiveMode.BUBBLE_SORT ||
-      activeMode == ActiveMode.SELECTION_SORT ||
-      activeMode == ActiveMode.INSERTION_SORT ||
-      activeMode == ActiveMode.MERGE_SORT ||
-      activeMode == ActiveMode.QUICK_SORT
-    ) {
-      records = actionTypeFunc.actionTypeFunc(obj);
-    } else if (activeMode == ActiveMode.POP) {
-      records = actionTypeFunc.actionTypeFunc(obj);
-    } else if (activeMode == ActiveMode.PUSH) {
-      const stack_pushValue = document.getElementById("stack_pushValue").value;
-      const pushValue = parseInt(stack_pushValue);
-      records = actionTypeFunc.actionTypeFunc(obj, pushValue);
-    } else if (activeMode == ActiveMode.SEARCH_BST) {
-      const BST_searchValue = parseInt(
-        document.getElementById("BST_searchValue").value
-      );
-      records = actionTypeFunc.actionTypeFunc(obj, BST_searchValue);
-    } else if (activeMode == ActiveMode.INSERT_BST) {
-      // if no duplicate
-      const BST_insertValue = parseInt(
-        document.getElementById("BST_insertValue").value
-      );
-      const isDuplicated = obj.nodeArray.findIndex((element) => {
-        return element.value == BST_insertValue;
-      });
 
-      if (isDuplicated != -1) {
-        records = [obj];
-        alert("Duplicate in Binary Search Tree are not allowed");
-      } else {
-        records = actionTypeFunc.actionTypeFunc(obj, BST_insertValue);
-      }
-    } else if (activeMode == ActiveMode.REMOVE_BST) {
-      // if no duplicate
-      const BST_removeValue = parseInt(
-        document.getElementById("BST_removeValue").value
-      );
-      const isDuplicated = obj.nodeArray.findIndex((element) => {
-        return element.value == BST_removeValue;
-      });
+    switch (activeMode) {
+      //sort
+      case ActiveMode.BUBBLE_SORT:
+        records = actionTypeFunc.actionTypeFunc(obj);
+        break;
+      case ActiveMode.SELECTION_SORT:
+        records = actionTypeFunc.actionTypeFunc(obj);
+        break;
+      case ActiveMode.INSERTION_SORT:
+        records = actionTypeFunc.actionTypeFunc(obj);
+        break;
+      case ActiveMode.MERGE_SORT:
+        records = actionTypeFunc.actionTypeFunc(obj);
+        break;
+      case ActiveMode.QUICK_SORT:
+        records = actionTypeFunc.actionTypeFunc(obj);
+        break;
+      /////////////////////////////////////////////////////////////////////////////////////////
 
-      if (isDuplicated == -1) {
-        alert("cant find the remove value");
+      //linked list
+      case ActiveMode.SEARCH:
+        const linkedList_searchValue = parseInt(
+          document.getElementById("linkedList_searchValue").value
+        );
+        if (isNaN(linkedList_searchValue)) {
+          alert("Please enter a value ");
+          records = [obj];
+        } else {
+          records = actionTypeFunc.actionTypeFunc(obj, linkedList_searchValue);
+        }
+        break;
+      case ActiveMode.INSERT:
+        const linkedList_insertValue = parseInt(
+          document.getElementById("linkedList_insertValue").value
+        );
+        const linkedList_insertIndex = parseInt(
+          document.getElementById("linkedList_insertIndex").value
+        );
+        if (isNaN(linkedList_insertValue) || isNaN(linkedList_insertIndex)) {
+          alert("Please enter the values ");
+          records = [obj];
+        } else {
+          records = actionTypeFunc.actionTypeFunc(
+            obj,
+            linkedList_insertValue,
+            linkedList_insertIndex
+          );
+        }
 
-        records = [obj];
-      } else {
-        records = actionTypeFunc.actionTypeFunc(obj, BST_removeValue);
-      }
+        break;
+      case ActiveMode.REMOVE:
+        const linkedList_removeIndex = parseInt(
+          document.getElementById("linkedList_removeIndex").value
+        );
+        if (isNaN(linkedList_removeIndex)) {
+          alert("Please enter a value ");
+          records = [obj];
+        } else {
+          records = actionTypeFunc.actionTypeFunc(obj, linkedList_removeIndex);
+        }
+
+        break;
+      /////////////////////////////////////////////////////////////////////////////////////////
+
+      // stack
+      case ActiveMode.POP:
+        records = actionTypeFunc.actionTypeFunc(obj);
+        break;
+      case ActiveMode.PUSH:
+        const stack_pushValue = parseInt(
+          document.getElementById("stack_pushValue").value
+        );
+        if (isNaN(stack_pushValue)) {
+          alert("Please enter a value ");
+          records = [obj];
+        } else {
+          records = actionTypeFunc.actionTypeFunc(obj, stack_pushValue);
+        }
+
+        break;
+      /////////////////////////////////////////////////////////////////////////////////////////
+
+      // Binary search tree
+      case ActiveMode.SEARCH_BST:
+        const BST_searchValue = parseInt(
+          document.getElementById("BST_searchValue").value
+        );
+
+        if (isNaN(BST_searchValue)) {
+          alert("Please enter a value ");
+          records = [obj];
+        } else {
+          records = actionTypeFunc.actionTypeFunc(obj, BST_searchValue);
+        }
+        break;
+
+      case ActiveMode.INSERT_BST:
+        // if no duplicate
+        const BST_insertValue = parseInt(
+          document.getElementById("BST_insertValue").value
+        );
+        const insertValue_isDuplicated = obj.nodeArray.findIndex((element) => {
+          return element.value == BST_insertValue;
+        });
+
+        if (insertValue_isDuplicated != -1) {
+          records = [obj];
+          alert("Duplicate in Binary Search Tree are not allowed");
+        } else {
+          records = actionTypeFunc.actionTypeFunc(obj, BST_insertValue);
+        }
+        break;
+
+      case ActiveMode.REMOVE_BST:
+        // if no duplicate
+        const BST_removeValue = parseInt(
+          document.getElementById("BST_removeValue").value
+        );
+        const removeValue_isDuplicated = obj.nodeArray.findIndex((element) => {
+          return element.value == BST_removeValue;
+        });
+
+        if (removeValue_isDuplicated == -1) {
+          alert("cant find the remove value");
+          records = [obj];
+        } else {
+          records = actionTypeFunc.actionTypeFunc(obj, BST_removeValue);
+        }
+        break;
+      /////////////////////////////////////////////////////////////////////////////////////////
+      default:
+        break;
     }
+
+    // if (activeMode == ActiveMode.SEARCH) {
+    //   const linkedList_searchValue = parseInt(
+    //     document.getElementById("linkedList_searchValue").value
+    //   );
+    //   if (isNaN(linkedList_searchValue)) {
+    //     alert("Please enter a value ");
+    //     records = [obj];
+    //   } else {
+    //     records = actionTypeFunc.actionTypeFunc(obj, linkedList_searchValue);
+    //   }
+    // } else if (activeMode == ActiveMode.INSERT) {
+    //   const linkedList_insertValue = parseInt(
+    //     document.getElementById("linkedList_insertValue").value
+    //   );
+    //   const linkedList_insertIndex = document.getElementById(
+    //     "linkedList_insertIndex"
+    //   ).value;
+    //   const insertIndex = parseInt(linkedList_insertIndex);
+    //   records = actionTypeFunc.actionTypeFunc(
+    //     obj,
+    //     linkedList_insertValue,
+    //     insertIndex
+    //   );
+    // } else if (activeMode == ActiveMode.REMOVE) {
+    //   const linkedList_removeIndex = document.getElementById(
+    //     "linkedList_removeIndex"
+    //   ).value;
+    //   const removeIndex = parseInt(linkedList_removeIndex);
+    //   records = actionTypeFunc.actionTypeFunc(obj, removeIndex);
+    // } else if (
+    //   activeMode == ActiveMode.BUBBLE_SORT ||
+    //   activeMode == ActiveMode.SELECTION_SORT ||
+    //   activeMode == ActiveMode.INSERTION_SORT ||
+    //   activeMode == ActiveMode.MERGE_SORT ||
+    //   activeMode == ActiveMode.QUICK_SORT
+    // ) {
+    //   records = actionTypeFunc.actionTypeFunc(obj);
+    // } else if (activeMode == ActiveMode.POP) {
+    //   records = actionTypeFunc.actionTypeFunc(obj);
+    // } else if (activeMode == ActiveMode.PUSH) {
+    //   const stack_pushValue = document.getElementById("stack_pushValue").value;
+    //   const pushValue = parseInt(stack_pushValue);
+    //   records = actionTypeFunc.actionTypeFunc(obj, pushValue);
+    // } else if (activeMode == ActiveMode.SEARCH_BST) {
+    //   const BST_searchValue = parseInt(
+    //     document.getElementById("BST_searchValue").value
+    //   );
+    //   records = actionTypeFunc.actionTypeFunc(obj, BST_searchValue);
+    // } else if (activeMode == ActiveMode.INSERT_BST) {
+    //   // if no duplicate
+    //   const BST_insertValue = parseInt(
+    //     document.getElementById("BST_insertValue").value
+    //   );
+    //   const isDuplicated = obj.nodeArray.findIndex((element) => {
+    //     return element.value == BST_insertValue;
+    //   });
+
+    //   if (isDuplicated != -1) {
+    //     records = [obj];
+    //     alert("Duplicate in Binary Search Tree are not allowed");
+    //   } else {
+    //     records = actionTypeFunc.actionTypeFunc(obj, BST_insertValue);
+    //   }
+    // } else if (activeMode == ActiveMode.REMOVE_BST) {
+    //   // if no duplicate
+    //   const BST_removeValue = parseInt(
+    //     document.getElementById("BST_removeValue").value
+    //   );
+    //   const isDuplicated = obj.nodeArray.findIndex((element) => {
+    //     return element.value == BST_removeValue;
+    //   });
+
+    //   if (isDuplicated == -1) {
+    //     alert("cant find the remove value");
+
+    //     records = [obj];
+    //   } else {
+    //     records = actionTypeFunc.actionTypeFunc(obj, BST_removeValue);
+    //   }
+    // }
 
     console.log("start");
     onActionClick(records);

@@ -16,10 +16,12 @@
 // };
 
 export const insertionSort = (obj) => {
+  const records = [];
   const sortobj = JSON.parse(JSON.stringify(obj));
+  records.push(JSON.parse(JSON.stringify(sortobj)));
   const arr = sortobj.arr;
   const length = arr.length;
-  const records = [];
+
   for (let i = 0; i < length; i++) {
     //////////////////////////////////////////////////////
     sortobj.sortingIndex = [0, i];

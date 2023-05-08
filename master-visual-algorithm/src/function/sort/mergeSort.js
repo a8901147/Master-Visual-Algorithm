@@ -1,8 +1,10 @@
 export const mergeSort = (obj) => {
+  const records = [];
   const sortobj = JSON.parse(JSON.stringify(obj));
+  records.push(JSON.parse(JSON.stringify(sortobj)));
   const arr = sortobj.arr;
   const arrayLength = sortobj.arr.length;
-  const records = [];
+
   mergeSortRecursion(sortobj, 0, arrayLength, records);
   for (let i = 0; i < arrayLength; i++) {
     arr[i].sorted = true;

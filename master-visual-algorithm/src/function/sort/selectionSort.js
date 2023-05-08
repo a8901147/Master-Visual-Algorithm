@@ -1,10 +1,11 @@
 // loop over the whole array and find the minimum one, exchange position with the front
 // compare to bubble sort, selection only change position one time in each loop
 export const selectionSort = (obj) => {
+  const records = [];
   const sortobj = JSON.parse(JSON.stringify(obj));
+  records.push(JSON.parse(JSON.stringify(sortobj)));
   const arr = sortobj.arr;
   const length = arr.length;
-  const records = [];
 
   for (let i = 0; i < length; i++) {
     // set current index as minimum
