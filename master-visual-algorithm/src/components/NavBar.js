@@ -149,6 +149,7 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
           records = actionTypeFunc.actionTypeFunc(obj, linkedList_searchValue);
         }
         break;
+
       case ActiveMode.INSERT:
         const linkedList_insertValue = parseInt(
           document.getElementById("linkedList_insertValue").value
@@ -166,8 +167,8 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
             linkedList_insertIndex
           );
         }
-
         break;
+
       case ActiveMode.REMOVE:
         const linkedList_removeIndex = parseInt(
           document.getElementById("linkedList_removeIndex").value
@@ -178,7 +179,6 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
         } else {
           records = actionTypeFunc.actionTypeFunc(obj, linkedList_removeIndex);
         }
-
         break;
       /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -186,6 +186,7 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
       case ActiveMode.POP:
         records = actionTypeFunc.actionTypeFunc(obj);
         break;
+
       case ActiveMode.PUSH:
         const stack_pushValue = parseInt(
           document.getElementById("stack_pushValue").value
@@ -196,7 +197,6 @@ function NavBar({ mode, onSortTypeClick, onActionClick, obj }) {
         } else {
           records = actionTypeFunc.actionTypeFunc(obj, stack_pushValue);
         }
-
         break;
       /////////////////////////////////////////////////////////////////////////////////////////
 

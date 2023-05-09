@@ -441,17 +441,19 @@ export const removeBST = (obj, removeValue) => {
     }
     nodeArray[removeNodeIndex].value = nodeArray[replacedIndex].value;
     nodeArray[replacedIndex].value = "";
-    if (nodeArray[2 * (2 * removeNodeIndex + 2) + 1].value === "") {
-      //clear removeNode branch Node first then move it upward
-      const collectionRemoveNodeArray = collectionRemoveBranchTreeNodeArray(
-        2 * (2 * removeNodeIndex + 2) + 2,
-        nodeArray
-      );
+    //move to front
+
+    const collectionRemoveNodeArray = collectionRemoveBranchTreeNodeArray(
+      2 * replacedIndex + 2,
+      nodeArray
+    );
+
+    if (collectionRemoveNodeArray.length) {
       relocateArrayRecursion(
         collectionRemoveNodeArray,
         0,
         collectionRemoveNodeArray.length - 1,
-        2 * removeNodeIndex + 2,
+        replacedIndex,
         nodeArray
       );
     }
@@ -465,7 +467,9 @@ const isPassedNode = (element) => element.passed === true;
 
 const collectionRemoveBranchTreeNodeArray = (rootIndex, nodeArray) => {
   const queue = [];
-
+  if (rootIndex > nodeArray.length - 1) {
+    return queue;
+  }
   return recursiveCollection(nodeArray, rootIndex, queue);
 };
 
