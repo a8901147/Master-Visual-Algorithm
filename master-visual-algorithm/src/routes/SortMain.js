@@ -31,7 +31,7 @@ function SortMain() {
   console.log(obj);
   console.log(recordsArray);
   return (
-    <React.Fragment>
+    <div style={{ margin: "50px" }}>
       <NavBar
         mode={MODE.SORT}
         onSortTypeClick={onSortTypeHandler}
@@ -44,7 +44,7 @@ function SortMain() {
         delay={100}
         mode={MODE.SORT}
       ></Visualization>
-    </React.Fragment>
+    </div>
   );
 }
 

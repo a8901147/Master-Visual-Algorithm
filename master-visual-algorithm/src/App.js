@@ -10,7 +10,7 @@ import BinarySearchTreeMain from "./routes/BinarySearchTreeMain";
 
 function App() {
   return (
-    <div style={{ margin: "50px" }}>
+    <div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="LinkedListMain" element={<LinkedListMain />} />

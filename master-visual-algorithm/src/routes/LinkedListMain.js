@@ -37,7 +37,7 @@ function LinkedListMain() {
   };
 
   return (
-    <React.Fragment>
+    <div style={{ margin: "50px" }}>
       <NavBar
         mode={MODE.LINKED_LIST}
         // onActionTypeClick={onClickHandler}
@@ -50,7 +50,7 @@ function LinkedListMain() {
         delay={1000}
         mode={MODE.LINKED_LIST}
       ></Visualization>
-    </React.Fragment>
+    </div>
   );
 }
 

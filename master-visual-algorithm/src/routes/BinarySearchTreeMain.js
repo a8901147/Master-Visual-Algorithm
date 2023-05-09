@@ -29,7 +29,7 @@ function BinarySearchTreeMain() {
   };
 
   return (
-    <React.Fragment>
+    <div style={{ margin: "50px" }}>
       <NavBar
         mode={MODE.BINARYSEARCHTREE}
         onActionClick={onActionClickHandler}
@@ -41,7 +41,7 @@ function BinarySearchTreeMain() {
         delay={1000}
         mode={MODE.BINARYSEARCHTREE}
       ></Visualization>
-    </React.Fragment>
+    </div>
   );
 }
 

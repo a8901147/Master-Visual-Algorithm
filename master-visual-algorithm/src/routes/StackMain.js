@@ -39,7 +39,7 @@ function StackMain() {
   };
 
   return (
-    <React.Fragment>
+    <div style={{ margin: "50px" }}>
       <NavBar
         mode={MODE.STACK}
         onActionClick={onActionClickHandler}
@@ -51,7 +51,7 @@ function StackMain() {
         delay={1000}
         mode={MODE.STACK}
       ></Visualization>
-    </React.Fragment>
+    </div>
   );
 }
 
