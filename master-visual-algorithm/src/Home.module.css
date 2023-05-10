@@ -1,5 +1,6 @@
 .title_word {
   animation: color_animation 4s linear infinite;
+  transform-origin: left;
 }
 
 .title_word_1 {
@@ -65,6 +66,12 @@
   font-size: 3.5vw;
   text-transform: uppercase;
   align-self: self-start;
+}
+
+.title_word:hover {
+  -webkit-transform: scale(1.6);
+  /* font-weight: 1100;
+  font-size: 6.5vw; */
 }
 
 /* ////////////////////////////////////// */
