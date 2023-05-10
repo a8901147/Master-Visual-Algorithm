@@ -4,7 +4,7 @@ import Visualization from "../components/Visualization";
 import { ActiveMode, MODE, getSortRandomInt } from "../function/common";
 
 function SortMain() {
-  const [sortArray, setSortArray] = useState(getSortRandomInt(9));
+  const [sortArray, setSortArray] = useState(getSortRandomInt(16));
   const [obj, setObj] = useState({
     arr: sortArray,
     sortingIndex: [],
@@ -41,7 +41,7 @@ function SortMain() {
 
       <Visualization
         arr={recordsArray}
-        delay={100}
+        delay={500}
         mode={MODE.SORT}
       ></Visualization>
     </div>

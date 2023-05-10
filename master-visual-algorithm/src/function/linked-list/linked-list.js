@@ -35,12 +35,12 @@ export const search = (obj, searchValue) => {
     records.push(JSON.parse(JSON.stringify(sortobj)));
 
     const value = nodeArray[index].value;
-    if (value == searchValue) {
+    if (value === searchValue) {
       records.push(JSON.parse(JSON.stringify(sortobj)));
       break;
     }
 
-    if (value != searchValue && index == nodeArray.length - 1) {
+    if (value !== searchValue && index === nodeArray.length - 1) {
       nodeArray[index].marked = false;
       nodeArray[index].pre_aft_newNode_temp = "";
       records.push(JSON.parse(JSON.stringify(sortobj)));
@@ -60,7 +60,7 @@ export const insert = (obj, insertValue, insertPosition) => {
 
   records.push(JSON.parse(JSON.stringify(sortobj)));
 
-  if (insertPosition == 0) {
+  if (insertPosition === 0) {
     console.log("insert head");
     //insert head
 
@@ -73,9 +73,9 @@ export const insert = (obj, insertValue, insertPosition) => {
     //insert new arrow (newnode -> back node)
     const newArrow = createArrow(
       nodeArray[insertPosition].x,
-      130,
+      LINKEDLIST_CONSTANT.NODE_LOWER_Y - CIRCLE_RADIUS,
       nodeArray[insertPosition].x,
-      80
+      LINKEDLIST_CONSTANT.NODE_UPPER_Y + CIRCLE_RADIUS
     );
     newArrow.passed = true;
     lineArray.splice(insertPosition, 0, newArrow);
@@ -111,9 +111,9 @@ export const insert = (obj, insertValue, insertPosition) => {
     //insert new arrow (newnode -> back node)
     const newArrow = createArrow(
       nodeArray[nodeArray.length - 1].x,
-      70,
+      LINKEDLIST_CONSTANT.NODE_UPPER_Y + CIRCLE_RADIUS,
       nodeArray[nodeArray.length - 1].x,
-      120
+      LINKEDLIST_CONSTANT.NODE_LOWER_Y - CIRCLE_RADIUS
     );
     newArrow.passed = true;
     lineArray.splice(insertPosition, 0, newArrow);
@@ -139,7 +139,7 @@ export const insert = (obj, insertValue, insertPosition) => {
       records.push(JSON.parse(JSON.stringify(sortobj)));
     }
 
-    if (index == insertPosition) {
+    if (index === insertPosition) {
       nodeArray[index].passed = true;
       nodeArray[index].marked = true;
       nodeArray[index].pre_aft_newNode_temp = STATE_POSTFIX.AFT;
@@ -158,7 +158,11 @@ export const insert = (obj, insertValue, insertPosition) => {
   }
 
   // insert new node
-  const newNode = createNode(nodeArray[insertPosition].x, 150, insertValue);
+  const newNode = createNode(
+    nodeArray[insertPosition].x,
+    LINKEDLIST_CONSTANT.NODE_LOWER_Y,
+    insertValue
+  );
   newNode.passed = true;
   nodeArray.splice(insertPosition, 0, newNode);
   records.push(JSON.parse(JSON.stringify(sortobj)));
@@ -289,7 +293,7 @@ export const remove = (obj, removeIndex) => {
       records.push(JSON.parse(JSON.stringify(sortobj)));
     }
 
-    if (index == removeIndex) {
+    if (index === removeIndex) {
       nodeArray[index].passed = true;
       nodeArray[index].marked = true;
       nodeArray[index].pre_aft_newNode_temp = STATE_POSTFIX.TEMP;
@@ -380,9 +384,9 @@ export const initialLinkedList = (obj) => {
     nodeArray[index].passed = false;
     nodeArray[index].marked = false;
     nodeArray[index].head_tail =
-      index == 0
+      index === 0
         ? STATE_PREFIX.HEAD
-        : index == nodeArray.length - 1
+        : index === nodeArray.length - 1
         ? STATE_PREFIX.TAIL
         : "";
     nodeArray[index].pre_aft_newNode_temp = "";
@@ -422,7 +426,7 @@ export const initialLinkedList = (obj) => {
 const markedTempIndex = (nodeArray, index) => {
   let counter = 0;
   while (counter < nodeArray.length) {
-    if (counter == index) {
+    if (counter === index) {
       nodeArray[counter].marked = true;
       nodeArray[counter].pre_aft_newNode_temp = STATE_POSTFIX.TEMP;
     } else {

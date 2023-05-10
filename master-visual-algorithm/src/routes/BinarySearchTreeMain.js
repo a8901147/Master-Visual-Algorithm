@@ -12,7 +12,7 @@ import {
 
 function BinarySearchTreeMain() {
   const [treeNodeArray, setTreeArray] = useState([
-    ...getTreeNodeRandomInt(10, 40, 50),
+    ...getTreeNodeRandomInt(16, 40, 50),
   ]);
 
   const [obj, setObj] = useState({
@@ -38,7 +38,7 @@ function BinarySearchTreeMain() {
 
       <Visualization
         arr={recordsArray}
-        delay={1000}
+        delay={500}
         mode={MODE.BINARYSEARCHTREE}
       ></Visualization>
     </div>

@@ -1,8 +1,7 @@
 //balanced tree
 //The absolute difference of heights of left and right subtrees at any node is less than 1
 
-import { CIRCLE_RADIUS, STATE_PREFIX, calculate_delta } from "../common";
-import { push } from "../stack/stack";
+import { STATE_PREFIX, calculate_delta } from "../common";
 
 // Binary search tree
 // Array Representation :

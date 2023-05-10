@@ -47,7 +47,7 @@ function LinkedListMain() {
 
       <Visualization
         arr={recordsArray}
-        delay={1000}
+        delay={500}
         mode={MODE.LINKED_LIST}
       ></Visualization>
     </div>

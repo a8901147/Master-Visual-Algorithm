@@ -48,7 +48,7 @@ function StackMain() {
 
       <Visualization
         arr={recordsArray}
-        delay={1000}
+        delay={500}
         mode={MODE.STACK}
       ></Visualization>
     </div>
